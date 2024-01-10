@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import connect from '@/db/db.js'
+import connect from '@/db/db'
 import { User } from '@/models/user'
 import mongoose from "mongoose";
 
