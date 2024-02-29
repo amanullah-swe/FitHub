@@ -1,6 +1,5 @@
 "use client"
 import { baseApiUrl } from "@/constant/constant";
-import { UserDispatch } from "@/helpers/userContext";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 export default function Login() {
@@ -10,11 +9,16 @@ export default function Login() {
     event.stopPropagation();
     try {
       const email = event.target.email.value;
-      const response = await axios.post(baseApiUrl+'/api/auth/login',{
-        email,
-    
+      const response = await fetch(baseApiUrl+'/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: "include",
+        body: JSON.stringify({email})
       });
-      console.log(response.data);
+      const data = await response.json();
+      console.log(data);
       router.push('/')
     } catch (error) {
       console.log(error);

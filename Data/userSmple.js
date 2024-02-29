@@ -17,6 +17,12 @@ const sampleUserData = {
     fitnessGoals: ["Weight Loss", "Strength Training"],
     activityLevel: "Moderate",
     medicalConditions: ["None"],
+    userFriends: {
+        friend1: "Alice",
+        friend2: "Bob"
+    },
+    FriendsCount: 2,
+    profileImage: 'url',
     preferences: {
         preferredWorkouts: ["Cardio", "Yoga"],
         dietaryPreferences: ["Vegetarian"],
@@ -93,11 +99,6 @@ const sampleUserData = {
             dataSharing: true
         }
     },
-    userFriends: {
-        friend1: "Alice",
-        friend2: "Bob"
-    },
-    FriendsCount: 2
 };
 
 module.exports = sampleUserData;

@@ -19,7 +19,7 @@ export async function findMealByName(req: Request, res: Response) {
                 { alternative_names: name }      // Match the alternative_names array
             ]
         });
-        res.status(200).json({ ...newMeal });
+        res.status(200).json([...newMeal]);
     } catch (error) {
         return res.json({ error: error });
     }
