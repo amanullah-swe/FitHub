@@ -5,20 +5,21 @@ export async function findMealById(req: Request, res: Response) {
     const { id } = req.params;
     try {
         const meal = await Meal.findById(id);
-        return res.json({ meal });
+        return res.json(meal);
     } catch (error) {
         return res.json({ error: error });
     }
 }
 export async function findMealByName(req: Request, res: Response) {
     const { name } = req.params;
+
     try {
         const newMeal = await Meal.find({
             $or: [
-                { name: name },                  // Match the name field
-                { alternative_names: name }      // Match the alternative_names array
+                { name: { $regex: name, $options: 'i' } },                  // Match the name field
+                { "otherData.name": "alternative_names", "otherData.value": { $regex: name, $options: 'i' } }    // Match the alternative_names array
             ]
-        });
+        }).limit(10);
         res.status(200).json([...newMeal]);
     } catch (error) {
         return res.json({ error: error });

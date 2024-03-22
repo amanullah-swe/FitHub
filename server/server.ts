@@ -8,6 +8,7 @@ dotenv.config();
 import authRouter from './routes/authRouter'
 import mealRouter from './routes/mealRouter'
 import userRouter from './routes/userRouter'
+import dailyFitnessAndDietRouter from './routes/dialyFitnessAndDietRoutes';
 const app: Express = express();
 const port = process.env.PORT || 3000;
 connect();
@@ -23,6 +24,7 @@ app.use(cors(corsOptions));
 app.use('/api', authRouter);
 app.use('/api', mealRouter);
 app.use('/api', userRouter);
+app.use('/api', dailyFitnessAndDietRouter);
 app.get("/", (req: Request, res: Response) => {
     res.send("Express + TypeScript Server");
 });

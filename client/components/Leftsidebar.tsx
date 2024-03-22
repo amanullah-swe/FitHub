@@ -1,5 +1,6 @@
 import { homeIcon } from "@/assets"
 import Image from "next/image"
+import Link from "next/link"
 
 function Leftsidebar() {
   return (
@@ -10,7 +11,7 @@ function Leftsidebar() {
 
       </div>
       {/* home */}
-      <div className="flex items-center justify-center gap-4">
+      <Link href={'/home'} className="flex items-center justify-center gap-4">
         <div className="fill-black">
           <svg className="fill-inherit" fill="" width="40px" height="40px" viewBox="-4.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <title>home</title>
@@ -18,15 +19,15 @@ function Leftsidebar() {
           </svg>
         </div>
         <p className="font-body text-sm font-medium">Home</p>
-      </div>
+      </Link>
 
       {/* search */}
-      <div className="flex items-center justify-center gap-4">
+      <Link href={'/search'} className="flex items-center justify-center gap-4">
         <div className=" fill-white stroke-black">
           <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_15_152) " className=" stroke-inherit" >
+            <g clipPath="url(#clip0_15_152) " className=" stroke-inherit" >
               <rect width="24" height="24" fill="white" className=" stroke-transparent" />
-              <circle cx="10.5" cy="10.5" r="6.5" stroke-linejoin="round" />
+              <circle cx="10.5" cy="10.5" r="6.5" strokeLinejoin="round" />
               <path d="M19.6464 20.3536C19.8417 20.5488 20.1583 20.5488 20.3536 20.3536C20.5488 20.1583 20.5488 19.8417 20.3536 19.6464L19.6464 20.3536ZM20.3536 19.6464L15.3536 14.6464L14.6464 15.3536L19.6464 20.3536L20.3536 19.6464Z" fill="#000000" />
             </g>
             <defs>
@@ -37,7 +38,7 @@ function Leftsidebar() {
           </svg>
         </div>
         <p className="font-body text-sm font-medium">Search</p>
-      </div>
+      </Link>
 
       {/* meals bowl */}
       <div className="flex items-center justify-center gap-4">
@@ -70,12 +71,12 @@ function Leftsidebar() {
       </div>
 
       {/* profile */}
-      <div className="flex items-center justify-center gap-4">
+      <Link href={'/my-profile'} className="flex items-center justify-center gap-4">
         <div className=" fill-black">
-          <svg width="40px" height="40px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" className=" fill-inherit" clip-rule="evenodd" d="M16.5 7.063C16.5 10.258 14.57 13 12 13c-2.572 0-4.5-2.742-4.5-5.938C7.5 3.868 9.16 2 12 2s4.5 1.867 4.5 5.063zM4.102 20.142C4.487 20.6 6.145 22 12 22c5.855 0 7.512-1.4 7.898-1.857a.416.416 0 0 0 .09-.317C19.9 18.944 19.106 15 12 15s-7.9 3.944-7.989 4.826a.416.416 0 0 0 .091.317z" fill="#000000" /></svg>
+          <svg width="40px" height="40px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" className=" fill-inherit" clipRule="evenodd" d="M16.5 7.063C16.5 10.258 14.57 13 12 13c-2.572 0-4.5-2.742-4.5-5.938C7.5 3.868 9.16 2 12 2s4.5 1.867 4.5 5.063zM4.102 20.142C4.487 20.6 6.145 22 12 22c5.855 0 7.512-1.4 7.898-1.857a.416.416 0 0 0 .09-.317C19.9 18.944 19.106 15 12 15s-7.9 3.944-7.989 4.826a.416.416 0 0 0 .091.317z" fill="#000000" /></svg>
         </div>
         <p className="font-body text-sm font-medium">Profile</p>
-      </div>
+      </Link>
 
       {/* cooker create meals */}
       <div className="flex items-center justify-center gap-4">

@@ -1,4 +1,5 @@
 const meal = {
+    "_id": "string",
     "name": "sandwich",
     "description": "Quinoa is a nutrient-rich grain that has been cultivated for thousands of years.",
     "nutrients": {
@@ -16,13 +17,15 @@ const meal = {
         "teaspoons": 19.2,
         "tablespoons": 6.4
     },
-    "benefits": ["Heart Health", "Digestive Health"],
-    "category": ["vegitable"],  // like vegitable or fruit
-    "avoid": ["Gluten Sensitivity"],
-    "warnings": ["May contain saponins, rinse before cooking."],
-    "storage": "Store in a cool, dry place.",
-    "images": "string",
-    "origin": "South America",
-    "availability": ["North America", "Europe"],
-    "alternative_names": ["Quinua", "कीनोआ"]
+    otherData: {
+        "benefits": ["Heart Health", "Digestive Health"],
+        "category": ["vegitable"],  // like vegitable or fruit
+        "avoid": ["Gluten Sensitivity"],
+        "warnings": ["May contain saponins, rinse before cooking."],
+        "storage": "Store in a cool, dry place.",
+        "images": "string",
+        "origin": "South America",
+        "availability": ["North America", "Europe"],
+        "alternative_names": ["Quinua", "कीनोआ"]
+    }
 }

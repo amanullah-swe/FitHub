@@ -8,6 +8,7 @@ import mailIcon from './mail.png'
 import locationIcon from './location.png'
 import phoneIcone from './phone.png'
 import homeIcon from './home-svgrepo-com.svg'
+import testMealImage from './test-meal-imge.jpeg';
 export {
     logo,
     bgOverlay,
@@ -18,5 +19,6 @@ export {
     mailIcon,
     phoneIcone,
     locationIcon,
-    homeIcon
+    homeIcon,
+    testMealImage
 };

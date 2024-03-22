@@ -10,7 +10,7 @@ function Hero() {
         <div className="bg-[#FD3D0C] w-[30%] h-full max-lg:w-full max-lg:h-[25%]">
         </div>
       </div>
-      {/* contant */}
+      {/* content */}
       <div className="w-full max-w-6xl h-full flex absolute top-0 max-lg:flex-col">
         {/* left */}
         <div className="w-[50%] h-full flex flex-col items-left justify-center p-4 max-lg:w-full max-lg:h-[50%]  max-lg:items-center">

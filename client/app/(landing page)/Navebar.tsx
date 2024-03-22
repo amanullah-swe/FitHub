@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { logo } from '@/assets'
+import Link from "next/link";
 function Navebar() {
   return (
     <nav className="w-full flex justify-center fixed top-0 z-50">
@@ -11,7 +12,7 @@ function Navebar() {
 
         {/* nave items */}
         <div className=" flex justify-between w-[50%]">
-          <p className="font-body text-sm font-medium text-white">Home</p>
+          <Link href={'/home'} className="font-body text-sm font-medium text-white">Home</Link>
           <p className="font-body text-sm font-medium text-white">About Us</p>
           <p className="font-body text-sm font-medium text-white">Classes</p>
           <p className="font-body text-sm font-medium text-white">pages</p>

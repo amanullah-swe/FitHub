@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-
 const nutrientsSchema = {
     protein: Number,
     calories: Number,
@@ -7,6 +6,7 @@ const nutrientsSchema = {
     fiber: Number,
     fat: Number,
     cholesterol: Number,
+    sugar: Number
 };
 
 const servingSizesSchema = {
@@ -20,17 +20,25 @@ const servingSizesSchema = {
 const mealSchema = new mongoose.Schema({
     name: String,
     description: String,
+    images: String,
     nutrients: nutrientsSchema,
     serving_sizes: servingSizesSchema,
-    benefits: [String],
-    category: [String],
-    avoid: [String],
-    warnings: [String],
-    storage: String,
-    images: String,
-    origin: String,
-    availability: [String],
-    alternative_names: [String],
+    otherData: {
+        type: [{
+            name: String,
+            value: [String]
+        }],
+        default: [
+            { name: "Benefits", value: [] },
+            { name: "category", value: [] },
+            { name: "avoid", value: [] },
+            { name: "warnings", value: [] },
+            { name: "storage", value: [] },
+            { name: "origin", value: [] },
+            { name: "availability", value: [] },
+            { name: "alternative_names", value: [] }
+        ]
+    }
 });
 
 const Meal = mongoose.models.Meal || mongoose.model('Meal', mealSchema);
