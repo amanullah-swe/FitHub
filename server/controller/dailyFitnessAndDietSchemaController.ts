@@ -26,7 +26,7 @@ type SampleData = {
         breakfast: Array<{
             _id: string;
             name: string;
-            image: string;
+            images: string;
             description: string;
             nutrients: {
                 protein: number;
@@ -41,7 +41,7 @@ type SampleData = {
         lunch: Array<{
             _id: string;
             name: string;
-            image: string;
+            images: string;
             description: string;
             nutrients: {
                 protein: number;
@@ -56,7 +56,7 @@ type SampleData = {
         dinner: Array<{
             _id: string;
             name: string;
-            image: string;
+            images: string;
             description: string;
             nutrients: {
                 protein: number;
@@ -71,7 +71,7 @@ type SampleData = {
         snackAm: Array<{
             _id: string;
             name: string;
-            image: string;
+            images: string;
             description: string;
             nutrients: {
                 protein: number;
@@ -86,7 +86,7 @@ type SampleData = {
         snackPm: Array<{
             _id: string;
             name: string;
-            image: string;
+            images: string;
             description: string;
             nutrients: {
                 protein: number;
@@ -104,7 +104,7 @@ type SampleData = {
 type Meal = {
     _id: string;
     name: string;
-    image: string;
+    images: string;
     description: string;
     nutrients: {
         protein: number;

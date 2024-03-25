@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Rubik', 'sans-serif'],
-        heading: ['Catamaran', 'sans-serif'],
+        body: ['Montserrat', 'sans-serif'],
+        heading: ['Rubick', 'sans-serif'],
       },
       colors: {
         offwhite: "#f8f8f8",
-        customgreen: "#0fb82e",
+        customgreen: "hsla(165, 77%, 17%, 1)",
         primary: '#a17e4f',
         secondary: '#dff3c8',
         text: "#000000",

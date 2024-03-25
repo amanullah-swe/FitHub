@@ -22,7 +22,7 @@ const WorkoutSchema = {
 const MealSchema = {
     _id: String,
     name: String,
-    image: String,
+    images: String,
     description: String,
     nutrients: NutrientsSchema
 };

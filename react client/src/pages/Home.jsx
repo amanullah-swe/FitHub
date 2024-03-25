@@ -1,51 +1,58 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import FoodList from '../components/FoodList.jsx';
 import Leftsidebar from '../components/Leftsidebar.jsx'
-import { RemoveMealFromDailyFitnessAndMealsDataAsync, fetchDailyFitnessAndMealsDataAsync, selectDate, selectDocumentId, selectFitness, selectTotalnutrients } from '../features/fitnesAndDiet/fitnessAndDietSlice.js';
+import { RemoveMealFromDailyFitnessAndMealsDataAsync, fetchDailyFitnessAndMealsDataAsync, selectDate, selectDocumentId, selectFitness, selectHomeError, selectTotalnutrients } from '../features/fitnesAndDiet/fitnessAndDietSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousDate } from '../helpers/getPrevioudDate.js';
 function page() {
-
-    const meals = useSelector(selectFitness);
+    const windowWidth = window.innerWidth - 150;
     const dispatch = useDispatch();
+    const meals = useSelector(selectFitness);
     const totalnutrients = useSelector(selectTotalnutrients);
     const date = useSelector(selectDate);
-    const docId = useSelector(selectDocumentId)
+    const docId = useSelector(selectDocumentId);
+    const [days, setDays] = useState(0);
     const setcalories = 1300;
     const setProtien = 100;
+
     useEffect(() => {
-        const date = getPreviousDate();
-        dispatch(fetchDailyFitnessAndMealsDataAsync({ date, userId: "659f625a324792c0dc6f0d8d" }));
-    }, [])
+        const date = getPreviousDate(days);
+        dispatch(fetchDailyFitnessAndMealsDataAsync({ date }));
+    }, [days])
 
 
     const handleRemoveButton = (e, { index, name, mealType }) => {
         e.preventDefault();
         e.stopPropagation();
+        console.log(mealType, index);
+
         const meal = meals[mealType][index];
+        console.log(meal)
         dispatch(RemoveMealFromDailyFitnessAndMealsDataAsync({ name, docId, index, mealType, meal }));
 
     }
     return (
-        <div className='h-screen flex bg-offwhite'>
+        <div className='h-screen flex flex-row bg-offwhite'>
             <Leftsidebar />
 
-            <div className='w-full px-10 py-5 flex flex-col' >
+            <div className='px-10 py-5 flex flex-col food-list-container' style={{ width: windowWidth }} >
                 {/* date and all  */}
-                <div className='w-full flex flex-col border rounded-lg bg-white py-5'>
-                    <div className='w-full flex justify-between max-w-3xl self-center items-center py-1.5 bg-customgreen rounded-lg text-white'>
-                        <button className='text-xl ml-4'>&lt;</button>
-                        <p className=' font-heading text-xl '>{date}</p>
-                        <button className='text-xl mr-4'>&gt;</button>
+                <div className='w-full flex flex-col border rounded-lg bg-white py-1.3'>
+
+                    {/* date toogle */}
+                    <div className='w-full flex justify-between max-w-[800px] self-center items-center py-3 bg-customgreen rounded-lg text-white'>
+                        <button className='text-4xl ml-4' onClick={() => setDays((prev) => prev + 1)}>&lt;</button>
+                        <p className=' font-heading text-3xl'>{date}</p>
+                        <button className='text-4xl mr-4' onClick={() => setDays((prev) => prev - 1)} >&gt;</button>
                     </div>
-                    <div className='flex w-full justify-evenly mt-10 h-20'>
-                        <ProgressBar value={totalnutrients.protein} totalvalue={setProtien} title='Protien' />
-                        <ProgressBar value={totalnutrients.calories} totalvalue={setcalories} title='calories' />
+                    <div className='flex w-full justify-evenly mt-10 h-48'>
+                        <ProgressBar value={Math.floor(totalnutrients.protein)} totalvalue={setProtien} title='Protien' />
+                        <ProgressBar value={Math.floor(totalnutrients.calories)} totalvalue={setcalories} title='calories' />
                     </div>
                 </div>
-                <div className='flex-grow overflow-y-scroll'>
+                <div className=' w-full overflow-y-scroll'>
                     <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.breakfast} title='breakfast' />
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.lunch} title='lanch' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.lunch} title='lunch' />
                     <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.dinner} title='dinner' />
                     <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.snackAm} title='snackAm' />
                     <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.snackPm} title='snackPm' />
@@ -60,7 +67,6 @@ export default page;
 
 
 const ProgressBar = ({ value, totalvalue, title }) => {
-
     const persentage = (value / totalvalue) * 100;
     return (
         <div className="progress-bar" role="progressbar" aria-valuenow={value} aria-valuemin="0" aria-valuemax="100" style={{ '--value': persentage }}>

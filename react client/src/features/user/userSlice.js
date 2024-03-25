@@ -1,45 +1,33 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AuthLogin } from './userAPI';
+import { authLogin, authRegister, fetchUserData } from './userAPI';
 
 const initialState = {
-  id: "user123",
-  name: "John Doe",
-  email: "john.doe@example.com",
-  phone: "123-456-7890",
-  age: 25,
-  gender: "Male",
-  height: {
-    value: 70,
-    unit: "inches"
-  },
-  weight: {
-    value: 160,
-    unit: "pounds"
-  },
-  profileImage: 'url',
-  profession: "Software Developer",
-
-  fitnessGoals: ["Weight Loss", "Strength Training"],
-  activityLevel: "Moderate",
-  medicalConditions: ["None"],
-  userFriends: {
-    friend1: "Alice",
-    friend2: "Bob"
-  },
-  FriendsCount: 2,
-  preferences: {
-    preferredWorkouts: ["Cardio", "Yoga"],
-    dietaryPreferences: ["Vegetarian"],
+  data: {
+    id: "",
+    name: "",
+    email: "",
+    phone: "",
+    age: 25,
+    gender: "",
+    profession: "",
+    profileImage: '',
+    height: {
+      value: "",
+      unit: ""
+    },
+    weight: {
+      value: '',
+      unit: ""
+    },
+    fitnessGoals: [],
+    activityLevel: "",
+    medicalConditions: [],
+    preferredWorkouts: [],
+    dietaryPreferences: [],
     notificationPreferences: {
       email: true,
       app: true,
       sms: false
-    }
-  },
-  settings: {
-    units: {
-      weight: "pounds",
-      height: "inches"
     },
     privacy: {
       profileVisibility: "Public",
@@ -51,15 +39,37 @@ const initialState = {
       sms: false
     }
   },
-  userError: null,
+  status: 'idl',
+  Errors: null,
+  register: {
+    message: "",
+    status: 'idl',
+    error: ';lk'
+  }
+
 };
-export const AuthLoginAsync = createAsyncThunk(
+export const authLoginAsync = createAsyncThunk(
   'user/AuthLogin',
-  async () => {
-    const response = await AuthLogin();
+  async ({ email, password }) => {
+    const response = await authLogin({ email, password });
     return response;
   }
 );
+export const authRegisterAsync = createAsyncThunk(
+  'user/AuthRegister',
+  async ({ name, email, phone, gender, profession, password, age }) => {
+    const response = await authRegister({ name, email, phone, gender, profession, password, age });
+    return response;
+  }
+);
+export const fetchUserDataAsync = createAsyncThunk(
+  'user/fetch use data',
+  async ({ userId }) => {
+    const response = await fetchUserData({ userId });
+    return response;
+  }
+);
+
 
 export const userSlice = createSlice({
   name: 'user',
@@ -72,22 +82,55 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(AuthLoginAsync.pending, (state) => {
+      .addCase(authLoginAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(AuthLoginAsync.fulfilled, (state, action) => {
+      .addCase(authLoginAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.userInfo = action.payload;
-        state.userError = null;
+        state.data = action.payload;
+        state.Errors = null;
       })
-      .addCase(AuthLoginAsync.rejected, (state, action) => {
+      .addCase(authLoginAsync.rejected, (state, action) => {
         state.status = 'reject';
-        state.userError = action.error;
+        state.Errors = action.error;
+      })
+
+
+      .addCase(authRegisterAsync.pending, (state) => {
+        state.status = 'loading';
+        state.register.status = 'loading';
+      })
+      .addCase(authRegisterAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.register.status = 'loading',
+          state.register.message = action.payload;
+        state.register.error = null;
+      })
+      .addCase(authRegisterAsync.rejected, (state, action) => {
+        state.status = 'reject';
+        state.Errors = action.error;
+        state.register.error = action.error;
+        state.register.status = "reject";
+        state.register.message = '';
+      })
+
+      .addCase(fetchUserDataAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchUserDataAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.data = action.payload;
+        state.Errors = null;
+      })
+      .addCase(fetchUserDataAsync.rejected, (state, action) => {
+        state.status = 'reject';
+        state.Errors = action.error;
       })
   },
 });
 
 export const { increment, } = userSlice.actions;
 
-export const selectUserInfo = (state) => state.user.userInfo;
+export const selectUser = (state) => state.user.data;
+export const selectRegesterStatus = (state) => state.user.register;
 export default userSlice.reducer;

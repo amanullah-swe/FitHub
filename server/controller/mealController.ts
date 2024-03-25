@@ -35,3 +35,14 @@ export async function creatMeal(req: Request, res: Response) {
 
     }
 }
+
+// Meal.updateMany(
+//     {}, // Filter: Update all documents
+//     { $set: { "serving_sizes.grams": 1 } } // Update operation
+// )
+//     .then(result => {
+//         console.log(result); // Log the result of the update operation
+//     })
+//     .catch(error => {
+//         console.error(error); // Handle any errors that occur during the update operation
+//     });

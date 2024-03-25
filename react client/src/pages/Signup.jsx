@@ -1,75 +1,82 @@
+import { useFormik } from 'formik';
+import { Link, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { authRegisterAsync, selectRegesterStatus } from '../features/user/userSlice';
+import Formfeild from '../components/Formfield';
+export default function signup() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
+    const apiCallStatus = useSelector(selectRegesterStatus);
+    const initialValues = {
+        name: '',
+        email: '',
+        confirmPassword: '',
+        password: '',
+        profession: '',
+        age: '',
+        phone: '',
+        gender: '',
+    };
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+        initialValues: initialValues,
+        onSubmit: async (values, action) => {
+            try {
+                if (values.password != values.confirmPassword) return;
+                dispatch(authRegisterAsync(values));
+                if (apiCallStatus.status == 'idl') {
+                    action.resetForm();
+                    setTimeout(() => {
+                        navigate('/signin', { replace: true })
+                    }, 3000)
+                    return;
+                }
+                console.log(apiCallStatus);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    });
 
-export default function Signup() {
     return (
         <>
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-offwhite">
+                <div className="sm:mx-auto sm:w-full sm:max-w-5xl">
                     <img
                         className="mx-auto h-10 w-auto"
                         src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                         alt="Your Company"
                     />
-                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        Sign in to your account
+                    <h2 className="mt-10 text-center text-5xl font-bold leading-9 tracking-tigh">
+                        Sign up to your account
                     </h2>
                 </div>
 
-                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                                Email address
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    autoComplete="email"
-                                    required
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
+                <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-5xl">
+                    <form className="space-y-3" onSubmit={handleSubmit}>
+                        <Formfeild label={"Name"} name={"name"} type={"text"} value={values.name} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Email"} name={"email"} type={"email"} value={values.email} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Phone"} name={"phone"} type={"number"} value={values.phone} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Profession"} name={"profession"} type={"text"} value={values.profession} handleBlur={handleBlur} handleChange={handleChange} />
+                        <div className='flex justify-between gap-6'>
+                            <Formfeild label={"Age"} name={"age"} type={"text"} value={values.age} handleBlur={handleBlur} handleChange={handleChange} />
+                            <Formfeild label={"gender"} name={"gender"} type={"text"} value={values.gender} handleBlur={handleBlur} handleChange={handleChange} />
                         </div>
-
+                        <Formfeild label={"Password"} name={"password"} type={"password"} value={values.password} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Confirm password"} name={"confirmPassword"} type={"password"} value={values.confirmPassword} handleBlur={handleBlur} handleChange={handleChange} />
                         <div>
-                            <div className="flex items-center justify-between">
-                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Password
-                                </label>
-                                <div className="text-sm">
-                                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                                        Forgot password?
-                                    </a>
-                                </div>
+                            <div>
+                                <button type="submit" className="flex w-full justify-center rounded-md bg-customgreen px-12 py-6 text-2xl font-semibold leading-6 text-white shadow-xl hover:bg-secondary hover:text-primary focus-visible:outline focus-visible:outline-2 transition-all">
+                                    Sign in
+                                </button>
                             </div>
-                            <div className="mt-2">
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    autoComplete="current-password"
-                                    required
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <button
-                                type="submit"
-                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                Sign in
-                            </button>
                         </div>
                     </form>
 
-                    <p className="mt-10 text-center text-sm text-gray-500">
-                        Not a member?{' '}
-                        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                            Start a 14 day free trial
-                        </a>
+                    <p className="mt-10 text-center text-2xl text-gray-500">
+                        Already have a Account{" "}
+                        <Link to="/signin" className="font-semibold leading-6 text-primary hover:text-green-700">
+                            Sign in
+                        </Link>
                     </p>
                 </div>
             </div>

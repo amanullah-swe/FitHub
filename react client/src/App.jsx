@@ -1,5 +1,5 @@
-
-import './App.css'
+import './styles/index.css'
+import './styles/style.css'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,7 +11,17 @@ import Search from './pages/Search.jsx';
 import Error404 from './pages/Error404.jsx';
 import Signin from './pages/Signin.jsx';
 import Signup from './pages/Signup.jsx';
+import Editepersonalinfo from './pages/Editepersonalinfo.jsx';
+import Editehealthinfo from './pages/Editehealthinfo.jsx';
+import Landing from './pages/Landing.jsx';
+
+
+
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Landing />,
+  },
   {
     path: "/home",
     element: <Home />,
@@ -37,11 +47,25 @@ const router = createBrowserRouter([
     element: <Signup />,
   },
   {
+    path: "/edite/personal-info",
+    element: <Editepersonalinfo />,
+  },
+  {
+    path: "/edite/health-info",
+    element: <Editehealthinfo />,
+  },
+  {
     path: "*",
     element: <Error404 />,
   },
 ]);
 function App() {
+
+  // for resizing the food list 
+  window.addEventListener('resize', () => {
+    const element = document.querySelector(".food-list-container");
+    element.style.width = window.innerWidth - 180 + "px";
+  })
 
   return (
     <>

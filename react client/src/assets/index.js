@@ -1,4 +1,4 @@
-import logo from './logo.png'
+import logo from './leaves-icon.svg'
 import bgOverlay from './bgParternOverlay.png'
 import heroPerson from './banner-img-1.png'
 import bannerCircle from './banner-circle-one.png'

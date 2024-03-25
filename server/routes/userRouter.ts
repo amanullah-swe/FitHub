@@ -5,4 +5,5 @@ const router = Router();
 router.get('/user/id', authMiddleware, getUserById);
 
 
+
 export default router;

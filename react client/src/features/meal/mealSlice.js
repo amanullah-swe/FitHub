@@ -67,8 +67,9 @@ export const mealSlice = createSlice({
         },
         calculateNutrients: (state, action) => {
             // originalNutrient * unit * sevignssize / 100
+            console.log(action.payload.unite, action.payload.serving_size);
             state.calulatedNutrients = {
-                protein: state.data.nutrients.protein * action.payload.unite * action.payload.serving_size / 100,
+                protein: (state.data.nutrients.protein * action.payload.unite * action.payload.serving_size) / 100,
                 calories: state.data.nutrients.calories * action.payload.unite * action.payload.serving_size / 100,
                 carbohydrates: state.data.nutrients.carbohydrates * action.payload.unite * action.payload.serving_size / 100,
                 fiber: state.data.nutrients.fiber * action.payload.unite * action.payload.serving_size / 100,

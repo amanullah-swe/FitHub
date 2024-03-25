@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RemoveMealFromDailyFitnessAndMealsData, addDailyFitnessAndMealsData, fetchDailyFitnessAndMealsData } from './fitnessAndDietApi.js'
+import { getPreviousDate } from '../../helpers/getPrevioudDate.js';
 
 
 const initialState = {
   data: {
-    date: "20-03-2024",
-    currentFitnessLevel: "Intermediate",
-    totalCaloriesBurned: 300,
+    date: getPreviousDate(),
+    currentFitnessLevel: "",
+    totalCaloriesBurned: 0,
     totalNutrients: {
       protein: 0,
       calories: 0,
@@ -42,20 +43,20 @@ const initialState = {
 
     },
   },
-  userError: null,
+  homeError: false,
 };
 export const fetchDailyFitnessAndMealsDataAsync = createAsyncThunk(
   'fitnessAndMealData/fetch data',
-  async ({ date, userId }) => {
-    const response = await fetchDailyFitnessAndMealsData({ date, userId });
+  async ({ date }) => {
+    const response = await fetchDailyFitnessAndMealsData({ date });
     return response;
   }
 );
 
 export const addDailyFitnessAndMealsDataAsync = createAsyncThunk(
   'fitnessAndMealData/add meal',
-  async ({ date, userId, meal, mealType }) => {
-    const response = await addDailyFitnessAndMealsData({ date, userId, meal, mealType });
+  async ({ date, meal, mealType }) => {
+    const response = await addDailyFitnessAndMealsData({ date, meal, mealType });
     return response;
   }
 );
@@ -86,11 +87,11 @@ export const fitnessSlice = createSlice({
       .addCase(fetchDailyFitnessAndMealsDataAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.data = action.payload;
-        state.userError = null;
+        state.homeError = null;
       })
       .addCase(fetchDailyFitnessAndMealsDataAsync.rejected, (state, action) => {
         state.status = 'reject';
-        state.userError = action.error;
+        state.homeError = action.error;
       })
 
       // add
@@ -100,11 +101,11 @@ export const fitnessSlice = createSlice({
       .addCase(addDailyFitnessAndMealsDataAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.data = action.payload;
-        state.userError = null;
+        state.homeError = null;
       })
       .addCase(addDailyFitnessAndMealsDataAsync.rejected, (state, action) => {
         state.status = 'reject';
-        state.userError = action.error;
+        state.homeError = action.error;
       })
 
 
@@ -130,4 +131,5 @@ export const selectFitness = (state) => state.fitnessAndDiet.data.meals;
 export const selectTotalnutrients = (state) => state.fitnessAndDiet.data.totalNutrients;
 export const selectDate = (state) => state.fitnessAndDiet.data.date;
 export const selectDocumentId = (state) => state.fitnessAndDiet.data._id;
+export const selectHomeError = (state) => state.fitnessAndDiet.homeError;
 export default fitnessSlice.reducer;

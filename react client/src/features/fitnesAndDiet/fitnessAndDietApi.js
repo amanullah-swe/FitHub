@@ -1,6 +1,6 @@
 // A mock function to mimic making an async request for data
 
-export function fetchDailyFitnessAndMealsData({ date, userId }) {
+export function fetchDailyFitnessAndMealsData({ date }) {
   return new Promise(async (resolve, reject) => {
     const response = await fetch(`http://localhost:8080/api/daily-meals-and-fitness-data`, {
       credentials: "include",
@@ -9,7 +9,7 @@ export function fetchDailyFitnessAndMealsData({ date, userId }) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ date, userId })
+      body: JSON.stringify({ date })
     });
     if (!response.ok) {
       const data = await response.json();
@@ -21,7 +21,7 @@ export function fetchDailyFitnessAndMealsData({ date, userId }) {
   );
 }
 
-export function addDailyFitnessAndMealsData({ date, userId, meal, mealType }) {
+export function addDailyFitnessAndMealsData({ date, meal, mealType }) {
   return new Promise(async (resolve, reject) => {
     const response = await fetch(`http://localhost:8080/api/addMeals`, {
       credentials: "include",
@@ -30,7 +30,7 @@ export function addDailyFitnessAndMealsData({ date, userId, meal, mealType }) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ date, userId, meal, mealType })
+      body: JSON.stringify({ date, meal, mealType })
     });
     if (!response.ok) {
       const data = await response.json();

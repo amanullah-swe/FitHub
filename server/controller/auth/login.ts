@@ -1,16 +1,23 @@
 import mongoose from "mongoose";
-import { Request, Response } from "express";
-import { User } from "../../models/user";
 import jwt from 'jsonwebtoken';
+import { Request, Response } from "express";
+import bcrypt from 'bcrypt';
+import { User } from "../../models/user";
 export async function login(req: Request, res: Response) {
   try {
-    // we will use google auth and google share email and name of the user
-    const { email } = req.body;
-    if (!email) return res.json({ error: "invalid credentail" })
-    const user = await User.findOne({ email });
-    if (!user) return res.json({ error: "user not exist go to login" })
-
-    const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+    // Find user by email
+    const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ message: "invalid inputs " })
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    // Check if password is correct
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Invalid password' });
+    }
+    const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '24h' });
 
     // Set the JWT token as a cookie
     res.cookie('token', token, {
@@ -21,11 +28,10 @@ export async function login(req: Request, res: Response) {
       sameSite: 'none'
     });
     //  generate token and cookies and send to the user 
-    return res.status(201).json({ data: user })
-  } catch (error) {
-    console.log(error)
-    console.log(req.body);
-    // check if error is duplicate key the return error message user exist and go to login
-    return res.json({ error: error });
+    return res.status(201).json({ message: "login successful", });
+  }
+  catch (error) {
+    console.log(error);
+    return res.status(504).json({ error });
   }
 }

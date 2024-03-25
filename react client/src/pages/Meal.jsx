@@ -12,7 +12,6 @@ import { calculateNutrients, fetchMelaByIdAsync, selectCalculatedNutrients, sele
 
 
 export default function Meal() {
-    const userId = "659f625a324792c0dc6f0d8d";
     const params = useParams();
     const dispatch = useDispatch();
     const meal = useSelector(selectMeal);
@@ -29,6 +28,7 @@ export default function Meal() {
     }, []);
 
     useEffect(() => {
+        console.log(typeof (+unite), typeof (+serving));
         dispatch(calculateNutrients({ unite: unite, serving_size: serving }));
     }, [unite, serving])
 
@@ -37,47 +37,47 @@ export default function Meal() {
             _id: meal._id,
             name: meal.name,
             description: meal.description,
-            image: meal.image,
+            images: meal.images,
             nutrients: calculatedNutrients,
         };
         const date = getPreviousDate();
-        dispatch(addDailyFitnessAndMealsDataAsync({ meal: tempMeal, date, userId, mealType }));
+        dispatch(addDailyFitnessAndMealsDataAsync({ meal: tempMeal, date, mealType }));
 
     }
     return (
         <main className='h-screen w-full flex'>
             <Leftsidebar />
-            <section className='px-6 py-12 flex flex-col w-full overflow-y-scroll'>
-                <div className='flex flex-row gap-5'>
-                    <div className='flex flex-row gap-5'>
-                        <img className='rounded-sm shadow-md border p-2 ' src={testMealImage} alt='meal' width={300} />
+            <section className='px-20 py-24 flex flex-col w-full overflow-y-scroll'>
+                <div className='flex flex-row gap-10'>
+                    <div className='flex flex-row gap-10'>
+                        <img className='rounded-xl shadow-md border' src={"http://localhost:8080" + meal?.images} alt='meal' width={300} />
                         <div className='flex flex-col justify-between'>
                             <div>
-                                <h1 className='font-heading text-2xl font-bold leading-6'>{meal?.name} </h1>
-                                <p className='font-body text-sm leading-5 mt-2 w-64'>{meal?.description} </p>
+                                <h1 className='font-heading text-5xl font-bold text-black leading-20'>{meal?.name} </h1>
+                                <p className='font-body text-3xl font-normal leading-10 mt-4 w-[400px]'>{meal?.description} </p>
                             </div>
-                            <div className='flex flex-col gap-4 '>
-                                <div className='flex gap-3'>
-                                    <input type="number" className=' h-8 w-28 outline-none text-center shadow-md' name="unit" autocomplete="off" value={unite} id="" onChange={(e) => { setUnite(e.target.value) }} />
-                                    <select name="serving" id="" className='h-8 w-28 px-2 text-left text-sm font-body outline-none shadow-md' value={serving} onChange={(e) => { setServing(e.target.value) }}>
-                                        <option className='text-sm font-body px-2 py-4 my-2 ' value={meal.serving_sizes.grams}>grams</option>
-                                        <option className='text-sm font-body px-2 py-4 my-2 ' value={meal.serving_sizes.cups}>cups</option>
-                                        <option className='text-sm font-body px-2 py-4 my-2 ' value={meal.serving_sizes.ounces}>ounces</option>
-                                        <option className='text-sm font-body px-2 py-4 my-2 ' value={meal.serving_sizes.teaspoons}>teaspoons</option>
-                                        <option className='text-sm font-body px-2 py-4 my-2 ' value={meal.serving_sizes.tablespoons}>tablespoons</option>
+                            <div className='flex flex-col gap-5 '>
+                                <div className='flex gap-6'>
+                                    <input type="number" className=' h-16 w-56 outline-none text-center shadow-md' name="unit" autocomplete="off" value={unite} id="" onChange={(e) => { setUnite(e.target.value) }} />
+                                    <select name="serving" id="" className='h-16 w-56 px-4 text-left text-3xl font-normal leading-8 font-body outline-none shadow-md' value={serving} onChange={(e) => { setServing(e.target.value) }}>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal?.serving_sizes?.grams}>grams</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal.serving_sizes.cups}>cups</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal.serving_sizes.ounces}>ounces</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal.serving_sizes.teaspoons}>teaspoons</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal.serving_sizes.tablespoons}>tablespoons</option>
 
                                     </select>
                                 </div>
-                                <div className=' flex gap-3 h-min'>
-                                    <select id="" className='h-8 w-28 px-2 text-left text-sm font-body outline-none shadow-md' value={mealType} onChange={(e) => { setmealType(e.target.value) }} >
-                                        <option className='text-sm font-body px-2 py-4 my-2' value={'breakfast'} >Break fast</option>
-                                        <option className='text-sm font-body px-2 py-4 my-2' value={'lunch'}>Lunch</option>
-                                        <option className='text-sm font-body px-2 py-4 my-2' value={'dinner'}>Dinner</option>
-                                        <option className='text-sm font-body px-2 py-4 my-2' value={'snackAm'}>Snack am</option>
-                                        <option className='text-sm font-body px-2 py-4 my-2' value={'snackPm'}>Snack pm</option>
+                                <div className=' flex gap-6 h-min'>
+                                    <select id="" className='h-16 w-56 px-4 text-left text-3xl font-normal leading-8 font-body outline-none shadow-md' value={mealType} onChange={(e) => { setmealType(e.target.value) }} >
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4' value={'breakfast'} >Break fast</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4' value={'lunch'}>Lunch</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4' value={'dinner'}>Dinner</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4' value={'snackAm'}>Snack am</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4' value={'snackPm'}>Snack pm</option>
 
                                     </select>
-                                    <button onClick={handleAddMeal} className='bg-customgreen w-8 h-8 flex justify-center items-center text-white text-md rounded-full shadow'>+</button>
+                                    <button onClick={handleAddMeal} className='bg-customgreen w-16 h-16 flex justify-center items-center text-white text-5xl rounded-full shadow'>+</button>
                                 </div>
                             </div>
                         </div>
@@ -87,22 +87,22 @@ export default function Meal() {
                 </div>
 
                 {/* nuitritions */}
-                <div className='mt-8 p-2 flex flex-col gap-3 border'>
+                <div className='mt-16 p-8  flex flex-col gap-6 border shadow'>
                     {nutrientsArrayFilter(calculatedNutrients)?.map(({ name, value }, index) => (
-                        <div className={`flex justify-between ${index && " border-b"}`} key={index}>
-                            <p className='font-body text-sm'> {name}</p>
-                            <p className='font-body text-sm'>{value} {name == 'calories' ? 'cal' : 'g'}</p>
+                        <div className={`flex justify-between ${" border-b"}`} key={index}>
+                            <p className='font-body text-3xl font-normal leading-8'> {name}</p>
+                            <p className='font-body text-3xl font-normal leading-10'>{value.toFixed(0)} {name == 'calories' ? 'cal' : 'g'}</p>
                         </div>
                     ))}
                 </div>
 
                 {/* Additional information */}
-                <div className='mt-8 w-full flex flex-col gap-4 border py-2'>
+                <div className='mt-16 p-8  flex flex-col gap-6 border '>
                     {meal.otherData.map((data, index) => (
-                        <div key={index} className={`flex flex-row justify-between w-full px-2 ${index && " border-b"}`}>
-                            <p className='w-full font-body text-sm'>{data.name}</p>
+                        <div key={index} className={`flex flex-row justify-between w-full px-4 ${index && " border-b"}`}>
+                            <p className='w-full font-body text-3xl font-normal leading-8'>{data.name}</p>
                             <div className={`w-full flex flex-row gap-3 `}> {data.value.map((val, index) => (
-                                <p key={index} className='font-body text-sm'>{val},</p>
+                                <p key={index} className='font-body text-3xl font-normal leading-8'>{val},</p>
                             ))}
                             </div>
                         </div>

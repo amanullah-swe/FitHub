@@ -14,7 +14,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     try {
         // Get the token from the cookie (assuming you're using cookie-parser)
         const token: string = req.cookies.token
-        if (!token) return res.status(404).json({ message: "token is measing login agian" })
+        if (!token) return res.status(401).json({ message: "token is measing login agian" })
         // Verify the token using your secret key
         const decoded: any = jwt.verify(token, 'your-secret-key');
         console.log('decode', decoded);
