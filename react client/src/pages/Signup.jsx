@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { authRegisterAsync, selectRegesterStatus } from '../features/user/userSlice';
 import Formfeild from '../components/Formfield';
+import { logo } from '../assets';
 export default function signup() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -42,8 +43,8 @@ export default function signup() {
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-offwhite">
                 <div className="sm:mx-auto sm:w-full sm:max-w-5xl">
                     <img
-                        className="mx-auto h-10 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        className="mx-auto h-40 w-40"
+                        src={logo}
                         alt="Your Company"
                     />
                     <h2 className="mt-10 text-center text-5xl font-bold leading-9 tracking-tigh">

@@ -5,7 +5,7 @@ import FoodList from '../components/FoodList.jsx';
 import Leftsidebar from '../components/Leftsidebar.jsx'
 
 function Search() {
-    let windowWidth = window.innerWidth - 150;
+    let windowWidth = window.innerWidth - 180;
     const [dataArray, setdataArray] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
@@ -19,7 +19,7 @@ function Search() {
         setdataArray(data);
     }
     return (
-        <div className='w-full h-screen flex '>
+        <div className='w-full h-screen flex  overflow-hidden'>
             <Leftsidebar />
             <div className='flex-gow py-10 px-10 flex flex-col items-center'>
                 <form action="" className=' sticky w-[80%]  top-20 bg-white shadow rounded-2xl' onSubmit={handleSubmite}>

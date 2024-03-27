@@ -26,16 +26,24 @@ const userSchema = new mongoose.Schema({
     gender: String,
     password: String,
     height: {
-        value: Number,
+        value: {
+            type: Number,
+            default: 0,
+        },
         unit: {
             type: String,
+            default: "feet",
             enum: ['inches', 'centimeters', 'feet']
         }
     },
     weight: {
-        value: Number,
+        value: {
+            type: Number,
+            default: 0
+        },
         unit: {
             type: String,
+            default: "kilograms",
             enum: ['pounds', 'kilograms']
         }
     },

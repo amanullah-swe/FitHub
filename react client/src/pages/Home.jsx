@@ -5,7 +5,7 @@ import { RemoveMealFromDailyFitnessAndMealsDataAsync, fetchDailyFitnessAndMealsD
 import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousDate } from '../helpers/getPrevioudDate.js';
 function page() {
-    const windowWidth = window.innerWidth - 150;
+    const windowWidth = window.innerWidth - 180;
     const dispatch = useDispatch();
     const meals = useSelector(selectFitness);
     const totalnutrients = useSelector(selectTotalnutrients);
@@ -32,7 +32,7 @@ function page() {
 
     }
     return (
-        <div className='h-screen flex flex-row bg-offwhite'>
+        <div className='h-screen flex flex-row bg-offwhite overflow-hidden'>
             <Leftsidebar />
 
             <div className='px-10 py-5 flex flex-col food-list-container' style={{ width: windowWidth }} >
