@@ -14,6 +14,7 @@ import Signup from './pages/Signup.jsx';
 import Editepersonalinfo from './pages/Editepersonalinfo.jsx';
 import Editehealthinfo from './pages/Editehealthinfo.jsx';
 import Landing from './pages/Landing.jsx';
+import Dashbaord from './pages/Dashbaord.jsx';
 
 
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
     element: <Editehealthinfo />,
   },
   {
+    path: "/dashboard",
+    element: <Dashbaord />,
+  },
+  {
     path: "*",
     element: <Error404 />,
   },
@@ -62,10 +67,10 @@ const router = createBrowserRouter([
 function App() {
 
   // for resizing the food list 
-  window.addEventListener('resize', () => {
-    const element = document.querySelector(".food-list-container");
-    element.style.width = window.innerWidth - 180 + "px";
-  })
+  // window.addEventListener('resize', () => {
+  //   const element = document.querySelector(".food-list-container");
+  //   element.style.width = window.innerWidth - 180 + "px";
+  // })
 
   return (
     <>

@@ -7,8 +7,8 @@ import { getPreviousDate } from '../helpers/getPrevioudDate';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDailyFitnessAndMealsDataAsync } from '../features/fitnesAndDiet/fitnessAndDietSlice';
 import { calculateNutrients, fetchMelaByIdAsync, selectCalculatedNutrients, selectMeal } from '../features/meal/mealSlice';
-
-
+import { ToastContainer, Zoom, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function Meal() {
@@ -42,11 +42,37 @@ export default function Meal() {
         };
         const date = getPreviousDate();
         dispatch(addDailyFitnessAndMealsDataAsync({ meal: tempMeal, date, mealType }));
+        successPop();
 
     }
+
+    const successPop = () => toast.success('Your meal added successfully', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Zoom,
+    });
     return (
         <main className='h-screen w-full flex'>
             <Leftsidebar />
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Zoom}
+            />
             <section className='px-20 py-24 flex flex-col w-full overflow-y-scroll'>
                 <div className='flex flex-row gap-10'>
                     <div className='flex flex-row gap-10'>

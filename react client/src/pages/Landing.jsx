@@ -112,7 +112,7 @@ export default function MyClass() {
                                 <a href="#blog" className="navbar-link" data-nav-link>Blog</a>
                             </li>
                             <li className="navbar-item">
-                                <a href="#" className="navbar-link" data-nav-link>Contact</a>
+                                <a href="#contact" className="navbar-link" data-nav-link>Contact</a>
                             </li>
                         </ul>
                     </nav>
@@ -533,7 +533,7 @@ export default function MyClass() {
                 </article >
             </main >
             {/* - #FOOTER */}
-            <footer className="footer" >
+            <footer className="footer" id='contact' >
                 <div className="footer-top section" data-section>
                     <div className="container">
                         <div className="footer-list">

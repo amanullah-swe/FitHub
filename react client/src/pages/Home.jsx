@@ -4,6 +4,8 @@ import Leftsidebar from '../components/Leftsidebar.jsx'
 import { RemoveMealFromDailyFitnessAndMealsDataAsync, fetchDailyFitnessAndMealsDataAsync, selectDate, selectDocumentId, selectFitness, selectHomeError, selectTotalnutrients } from '../features/fitnesAndDiet/fitnessAndDietSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousDate } from '../helpers/getPrevioudDate.js';
+import { ToastContainer, Zoom, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 function page() {
     const windowWidth = window.innerWidth - 180;
     const dispatch = useDispatch();
@@ -25,16 +27,40 @@ function page() {
         e.preventDefault();
         e.stopPropagation();
         console.log(mealType, index);
-
         const meal = meals[mealType][index];
-        console.log(meal)
+        console.log(meal);
         dispatch(RemoveMealFromDailyFitnessAndMealsDataAsync({ name, docId, index, mealType, meal }));
+        successRemovePop();
 
     }
+    const successRemovePop = () => toast.success('Your Meal Removed Successfully', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Zoom,
+    });
+
     return (
         <div className='h-screen flex flex-row bg-offwhite overflow-hidden'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Zoom}
+            />
             <Leftsidebar />
-
             <div className='px-10 py-5 flex flex-col food-list-container' style={{ width: windowWidth }} >
                 {/* date and all  */}
                 <div className='w-full flex flex-col border rounded-lg bg-white py-1.3'>
@@ -43,7 +69,7 @@ function page() {
                     <div className='w-full flex justify-between max-w-[800px] self-center items-center py-3 bg-customgreen rounded-lg text-white'>
                         <button className='text-4xl ml-4' onClick={() => setDays((prev) => prev + 1)}>&lt;</button>
                         <p className=' font-heading text-3xl'>{date}</p>
-                        <button className='text-4xl mr-4' onClick={() => setDays((prev) => prev - 1)} >&gt;</button>
+                        <button className='text-4xl mr-4' onClick={() => setDays((prev) => days < 0 ? 0 : prev - 1)} >&gt;</button>
                     </div>
                     <div className='flex w-full justify-evenly mt-10 h-48'>
                         <ProgressBar value={Math.floor(totalnutrients.protein)} totalvalue={setProtien} title='Protien' />
@@ -51,11 +77,11 @@ function page() {
                     </div>
                 </div>
                 <div className=' w-full overflow-y-scroll'>
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.breakfast} title='breakfast' />
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.lunch} title='lunch' />
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.dinner} title='dinner' />
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.snackAm} title='snackAm' />
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={true} data={meals.snackPm} title='snackPm' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.breakfast} title='breakfast' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.lunch} title='lunch' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.dinner} title='dinner' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.snackAm} title='snackAm' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.snackPm} title='snackPm' />
                 </div>
             </div>
 

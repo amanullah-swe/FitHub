@@ -11,6 +11,43 @@ export function fetchDailyFitnessAndMealsData({ date }) {
       },
       body: JSON.stringify({ date })
     });
+    if (response.status == 404) {
+      const data = {
+        date: date,
+        currentFitnessLevel: "",
+        totalCaloriesBurned: 0,
+        totalNutrients: {
+          protein: 0,
+          calories: 0,
+          carbohydrates: 0,
+          fiber: 0,
+          fat: 0,
+          cholesterol: 0,
+          sugar: 0
+        },
+        workouts: [
+          // Additional workout entries
+        ],
+        meals: {
+          breakfast: [
+          ],
+          lunch: [
+            // Similar structure as Breakfast
+          ],
+          dinner: [
+            // Similar structure as Breakfast
+          ],
+          snackAm: [
+            // Similar structure as Breakfast
+          ],
+          snackPm: [
+            // Similar structure as Breakfast
+          ],
+
+        },
+      }
+      return resolve(data);
+    }
     if (!response.ok) {
       const data = await response.json();
       return reject(data);

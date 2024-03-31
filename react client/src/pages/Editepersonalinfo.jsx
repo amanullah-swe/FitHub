@@ -46,7 +46,7 @@ export default function Editepersonalinfo() {
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-offwhite">
                 <div className="sm:mx-auto sm:w-full sm:max-w-5xl">
                     <h2 className="mt-10 text-center text-5xl text-black font-bold leading-9 tracking-tigh">
-                        change information as you like
+                        Change Information as you like
                     </h2>
                 </div>
 
@@ -56,10 +56,8 @@ export default function Editepersonalinfo() {
                         <Formfeild label={"Email"} name={"email"} type={"email"} value={values.email} handleBlur={handleBlur} handleChange={handleChange} />
                         <Formfeild label={"Phone"} name={"phone"} type={"number"} value={values.phone} handleBlur={handleBlur} handleChange={handleChange} />
                         <Formfeild label={"Profession"} name={"profession"} type={"text"} value={values.profession} handleBlur={handleBlur} handleChange={handleChange} />
-                        <div className='flex justify-between gap-5'>
-                            <Formfeild label={"Age"} name={"age"} type={"text"} value={values.age} handleBlur={handleBlur} handleChange={handleChange} />
-                            <Formfeild label={"gender"} name={"gender"} type={"text"} value={values.gender} handleBlur={handleBlur} handleChange={handleChange} />
-                        </div>
+                        <Formfeild label={"gender"} name={"gender"} type={"text"} value={values.gender} handleBlur={handleBlur} handleChange={handleChange} />
+
                         <div>
                             <button type="submit" className="flex w-full justify-center rounded-md bg-customgreen px-12 py-6 text-3xl font-semibold leading-6 text-white shadow-xl hover:bg-secondary hover:text-primary focus-visible:outline focus-visible:outline-2 transition-all">
                                 save
@@ -69,8 +67,8 @@ export default function Editepersonalinfo() {
 
                     <p className="mt-10 text-center text-2xl text-gray-500">
                         Go back to {" "}
-                        <Link to="/home" className="font-semibold leading-6 text-primary hover:text-green-700">
-                            Home
+                        <Link to="/my-profile" className="font-semibold leading-6 text-primary hover:text-green-700">
+                            Profile
                         </Link>
                     </p>
                 </div>

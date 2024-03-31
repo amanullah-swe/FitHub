@@ -24,6 +24,10 @@ const MealSchema = {
     name: String,
     images: String,
     description: String,
+    unique: {
+        type: String,
+        default: ''
+    },
     nutrients: NutrientsSchema
 };
 

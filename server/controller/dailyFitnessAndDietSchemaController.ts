@@ -106,6 +106,7 @@ type Meal = {
     name: string;
     images: string;
     description: string;
+    unique: string;
     nutrients: {
         protein: number;
         calories: number;
@@ -160,6 +161,9 @@ export async function AddMealAndFitnessDataOfUser(req: Request, res: Response) {
             return res.status(201).json(createdDocument);
         }
         else if (isMealExist && date == getPreviousDate()) {
+            // adding the uqine code in meal for make the remove function easy 
+            const timestamp = Date.now().toString(36);
+            meal.unique = timestamp;
             const pushQuery = `meals.${mealType}`;
 
             const newEntry = await DailyFitnessAndDietModel.findOneAndUpdate(
@@ -201,12 +205,11 @@ export async function getDailyMealAndFitnessByUserId(req: Request, res: Response
     return res.status(200).json(document);
 }
 
-
 export async function removeMealFromDailyMealAndFitness(req: Request, res: Response) {
     const { name, docId, index, mealType, meal }: { name: string, docId: string, index: number, mealType: string, meal: Meal } = req.body;
-    console.log({ name, docId, index, mealType, meal });
-    if (!name || !docId || typeof (index) != 'number' || !mealType || !meal) return res.status(404).json({ message: "invalid Inputs pleas provide all the parameters" });
-    console.log(docId, "i got called");
+    if (!name || !docId || typeof (index) != 'number' || !mealType || !meal) {
+        return res.status(404).json({ message: "Invalid inputs, please provide all the parameters" });
+    }
     const pushQuery = `meals.${mealType}`;
     const document = await DailyFitnessAndDietModel.findOneAndUpdate(
         { _id: docId },
@@ -222,9 +225,12 @@ export async function removeMealFromDailyMealAndFitness(req: Request, res: Respo
                 'totalNutrients.sugar': -meal.nutrients.sugar
             }
         },
-        { new: true });
-    if (!document) return res.status(405).json({ messsage: "document not found" });
+        { new: true }
+    );
 
+    if (!document) {
+        return res.status(405).json({ message: "Document not found" });
+    }
     return res.status(200).json(document);
 }
 // Call the function to create the document

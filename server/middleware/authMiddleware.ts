@@ -17,7 +17,6 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
         if (!token) return res.status(401).json({ message: "token is measing login agian" })
         // Verify the token using your secret key
         const decoded: any = jwt.verify(token, 'your-secret-key');
-        console.log('decode', decoded);
         // If the token is valid, set the user ID in the request object
         req.body.userId = decoded.userId;
         // Proceed to the next middleware or route handler

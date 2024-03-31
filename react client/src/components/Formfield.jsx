@@ -2,7 +2,7 @@ const Formfeild = ({ handleBlur, handleChange, name, value, type, label }) => {
     return (
         <div className='w-full'>
             <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-2xl font-semibold leading-10">
+                <label htmlFor={name} className="block text-2xl font-semibold leading-10">
                     {label}
                 </label>
             </div>

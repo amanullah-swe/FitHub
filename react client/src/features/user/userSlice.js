@@ -11,6 +11,7 @@ const initialState = {
     gender: "",
     profession: "",
     profileImage: '',
+    activityLevel: "",
     height: {
       value: "",
       unit: ""
@@ -20,7 +21,6 @@ const initialState = {
       unit: ""
     },
     fitnessGoals: [],
-    activityLevel: "",
     medicalConditions: [],
     preferredWorkouts: [],
     dietaryPreferences: [],
