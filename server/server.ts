@@ -10,7 +10,6 @@ import authRouter from './routes/authRouter'
 import mealRouter from './routes/mealRouter'
 import userRouter from './routes/userRouter'
 import dailyFitnessAndDietRouter from './routes/dialyFitnessAndDietRoutes';
-
 const app: Express = express();
 const port = process.env.PORT || 3000;
 connect();
@@ -22,6 +21,9 @@ const corsOptions: {} = {
     credentials: true,
     exposedHeaders: 'Authorization, Content-Type, X-Total-Count',
 };
+app.get('/', (req: Request, res: Response) => {
+    res.send("<h1>Fithub backend</h1>")
+})
 
 // server static assests
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
