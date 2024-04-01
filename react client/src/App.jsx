@@ -15,6 +15,7 @@ import Editepersonalinfo from './pages/Editepersonalinfo.jsx';
 import Editehealthinfo from './pages/Editehealthinfo.jsx';
 import Landing from './pages/Landing.jsx';
 import Dashbaord from './pages/Dashbaord.jsx';
+import Blog from './pages/Blog.jsx';
 
 
 
@@ -60,22 +61,22 @@ const router = createBrowserRouter([
     element: <Dashbaord />,
   },
   {
+    path: "/blog",
+    element: <Blog />,
+  },
+  {
     path: "*",
     element: <Error404 />,
   },
 ]);
 function App() {
 
-  // for resizing the food list 
-  // window.addEventListener('resize', () => {
-  //   const element = document.querySelector(".food-list-container");
-  //   element.style.width = window.innerWidth - 180 + "px";
-  // })
+
 
   return (
-    <>
+    <div >
       <RouterProvider router={router} />
-    </>
+    </div>
   )
 }
 

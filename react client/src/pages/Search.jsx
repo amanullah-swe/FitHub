@@ -18,8 +18,16 @@ function Search() {
         const data = await reponese.json();
         setdataArray(data);
     }
+
+    // for resizing the food list 
+    const widthSter = () => {
+        window.addEventListener('resize', () => {
+            const element = document.querySelector(".food-list-container");
+            element.style.width = window.innerWidth - 180 + "px";
+        })
+    }
     return (
-        <div className='w-full h-screen flex  overflow-hidden'>
+        <div onLoad={widthSter} className='w-full h-screen flex  overflow-hidden'>
             <Leftsidebar />
             <div className='flex-gow py-10 px-10 flex flex-col items-center'>
                 <form action="" className=' sticky w-[80%]  top-20 bg-white shadow rounded-2xl' onSubmit={handleSubmite}>

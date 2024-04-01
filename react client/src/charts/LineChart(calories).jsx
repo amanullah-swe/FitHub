@@ -48,10 +48,12 @@ export const data = {
             data: newData.map(({ calories }) => calories),
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            tension: 0.5,
+
         },
     ],
 };
 
 export default function Linechartcalories() {
-    return <Line options={options} data={data} className='bg-white shadow-2xl p-4 rounded-xl' />;
+    return <Line options={options} data={data} className='bg-white shadow-xl rounded-3xl p-4' />;
 }

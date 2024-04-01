@@ -17,7 +17,7 @@ export const options = {
     },
 };
 export const data = {
-    labels: newData.map(({ name }) => name.slice(0, 15) + '...'),
+    labels: newData.map(({ name }) => name.slice(0, 30) + '...'),
     datasets: [
         {
             label: 'Meal consumed',
@@ -72,5 +72,5 @@ export const data = {
 };
 
 export function Donatechart() {
-    return <Doughnut data={data} options={options} className='bg-white shadow-2xl' />;
+    return <Doughnut data={data} options={options} className='bg-white shadow-xl rounded-3xl p-4' />;
 }

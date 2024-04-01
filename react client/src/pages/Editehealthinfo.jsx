@@ -5,7 +5,6 @@ import Formfeild from '../components/Formfield';
 import { Link } from 'react-router-dom';
 
 const initialValues = {
-
     height: {
         value: "",
         unit: ""
@@ -14,14 +13,40 @@ const initialValues = {
         value: '',
         unit: ""
     },
+    age: '',
     fitnessGoals: [],
     medicalConditions: [],
     preferredWorkouts: [],
     dietaryPreferences: [],
 };
 
-const workoutType = ['yoga', 'cardio', 'weight', 'traning', 'strenght', 'training']
-const dietaryPreferences = ['none vage']
+const prefferdworkoutArray = ['yoga', 'cardio', 'weight', 'traning', 'strenght', 'training'];
+const medicalConditionsArray = ["Heat Issues",
+    " BP Issues",
+    " Kidney Stones",
+    " Bone Loss",
+    "Digestive Issues",
+    "Heart Disease",
+    "Diabetes",
+    "Obesity",
+    "Anemia",
+    "Depression and Anxiety",
+    "Muscle Loss",
+];
+
+const dietaryPreferencesArray = ["Vegetarian",
+    "Vegan",
+    "Pescatarian",
+    " semi-vegetarian",
+    "Omnivorous"
+]
+
+const fitnessGoalsArray = ["fatloss",
+    " muscle building",
+    "cutting",
+    "  bulking",
+    "calisthenics"
+]
 const EditeHealthinfo = () => (
     <Formik
         initialValues={initialValues}
@@ -39,6 +64,11 @@ const EditeHealthinfo = () => (
 
                 <div className="mt-10 sm:mx-auto sm:w-full w-full sm:max-w-5xl">
                     <div className='flex gap-4'>
+                        <Formfeild label={"Calories goal"} name={"weight.value"} type={"number"} value={values.weight.value} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Protein goal"} name={"weight.unit"} type={"text"} value={values.weight.unit} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Age"} name={"age"} type={"number"} value={values.age} handleBlur={handleBlur} handleChange={handleChange} />
+                    </div>
+                    <div className='flex gap-4'>
                         <Formfeild label={"Weight"} name={"weight.value"} type={"number"} value={values.weight.value} handleBlur={handleBlur} handleChange={handleChange} />
                         <Formfeild label={"Unit"} name={"weight.unit"} type={"text"} value={values.weight.unit} handleBlur={handleBlur} handleChange={handleChange} />
                     </div>
@@ -46,11 +76,10 @@ const EditeHealthinfo = () => (
                         <Formfeild label={"Height"} name={"height.value"} type={"number"} value={values.height.value} handleBlur={handleBlur} handleChange={handleChange} />
                         <Formfeild label={"Unit"} name={"height.unit"} type={"text"} value={values.height.unit} handleBlur={handleBlur} handleChange={handleChange} />
                     </div>
-                    <ArrayField name={"fitnessGoals"} values={values} dropdwonlist={workoutType} label={'Fitness Goals'} />
-                    <ArrayField name={"medicalConditions"} values={values} dropdwonlist={dietaryPreferences} label={'medicalConditions'} />
-                    <ArrayField name={"dietaryPreferences"} values={values} dropdwonlist={dietaryPreferences} label={'dietary Preferences'} />
-                    <ArrayField name={"preferredWorkouts"} values={values} dropdwonlist={dietaryPreferences} label={'preferred Workouts'} />
-                    <ArrayField name={"dietaryPreferences"} values={values} dropdwonlist={dietaryPreferences} label={'Dietary Preferences'} />
+                    <ArrayField name={"fitnessGoals"} values={values} dropdwonlist={fitnessGoalsArray} label={'Fitness Goals'} />
+                    <ArrayField name={"medicalConditions"} values={values} dropdwonlist={medicalConditionsArray} label={'medicalConditions'} />
+                    <ArrayField name={"dietaryPreferences"} values={values} dropdwonlist={dietaryPreferencesArray} label={'Dietary Preferences'} />
+                    <ArrayField name={"preferredWorkouts"} values={values} dropdwonlist={prefferdworkoutArray} label={'preferred Workouts'} />
                     <div>
                         <button type="submit" className="flex w-full justify-center rounded-md bg-customgreen px-12 py-6 text-3xl font-semibold leading-6 text-white shadow-xl hover:bg-secondary hover:text-primary focus-visible:outline focus-visible:outline-2 transition-all">
                             save

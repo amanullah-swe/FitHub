@@ -57,5 +57,5 @@ export const data = {
 };
 
 export default function Barchart() {
-    return <Bar options={options} data={data} className='bg-white shadow-2xl' />;
+    return <Bar options={options} data={data} className='bg-white shadow-xl rounded-3xl p-4' />;
 }

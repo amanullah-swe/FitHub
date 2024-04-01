@@ -17,7 +17,7 @@ export async function login(req: Request, res: Response) {
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid password' });
     }
-    const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '24h' });
+    const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '7d' });
 
     // Set the JWT token as a cookie
     res.cookie('token', token, {

@@ -94,10 +94,18 @@ export default function Myprofile() {
 
                 {/* health information */}
                 <div id='container1' className='flex gap-4 flex-col bg-white border rounded-3xl text-black px-12 py-6 mt-20 mb-20 relative shadow-xl '>
-                    <h3 className='font-heading text-5xl font-normal leading-12 text-gray-400'>Heal Information</h3>
+                    <h3 className='font-heading text-5xl font-normal leading-12 text-gray-400'>Health Information</h3>
 
                     <table className='w-full mt-10'>
                         <tbody className='w-full'>
+                            <tr className="w-full  border-b ">
+                                <td className='w-2/3'><p className='px-12 py-4 font-body text-3xl leading-10 '>Calorie goal</p></td>
+                                <td><p className='px-12 py-4 font-body text-3xl leading-10 '>{1300}</p></td>
+                            </tr>
+                            <tr className="w-full  border-b ">
+                                <td className='w-2/3'><p className='px-12 py-4 font-body text-3xl leading-10 '>Protein goal</p></td>
+                                <td><p className='px-12 py-4 font-body text-3xl leading-10 '>{100}</p></td>
+                            </tr>
                             <tr className="w-full  border-b ">
                                 <td className='w-2/3'><p className='px-12 py-4 font-body text-3xl leading-10 '>Age</p></td>
                                 <td><p className='px-12 py-4 font-body text-3xl leading-10 '>{user?.age}</p></td>

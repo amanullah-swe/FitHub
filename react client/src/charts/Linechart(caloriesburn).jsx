@@ -33,7 +33,7 @@ export const options = {
         },
         title: {
             display: true,
-            text: 'Micro nutrients',
+            text: 'Calories burn',
         },
     },
 };
@@ -44,24 +44,16 @@ export const data = {
     labels,
     datasets: [
         {
-            label: 'cholesterol (mg)',
-            data: newData.map(({ cholesterol }) => cholesterol),
+            label: 'calories (cal)',
+            data: newData.map(({ totalCaloriesBurned }) => totalCaloriesBurned),
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            tension: 0.5,
-
-        },
-        {
-            label: 'sugar (g)',
-            data: newData.map(({ sugar }) => sugar),
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
             tension: 0.5,
 
         },
     ],
 };
 
-export default function Linechart() {
+export default function Linechartcaloriesburn() {
     return <Line options={options} data={data} className='bg-white shadow-xl rounded-3xl p-4' />;
 }

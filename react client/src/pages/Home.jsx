@@ -45,8 +45,16 @@ function page() {
         transition: Zoom,
     });
 
+    // for resizing the food list 
+    const widthSter = () => {
+        window.addEventListener('resize', () => {
+            const element = document.querySelector(".food-list-container");
+            element.style.width = window.innerWidth - 180 + "px";
+        })
+    }
+
     return (
-        <div className='h-screen flex flex-row bg-offwhite overflow-hidden'>
+        <div onLoad={widthSter} className='h-screen flex flex-row bg-offwhite overflow-hidden'>
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

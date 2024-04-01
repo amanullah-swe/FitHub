@@ -227,7 +227,7 @@ export default function MyClass() {
                             </div>
                             <div className="about-content">
                                 <p className="section-subtitle">25+ Years Of Experience</p>
-                                <h2 className="h2 section-title">We have expert instructor for help our students.</h2>
+                                <h2 className="h2 section-title">We have expert instructor for help our clients.</h2>
                                 <p className="section-text">
                                     Lorem Ipsum is simply dummy text the printing and typesetting standard dummy text ever since the 150 when
                                     an unknown
@@ -256,7 +256,7 @@ export default function MyClass() {
                                             <img src={courses1} width={350} height={300} loading="lazy" alt="Children Nutrition and Cooking" className="img-cover" />
                                         </figure>
                                         <div className="card-content">
-                                            <data className="card-price" value={98}>$98</data>
+                                            <data className="card-price" value={999}>₹999</data>
                                             <p className="card-author">
                                                 <a href="#" className="card-link">
                                                     By: <span className="span">Ryan Patterson</span>
@@ -282,7 +282,7 @@ export default function MyClass() {
                                             <img src={courses2} width={350} height={300} loading="lazy" alt="Introduction to Food and Health." className="img-cover" />
                                         </figure>
                                         <div className="card-content">
-                                            <data className="card-price" value={72}>$72</data>
+                                            <data className="card-price" value={1299}>₹1299</data>
                                             <p className="card-author">
                                                 <a href="#" className="card-link">
                                                     By: <span className="span">Arlene Daniels</span>
@@ -308,7 +308,7 @@ export default function MyClass() {
                                             <img src={courses3} width={350} height={300} loading="lazy" alt="Nutrition and Lifestyle in Pregnancy" className="img-cover" />
                                         </figure>
                                         <div className="card-content">
-                                            <data className="card-price" value={68}>$68</data>
+                                            <data className="card-price" value={999}>₹1999</data>
                                             <p className="card-author">
                                                 <a href="#" className="card-link">
                                                     By: <span className="span">Selina Benton</span>
@@ -334,7 +334,7 @@ export default function MyClass() {
                                             <img src={courses4} width={350} height={300} loading="lazy" alt="Expertise on Fitness, Nutrition and Health" className="img-cover" />
                                         </figure>
                                         <div className="card-content">
-                                            <data className="card-price" value={98}>$98</data>
+                                            <data className="card-price" value={3999}>₹3999</data>
                                             <p className="card-author">
                                                 <a href="#" className="card-link">
                                                     By: <span className="span">Ryan Patterson</span>
@@ -360,7 +360,7 @@ export default function MyClass() {
                                             <img src={courses5} width={350} height={300} loading="lazy" alt="Hacking exercise for health new science of fitness" className="img-cover" />
                                         </figure>
                                         <div className="card-content">
-                                            <data className="card-price" value={72}>$72</data>
+                                            <data className="card-price" value={6000}>₹6000</data>
                                             <p className="card-author">
                                                 <a href="#" className="card-link">
                                                     By: <span className="span">Arlene Daniels</span>
@@ -386,7 +386,7 @@ export default function MyClass() {
                                             <img src={courses6} width={350} height={300} loading="lazy" alt="Designing Your Personal Weight Loss Plan" className="img-cover" />
                                         </figure>
                                         <div className="card-content">
-                                            <data className="card-price" value={68}>$68</data>
+                                            <data className="card-price" value={6000}>₹6000</data>
                                             <p className="card-author">
                                                 <a href="#" className="card-link">
                                                     By: <span className="span">Selina Benton</span>
@@ -418,94 +418,100 @@ export default function MyClass() {
                             </div>
                             <ul className="grid-list">
                                 <li>
-                                    <div className="blog-card">
-                                        <div className="wrapper">
-                                            <time className="publish-date" dateTime="2022-02-24">
-                                                <span className="span">24</span> Feb
-                                            </time>
-                                            <div>
-                                                <div className="card-author">
-                                                    <a href="#" className="card-link">
-                                                        By: <span className="span">Maddie Rife</span>
-                                                    </a>
+                                    <Link to={'/blog'}>
+                                        <div className="blog-card">
+                                            <div className="wrapper">
+                                                <time className="publish-date" dateTime="2022-02-24">
+                                                    <span className="span">24</span> Feb
+                                                </time>
+                                                <div>
+                                                    <div className="card-author">
+                                                        <a href="#" className="card-link">
+                                                            By: <span className="span">Maddie Rife</span>
+                                                        </a>
+                                                    </div>
+                                                    <ul className="card-meta-list">
+                                                        <li className="card-meta-item">
+                                                            <p className="item-text">87 Likes</p>
+                                                        </li>
+                                                        <li className="card-meta-item">
+                                                            <p className="item-text">58 Share</p>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <ul className="card-meta-list">
-                                                    <li className="card-meta-item">
-                                                        <p className="item-text">87 Likes</p>
-                                                    </li>
-                                                    <li className="card-meta-item">
-                                                        <p className="item-text">58 Share</p>
-                                                    </li>
-                                                </ul>
                                             </div>
+                                            <h3 className="h3">
+                                                <a href="#" className="card-title">It was popularised sheets the release contain</a>
+                                            </h3>
+                                            <p className="card-text">
+                                                Lorem sum same dummy text theme industry psum have been them industry the leaf into type setting.
+                                            </p>
                                         </div>
-                                        <h3 className="h3">
-                                            <a href="#" className="card-title">It was popularised sheets the release contain</a>
-                                        </h3>
-                                        <p className="card-text">
-                                            Lorem sum same dummy text theme industry psum have been them industry the leaf into type setting.
-                                        </p>
-                                    </div>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <div className="blog-card">
-                                        <div className="wrapper">
-                                            <time className="publish-date" dateTime="2022-02-24">
-                                                <span className="span">24</span> Feb
-                                            </time>
-                                            <div>
-                                                <div className="card-author">
-                                                    <a href="#" className="card-link">
-                                                        By: <span className="span">Maddie Rife</span>
-                                                    </a>
+                                    <Link to={'/blog'}>
+                                        <div className="blog-card">
+                                            <div className="wrapper">
+                                                <time className="publish-date" dateTime="2022-02-24">
+                                                    <span className="span">24</span> Feb
+                                                </time>
+                                                <div>
+                                                    <div className="card-author">
+                                                        <a href="#" className="card-link">
+                                                            By: <span className="span">Maddie Rife</span>
+                                                        </a>
+                                                    </div>
+                                                    <ul className="card-meta-list">
+                                                        <li className="card-meta-item">
+                                                            <p className="item-text">87 Likes</p>
+                                                        </li>
+                                                        <li className="card-meta-item">
+                                                            <p className="item-text">58 Share</p>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <ul className="card-meta-list">
-                                                    <li className="card-meta-item">
-                                                        <p className="item-text">87 Likes</p>
-                                                    </li>
-                                                    <li className="card-meta-item">
-                                                        <p className="item-text">58 Share</p>
-                                                    </li>
-                                                </ul>
                                             </div>
+                                            <h3 className="h3">
+                                                <a href="#" className="card-title">It was popularised sheets the release contain</a>
+                                            </h3>
+                                            <p className="card-text">
+                                                Lorem sum same dummy text theme industry psum have been them industry the leaf into type setting.
+                                            </p>
                                         </div>
-                                        <h3 className="h3">
-                                            <a href="#" className="card-title">It was popularised sheets the release contain</a>
-                                        </h3>
-                                        <p className="card-text">
-                                            Lorem sum same dummy text theme industry psum have been them industry the leaf into type setting.
-                                        </p>
-                                    </div>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <div className="blog-card">
-                                        <div className="wrapper">
-                                            <time className="publish-date" dateTime="2022-02-24">
-                                                <span className="span">24</span> Feb
-                                            </time>
-                                            <div>
-                                                <div className="card-author">
-                                                    <a href="#" className="card-link">
-                                                        By: <span className="span">Maddie Rife</span>
-                                                    </a>
+                                    <Link to={'/blog'}>
+                                        <div className="blog-card">
+                                            <div className="wrapper">
+                                                <time className="publish-date" dateTime="2022-02-24">
+                                                    <span className="span">24</span> Feb
+                                                </time>
+                                                <div>
+                                                    <div className="card-author">
+                                                        <a href="#" className="card-link">
+                                                            By: <span className="span">Maddie Rife</span>
+                                                        </a>
+                                                    </div>
+                                                    <ul className="card-meta-list">
+                                                        <li className="card-meta-item">
+                                                            <p className="item-text">87 Likes</p>
+                                                        </li>
+                                                        <li className="card-meta-item">
+                                                            <p className="item-text">58 Share</p>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <ul className="card-meta-list">
-                                                    <li className="card-meta-item">
-                                                        <p className="item-text">87 Likes</p>
-                                                    </li>
-                                                    <li className="card-meta-item">
-                                                        <p className="item-text">58 Share</p>
-                                                    </li>
-                                                </ul>
                                             </div>
+                                            <h3 className="h3">
+                                                <a href="#" className="card-title">It was popularised sheets the release contain</a>
+                                            </h3>
+                                            <p className="card-text">
+                                                Lorem sum same dummy text theme industry psum have been them industry the leaf into type setting.
+                                            </p>
                                         </div>
-                                        <h3 className="h3">
-                                            <a href="#" className="card-title">It was popularised sheets the release contain</a>
-                                        </h3>
-                                        <p className="card-text">
-                                            Lorem sum same dummy text theme industry psum have been them industry the leaf into type setting.
-                                        </p>
-                                    </div>
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
