@@ -1,5 +1,5 @@
 // A mock function to mimic making an async request for data
-
+import { baseUrl } from '../../app/constant.js'
 export function authLogin({ email, password }) {
   return new Promise(async (resolve, reject) => {
     const response = await fetch(`${baseUrl}/api/auth/login`, {
