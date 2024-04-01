@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const dailyFitnessAndDietSchemaController_1 = require("../controller/dailyFitnessAndDietSchemaController");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const router = (0, express_1.Router)();
+router.post('/addMeals', authMiddleware_1.authMiddleware, dailyFitnessAndDietSchemaController_1.AddMealAndFitnessDataOfUser);
+router.post('/daily-meals-and-fitness-data', authMiddleware_1.authMiddleware, dailyFitnessAndDietSchemaController_1.getDailyMealAndFitnessByUserId);
+router.post('/remove-meals', authMiddleware_1.authMiddleware, dailyFitnessAndDietSchemaController_1.removeMealFromDailyMealAndFitness);
+exports.default = router;
