@@ -9,6 +9,7 @@ import { addDailyFitnessAndMealsDataAsync } from '../features/fitnesAndDiet/fitn
 import { calculateNutrients, fetchMelaByIdAsync, selectCalculatedNutrients, selectMeal } from '../features/meal/mealSlice';
 import { ToastContainer, Zoom, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { baseUrl } from '../app/constant';
 
 
 export default function Meal() {
@@ -76,7 +77,7 @@ export default function Meal() {
             <section className='px-20 py-24 flex flex-col w-full overflow-y-scroll'>
                 <div className='flex flex-row gap-10'>
                     <div className='flex flex-row gap-10'>
-                        <img className='rounded-xl shadow-md border' src={"http://localhost:8080" + meal?.images} alt='meal' width={300} />
+                        <img className='rounded-xl shadow-md border' src={baseUrl + meal?.images} alt='meal' width={300} />
                         <div className='flex flex-col justify-between'>
                             <div>
                                 <h1 className='font-heading text-5xl font-bold text-black leading-20'>{meal?.name} </h1>

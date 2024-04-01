@@ -1,8 +1,8 @@
 // A mock function to mimic making an async request for data
-
+import { baseUrl } from "../../app/constant";
 export function fetchDailyFitnessAndMealsData({ date }) {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch(`http://localhost:8080/api/daily-meals-and-fitness-data`, {
+    const response = await fetch(`${baseUrl}/api/daily-meals-and-fitness-data`, {
       credentials: "include",
       method: 'POST',
       headers: {
@@ -57,10 +57,9 @@ export function fetchDailyFitnessAndMealsData({ date }) {
   }
   );
 }
-
 export function addDailyFitnessAndMealsData({ date, meal, mealType }) {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch(`http://localhost:8080/api/addMeals`, {
+    const response = await fetch(`${baseUrl}/api/addMeals`, {
       credentials: "include",
       method: 'POST',
       headers: {
@@ -82,7 +81,7 @@ export function addDailyFitnessAndMealsData({ date, meal, mealType }) {
 
 export function RemoveMealFromDailyFitnessAndMealsData({ name, docId, index, mealType, meal }) {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch(`http://localhost:8080/api/remove-meals`, {
+    const response = await fetch(`${baseUrl}/api/remove-meals`, {
       credentials: "include",
       method: 'POST',
       headers: {

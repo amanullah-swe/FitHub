@@ -3,18 +3,18 @@ import React, { useState } from 'react'
 import { testMealImage } from '../assets';
 import FoodList from '../components/FoodList.jsx';
 import Leftsidebar from '../components/Leftsidebar.jsx'
+import { baseUrl } from '../app/constant.js';
 
 function Search() {
     let windowWidth = window.innerWidth - 180;
     const [dataArray, setdataArray] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
-
     const handleSubmite = async (e) => {
         e.preventDefault()
         e.stopPropagation();
         if (!searchValue) return;
-        const reponese = await fetch('http://localhost:8080/api/meal/' + searchValue);
+        const reponese = await fetch(`${baseUrl}/api/meal/` + searchValue);
         const data = await reponese.json();
         setdataArray(data);
     }

@@ -2,7 +2,7 @@
 
 export function authLogin({ email, password }) {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch(`http://localhost:8080/api/auth/login`, {
+    const response = await fetch(`${baseUrl}/api/auth/login`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -25,7 +25,7 @@ export function authLogin({ email, password }) {
 
 export function authRegister({ name, email, phone, gender, profession, password, age }) {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch(`http://localhost:8080/api/auth/register`, {
+    const response = await fetch(`${baseUrl}/api/auth/register`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -49,7 +49,7 @@ export function authRegister({ name, email, phone, gender, profession, password,
 
 export function fetchUserData({ userId }) {
   return new Promise(async (resolve, reject) => {
-    const response = await fetch(`http://localhost:8080/api/user/id`, {
+    const response = await fetch(`${baseUrl}/api/user/id`, {
       method: "GET",
       credentials: "include",
       headers: {

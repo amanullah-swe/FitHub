@@ -2,6 +2,7 @@
 import { testMealImage } from '../assets'
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../app/constant';
 
 
 
@@ -14,7 +15,7 @@ const FoodList = ({ data, title, removebutton, handleRemoveButton }) => {
         {data.map(({ images, _id, name, description }, index) => (
           <Link key={index} to={'/meal/' + _id} className={` shadow w-min text-center  border rounded-xl relative `} >
             <div className='w-[260px] h-[200px] max-md:w-[180px] max-md:h-[150px] rounded-xl overflow-hidden'>
-              <img src={"http://localhost:8080" + images} className='w-full h-full object-cover' alt={name + 'image'} />
+              <img src={baseUrl + images} className='w-full h-full object-cover' alt={name + 'image'} />
             </div>
             <div className='py-2 px-2'>
               <h4 className='font-heading text-4xl font-bold text-black'>{name.slice(0, 20) + '..'}</h4>
