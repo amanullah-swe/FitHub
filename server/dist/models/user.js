@@ -10,10 +10,6 @@ const notificationPreferencesSchema = {
     app: Boolean,
     sms: Boolean
 };
-const unitsSchema = {
-    weight: String,
-    height: String
-};
 const privacySchema = {
     profileVisibility: Boolean,
     dataSharing: Boolean
@@ -48,9 +44,20 @@ const userSchema = new mongoose_1.default.Schema({
             enum: ['pounds', 'kilograms']
         }
     },
+    caloriesGoal: {
+        type: Number,
+        default: 0
+    },
+    proteinGoal: {
+        type: Number,
+        default: 0
+    },
     profession: String,
     fitnessGoals: [String],
-    activityLevel: String,
+    activityLevel: {
+        type: String,
+        default: ''
+    },
     medicalConditions: [String],
     preferredWorkouts: [String],
     dietaryPreferences: [String],

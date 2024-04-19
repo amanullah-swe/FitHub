@@ -59,7 +59,7 @@ export default function Meal() {
         transition: Zoom,
     });
     return (
-        <main className='h-screen w-full flex'>
+        <main className='h-screen w-full flex pl-[180px] max-md:pl-0'>
             <Leftsidebar />
             <ToastContainer
                 position="top-center"
@@ -74,14 +74,14 @@ export default function Meal() {
                 theme="light"
                 transition={Zoom}
             />
-            <section className='px-20 py-24 flex flex-col w-full overflow-y-scroll'>
+            <section className='px-20 py-24 max-md:p-8 flex flex-col w-full overflow-y-scroll max-md:pb-60 '>
                 <div className='flex flex-row gap-10'>
-                    <div className='flex flex-row gap-10'>
+                    <div className='flex flex-row gap-10 max-md:flex-col w-full'>
                         <img className='rounded-xl shadow-md border' src={baseUrl + meal?.images} alt='meal' width={300} />
-                        <div className='flex flex-col justify-between'>
-                            <div>
-                                <h1 className='font-heading text-5xl font-bold text-black leading-20'>{meal?.name} </h1>
-                                <p className='font-body text-3xl font-normal leading-10 mt-4 w-[400px]'>{meal?.description} </p>
+                        <div className='flex flex-col justify-between w-full'>
+                            <div className='w-full'>
+                                <h1 className='font-heading text-5xl font-bold text-black leading-20 '>{meal?.name} </h1>
+                                <p className='font-body text-3xl font-normal leading-10 mt-4 w-[400px] max-md:w-full'>{meal?.description} </p>
                             </div>
                             <div className='flex flex-col gap-5 '>
                                 <div className='flex gap-6'>

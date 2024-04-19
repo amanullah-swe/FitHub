@@ -19,18 +19,11 @@ function Search() {
         setdataArray(data);
     }
 
-    // for resizing the food list 
-    const widthSter = () => {
-        window.addEventListener('resize', () => {
-            const element = document.querySelector(".food-list-container");
-            element.style.width = window.innerWidth - 180 + "px";
-        })
-    }
     return (
-        <div onLoad={widthSter} className='w-full h-screen flex  overflow-hidden'>
+        <div className='w-full h-screen flex  overflow-hidden relative pl-[180px] max-md:pl-0'>
             <Leftsidebar />
-            <div className='flex-gow py-10 px-10 flex flex-col items-center'>
-                <form action="" className=' sticky w-[80%]  top-20 bg-white shadow rounded-2xl' onSubmit={handleSubmite}>
+            <div className='flex-gow py-10 px-10 flex flex-col items-center w-full'>
+                <form action="" className=' sticky w-[90%]  top-20 bg-white shadow rounded-2xl' onSubmit={handleSubmite}>
                     <div className='flex h-24 rounded-2xl  border border-black w-full'>
                         <input
                             type="text"
@@ -49,7 +42,7 @@ function Search() {
 
 
                 {/*show result  */}
-                <div className={'mt-10 px-5 food-list-container'} style={{ width: windowWidth }} >
+                <div className={'mt-10 px-5 w-full'}  >
                     <FoodList removebutton={false} title='Results' data={dataArray} />
                 </div>
             </div>

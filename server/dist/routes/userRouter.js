@@ -5,4 +5,6 @@ const authMiddleware_1 = require("../middleware/authMiddleware");
 const userController_1 = require("../controller/userController");
 const router = (0, express_1.Router)();
 router.get('/user/id', authMiddleware_1.authMiddleware, userController_1.getUserById);
+router.put('/user/personal-info', authMiddleware_1.authMiddleware, userController_1.updatePersonalInfo);
+router.put('/user/health-info', authMiddleware_1.authMiddleware, userController_1.updateHealthInfo);
 exports.default = router;

@@ -6,18 +6,17 @@ import { fetchUserDataAsync, selectUser } from '../features/user/userSlice.js';
 import { Link } from 'react-router-dom';
 export default function Myprofile() {
     const dispatch = useDispatch();
-    const userId = "65fd29b98c31f1a633354c16"
     const user = useSelector(selectUser);
     useEffect(() => {
-        dispatch(fetchUserDataAsync({ userId }))
+        dispatch(fetchUserDataAsync())
     }, [])
     return (
-        <div className="w-full h-screen  flex bg-offwhite">
+        <div className="w-full h-screen  flex bg-offwhite pl-[180px] max-md:pl-0">
             <Leftsidebar />
 
             <div className='w-full h-full px-12 py-6 overflow-y-scroll max-md:px-3'>
                 {/* personal information */}
-                <div id='container1' className='flex gap-4 flex-row bg-white border rounded-3xl px-3 py-6 mb-5 relative shadow-xl '>
+                <div id='container1' className='flex gap-4 flex-row max-md:flex-col bg-white border rounded-3xl px-3 py-6 mb-5 relative shadow-xl '>
                     <div className=' w-[300px]  h-[300px] overflow-hidden'>
                         <img src={user?.image || heroPerson} alt='person image' className='w-full h-full object-cover' />
                     </div>
@@ -26,7 +25,7 @@ export default function Myprofile() {
                             <h1 className=' font-heading text-5xl text-black font-bold leading-12'>{user?.name}</h1>
                             <p className='font-body text-3xl leading-10 mt-2'>{user?.profession}</p>
                         </div>
-                        <div className='flex flex-row gap-10'>
+                        <div className='flex flex-row gap-10 max-md:flex-col'>
                             <div className='flex flex-col gap-8'>
                                 {/* profession */}
                                 <div className='flex gap-4'>
@@ -100,11 +99,11 @@ export default function Myprofile() {
                         <tbody className='w-full'>
                             <tr className="w-full  border-b ">
                                 <td className='w-2/3'><p className='px-12 py-4 font-body text-3xl leading-10 '>Calorie goal</p></td>
-                                <td><p className='px-12 py-4 font-body text-3xl leading-10 '>{1300}</p></td>
+                                <td><p className='px-12 py-4 font-body text-3xl leading-10 '>{user.caloriesGoal}</p></td>
                             </tr>
                             <tr className="w-full  border-b ">
                                 <td className='w-2/3'><p className='px-12 py-4 font-body text-3xl leading-10 '>Protein goal</p></td>
-                                <td><p className='px-12 py-4 font-body text-3xl leading-10 '>{100}</p></td>
+                                <td><p className='px-12 py-4 font-body text-3xl leading-10 '>{user.proteinGoal}</p></td>
                             </tr>
                             <tr className="w-full  border-b ">
                                 <td className='w-2/3'><p className='px-12 py-4 font-body text-3xl leading-10 '>Age</p></td>

@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousDate } from '../helpers/getPrevioudDate.js';
 import { ToastContainer, Zoom, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { selectUser } from '../features/user/userSlice.js';
 function page() {
-    const windowWidth = window.innerWidth - 180;
     const dispatch = useDispatch();
     const meals = useSelector(selectFitness);
     const totalnutrients = useSelector(selectTotalnutrients);
     const date = useSelector(selectDate);
     const docId = useSelector(selectDocumentId);
     const [days, setDays] = useState(0);
-    const setcalories = 1300;
-    const setProtien = 100;
+    const setcalories = useSelector(selectUser).caloriesGoal;
+    const setProtien = useSelector(selectUser).proteinGoal;
 
     useEffect(() => {
         const date = getPreviousDate(days);
@@ -45,16 +45,8 @@ function page() {
         transition: Zoom,
     });
 
-    // for resizing the food list 
-    const widthSter = () => {
-        window.addEventListener('resize', () => {
-            const element = document.querySelector(".food-list-container");
-            element.style.width = window.innerWidth - 180 + "px";
-        })
-    }
-
     return (
-        <div onLoad={widthSter} className='h-screen flex flex-row bg-offwhite overflow-hidden'>
+        <div className='h-screen flex flex-row bg-offwhite pl-[180px] max-md:pl-0 overflow-hidden relative'>
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -69,7 +61,7 @@ function page() {
                 transition={Zoom}
             />
             <Leftsidebar />
-            <div className='px-10 py-5 flex flex-col food-list-container' style={{ width: windowWidth }} >
+            <div className='px-10 py-5 flex flex-col  w-full max-md:pb-[102px]' >
                 {/* date and all  */}
                 <div className='w-full flex flex-col border rounded-lg bg-white py-1.3'>
 
@@ -79,7 +71,7 @@ function page() {
                         <p className=' font-heading text-3xl'>{date}</p>
                         <button className='text-4xl mr-4' onClick={() => setDays((prev) => days < 0 ? 0 : prev - 1)} >&gt;</button>
                     </div>
-                    <div className='flex w-full justify-evenly mt-10 h-48'>
+                    <div className='flex w-full justify-evenly mt-10 h-48 max-md:h-32'>
                         <ProgressBar value={Math.floor(totalnutrients.protein)} totalvalue={setProtien} title='Protien' />
                         <ProgressBar value={Math.floor(totalnutrients.calories)} totalvalue={setcalories} title='calories' />
                     </div>

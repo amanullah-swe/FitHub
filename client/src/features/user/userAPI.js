@@ -47,7 +47,7 @@ export function authRegister({ name, email, phone, gender, profession, password,
 }
 
 
-export function fetchUserData({ userId }) {
+export function fetchUserData() {
   return new Promise(async (resolve, reject) => {
     const response = await fetch(`${baseUrl}/api/user/id`, {
       method: "GET",

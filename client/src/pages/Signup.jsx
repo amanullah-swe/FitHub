@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { authRegisterAsync, selectRegesterStatus } from '../features/user/userSlice';
 import Formfeild from '../components/Formfield';
 import { logo } from '../assets';
+import { signupSchema } from '../schema/formsShema';
 export default function signup() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function signup() {
     };
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
+        validationSchema: signupSchema,
         onSubmit: async (values, action) => {
             try {
                 if (values.password != values.confirmPassword) return;
@@ -54,16 +56,16 @@ export default function signup() {
 
                 <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-5xl">
                     <form className="space-y-3" onSubmit={handleSubmit}>
-                        <Formfeild label={"Name"} name={"name"} type={"text"} value={values.name} handleBlur={handleBlur} handleChange={handleChange} />
-                        <Formfeild label={"Email"} name={"email"} type={"email"} value={values.email} handleBlur={handleBlur} handleChange={handleChange} />
-                        <Formfeild label={"Phone"} name={"phone"} type={"number"} value={values.phone} handleBlur={handleBlur} handleChange={handleChange} />
-                        <Formfeild label={"Profession"} name={"profession"} type={"text"} value={values.profession} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Name"} name={"name"} value={values.name} error={errors.name} touch={touched.name} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Email"} name={"email"} value={values.email} error={errors.email} touch={touched.email} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Phone"} name={"phone"} value={values.phone} error={errors.phone} touch={touched.phone} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Profession"} name={"profession"} value={values.profession} error={errors.profession} touch={touched.profession} handleBlur={handleBlur} handleChange={handleChange} />
                         <div className='flex justify-between gap-6'>
-                            <Formfeild label={"Age"} name={"age"} type={"text"} value={values.age} handleBlur={handleBlur} handleChange={handleChange} />
-                            <Formfeild label={"gender"} name={"gender"} type={"text"} value={values.gender} handleBlur={handleBlur} handleChange={handleChange} />
+                            <Formfeild label={"Age"} name={"age"} value={values.age} error={errors.age} touch={touched.age} handleBlur={handleBlur} handleChange={handleChange} />
+                            <Formfeild label={"gender"} name={"gender"} value={values.gender} error={errors.gender} touch={touched.gender} handleBlur={handleBlur} handleChange={handleChange} />
                         </div>
-                        <Formfeild label={"Password"} name={"password"} type={"password"} value={values.password} handleBlur={handleBlur} handleChange={handleChange} />
-                        <Formfeild label={"Confirm password"} name={"confirmPassword"} type={"password"} value={values.confirmPassword} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Password"} name={"password"} value={values.password} error={errors.password} touch={touched.password} handleBlur={handleBlur} handleChange={handleChange} />
+                        <Formfeild label={"Confirm password"} name={"confirmPassword"} value={values.confirmPassword} error={errors.confirmPassword} touch={touched.confirmPassword} handleBlur={handleBlur} handleChange={handleChange} />
                         <div>
                             <div>
                                 <button type="submit" className="flex w-full justify-center rounded-md bg-customgreen px-12 py-6 text-2xl font-semibold leading-6 text-white shadow-xl hover:bg-secondary hover:text-primary focus-visible:outline focus-visible:outline-2 transition-all">

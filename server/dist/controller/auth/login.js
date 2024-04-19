@@ -25,12 +25,12 @@ function login(req, res) {
                 return res.status(400).json({ message: "invalid inputs " });
             const user = yield user_1.User.findOne({ email: req.body.email });
             if (!user) {
-                return res.status(404).json({ message: 'User not found' });
+                return res.status(404).json({ error: 'User not found' });
             }
             // Check if password is correct
             const passwordMatch = yield bcrypt_1.default.compare(password, user.password);
             if (!passwordMatch) {
-                return res.status(401).json({ message: 'Invalid password' });
+                return res.status(401).json({ error: 'Invalid password' });
             }
             const token = jsonwebtoken_1.default.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '7d' });
             // Set the JWT token as a cookie

@@ -5,26 +5,26 @@ import { homeIcon, logo } from "../assets"
 
 function Leftsidebar() {
   return (
-    <div className="flex flex-col items-center  gap-20 h-full w-[180px] bg-offwhite py-24 px-7 boder border-r border-r-customgreen  relative">
+    <div className="flex flex-col items-center max-md:justify-between  gap-20 h-full w-[180px] bg-offwhite py-24 px-7 boder border-r border-r-customgreen absolute z-50 min-md:top-0 left-0 max-md:bottom-0 max-md:flex-row max-md:w-full max-md:h-[50px] max-md:gap-5 max-md:border-t-customgreen max-md:border-t  ">
       {/* log */}
-      <Link to={'/'} className="flex items-center justify-center gap-4  w-56  px-12 py-2 rounded-xl">
+      {/* <Link to={'/'} className="flex items-center justify-center gap-4  w-56 max-md:w-fit  px-12 py-2 rounded-xl max-md:hidden">
         <img src={logo} width={40} alt="" />
         <a href="#" className="logo2  flex items-end">Fithub <span className="span text-5xl"> .</span>
         </a>
-      </Link>
+      </Link> */}
       {/* home */}
-      <Link to={'/home'} className="flex items-center justify-start gap-2  w-56 border px-3 py-2 rounded-xl">
+      <Link to={'/home'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3 py-2 rounded-xl">
         <div className="fill-customgreen">
           <svg className="fill-inherit" fill="" width="32px" height="32px" viewBox="-4.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <title>home</title>
             <path d="M19.469 12.594l3.625 3.313c0.438 0.406 0.313 0.719-0.281 0.719h-2.719v8.656c0 0.594-0.5 1.125-1.094 1.125h-4.719v-6.063c0-0.594-0.531-1.125-1.125-1.125h-2.969c-0.594 0-1.125 0.531-1.125 1.125v6.063h-4.719c-0.594 0-1.125-0.531-1.125-1.125v-8.656h-2.688c-0.594 0-0.719-0.313-0.281-0.719l10.594-9.625c0.438-0.406 1.188-0.406 1.656 0l2.406 2.156v-1.719c0-0.594 0.531-1.125 1.125-1.125h2.344c0.594 0 1.094 0.531 1.094 1.125v5.875z"></path>
           </svg>
         </div>
-        <p className="font-heading font-normal text-primary">Home</p>
+        <p className="font-heading max-md:hidden font-normal text-primary">Home</p>
       </Link>
 
       {/* search */}
-      <Link to={'/search'} className="flex items-center justify-start gap-2  w-56 border px-3 py-2 rounded-xl">
+      <Link to={'/search'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3 py-2 rounded-xl">
         <div className=" fill-customgreen stroke-customgreen">
           <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_15_152) " className=" stroke-inherit" >
@@ -39,11 +39,11 @@ function Leftsidebar() {
             </defs>
           </svg>
         </div>
-        <p className="font-heading font-normal text-primary">Search</p>
+        <p className="font-heading max-md:hidden font-normal text-primary">Search</p>
       </Link>
 
       {/* meals bowl */}
-      <div className="flex items-center justify-start gap-2  w-56 border px-3  py-2 rounded-xl">
+      <div className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3  py-2 rounded-xl">
         <div className=" fill-customgreen">
           <svg className=" fill-inherit" height="32px" width="32px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
             viewBox="0 0 307.429 307.429" xmlSpace="preserve">
@@ -69,26 +69,26 @@ function Leftsidebar() {
             </g>
           </svg>
         </div>
-        <p className="font-heading font-normal text-primary">Meals</p>
+        <p className="font-heading max-md:hidden font-normal text-primary">Meals</p>
       </div>
 
       {/* profile */}
-      <Link to={'/my-profile'} className="flex items-center justify-start gap-2  w-56 border px-3 py-2 rounded-xl">
+      <Link to={'/my-profile'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3 py-2 rounded-xl">
         <div className=" fill-customgreen">
           <svg width="32px" height="32px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" className=" fill-inherit" clipRule="evenodd" d="M16.5 7.063C16.5 10.258 14.57 13 12 13c-2.572 0-4.5-2.742-4.5-5.938C7.5 3.868 9.16 2 12 2s4.5 1.867 4.5 5.063zM4.102 20.142C4.487 20.6 6.145 22 12 22c5.855 0 7.512-1.4 7.898-1.857a.416.416 0 0 0 .09-.317C19.9 18.944 19.106 15 12 15s-7.9 3.944-7.989 4.826a.416.416 0 0 0 .091.317z" fill="#000000" /></svg>
         </div>
-        <p className="font-heading font-normal text-primary">Profile</p>
+        <p className="font-heading max-md:hidden font-normal text-primary">Profile</p>
       </Link>
 
       {/* dashboard */}
-      <Link to={'/dashboard'} className="flex items-center justify-start gap-3 px-3  w-56 border py-2 rounded-xl">
+      <Link to={'/dashboard'} className="flex items-center justify-start gap-3 max-md:w-fit  px-3  w-56 border py-2 rounded-xl">
         <div className=" fill-customgreen">
-          <svg enable-background="new 0 0 32 32" width="32px" height="32px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="m31 31.36h-30c-.199 0-.36-.161-.36-.36v-30h.72v14.632c3.704-.168 5.584-2.933 7.405-5.609 1.8-2.646 3.662-5.382 7.235-5.382s5.436 2.736 7.235 5.382c1.879 2.762 3.821 5.618 7.765 5.618v.72c-4.324 0-6.376-3.016-8.36-5.933-1.773-2.606-3.448-5.068-6.64-5.068-3.193 0-4.867 2.461-6.64 5.067-1.928 2.834-3.92 5.763-8 5.926v14.287h2.28v-10.64c0-.199.161-.36.36-.36h3.64v-3.64c0-.199.161-.36.36-.36h3.64v-4.64c0-.199.161-.36.36-.36h4c.199 0 .36.161.36.36v1.64h3.64c.199 0 .36.161.36.36v3.64h3.64c.199 0 .36.161.36.36v4.64h3.64c.199 0 .36.161.36.36v8.64h2.64zm-6.64-.72h3.279v-8.28h-3.279zm-4 0h3.279v-13.28h-3.279zm-4 0h3.28v-17.28h-3.28zm-4 0h3.28v-19.28h-3.28zm-4 0h3.28v-14.28h-3.28zm-4 0h3.28v-10.28h-3.28z" /><path d="m0 0h32v32h-32z" fill="none" /></svg>
+          <svg enableBackground="new 0 0 32 32" width="32px" height="32px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="m31 31.36h-30c-.199 0-.36-.161-.36-.36v-30h.72v14.632c3.704-.168 5.584-2.933 7.405-5.609 1.8-2.646 3.662-5.382 7.235-5.382s5.436 2.736 7.235 5.382c1.879 2.762 3.821 5.618 7.765 5.618v.72c-4.324 0-6.376-3.016-8.36-5.933-1.773-2.606-3.448-5.068-6.64-5.068-3.193 0-4.867 2.461-6.64 5.067-1.928 2.834-3.92 5.763-8 5.926v14.287h2.28v-10.64c0-.199.161-.36.36-.36h3.64v-3.64c0-.199.161-.36.36-.36h3.64v-4.64c0-.199.161-.36.36-.36h4c.199 0 .36.161.36.36v1.64h3.64c.199 0 .36.161.36.36v3.64h3.64c.199 0 .36.161.36.36v4.64h3.64c.199 0 .36.161.36.36v8.64h2.64zm-6.64-.72h3.279v-8.28h-3.279zm-4 0h3.279v-13.28h-3.279zm-4 0h3.28v-17.28h-3.28zm-4 0h3.28v-19.28h-3.28zm-4 0h3.28v-14.28h-3.28zm-4 0h3.28v-10.28h-3.28z" /><path d="m0 0h32v32h-32z" fill="none" /></svg>
         </div>
-        <p className="font-heading font-normal text-primary">Dashboard</p>
+        <p className="font-heading max-md:hidden font-normal text-primary">Dashboard</p>
       </Link>
 
-      <Link to={'/signin'} className="flex fill-black items-center justify-center gap-2 h-16  w-56 border px-12 py-2 rounded-xl bottom-24 absolute">
+      <Link to={'/signin'} className="flex fill-black items-center justify-center gap-2 h-16  w-56 max-md:w-fit  border px-12 py-2 rounded-xl bottom-24  md:absolute">
         <div className="fill-customgreen stroke-customgreen">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +106,7 @@ function Leftsidebar() {
             />
           </svg>
         </div>
-        <p className="font-heading font-normal text-primary">logout</p>
+        <p className="font-heading max-md:hidden font-normal text-primary">logout</p>
       </Link>
     </div>
   )

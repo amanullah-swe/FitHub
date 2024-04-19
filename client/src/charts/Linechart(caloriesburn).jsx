@@ -39,7 +39,6 @@ export const options = {
 };
 
 const labels = newData.map(({ date }) => date);
-console.log(labels);
 export const data = {
     labels,
     datasets: [

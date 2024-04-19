@@ -10,12 +10,12 @@ export async function login(req: Request, res: Response) {
     if (!email || !password) return res.status(400).json({ message: "invalid inputs " })
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
     // Check if password is correct
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: 'Invalid password' });
+      return res.status(401).json({ error: 'Invalid password' });
     }
     const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '7d' });
 

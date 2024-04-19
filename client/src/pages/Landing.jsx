@@ -26,16 +26,11 @@ const animationLoad = () => {
     const navLinks = document.querySelectorAll("[data-nav-link]");
     const overlay = document.querySelector("[data-overlay]");
 
-    const toggleNavbar = function () {
-        navbar.classList.toggle("active");
-        overlay.classList.toggle("active");
-    }
-
-    addEventOnElem(navTogglers, "click", toggleNavbar);
 
     const closeNavbar = function () {
         navbar.classList.remove("active");
         overlay.classList.remove("active");
+        console.log('i got click')
     }
 
     addEventOnElem(navLinks, "click", closeNavbar);
@@ -78,8 +73,19 @@ const animationLoad = () => {
     addEventOnElem(window, "scroll", reveal);
 }
 
-
-
+const openNavebar = () => {
+    const navbar = document.querySelector("[data-navbar]");
+    const overlay = document.querySelector("[data-overlay]");
+    navbar.classList.toggle("active");
+    overlay.classList.toggle("active");
+}
+const closeNavbar = function () {
+    const navbar = document.querySelector("[data-navbar]");
+    const overlay = document.querySelector("[data-overlay]");
+    navbar.classList.remove("active");
+    overlay.classList.remove("active");
+    console.log('i got click')
+}
 
 
 
@@ -94,8 +100,8 @@ export default function MyClass() {
                         <img src={logo} width={55} alt="" />
                         Fithub<span className="span text-6xl">.</span>
                     </a>
-                    <nav className="navbar" data-navbar>
-                        <button className="nav-toggle-btn" aria-label="close menu" data-nav-toggler>
+                    <nav className="navbar active" data-navbar>
+                        <button className="nav-toggle-btn" aria-label="close menu" data-nav-toggler onClick={closeNavbar}>
                             <img src={closeIcon} className=' opacity-70' width={16} height={16} alt="" />
                         </button>
                         <ul className="navbar-list">
@@ -117,7 +123,7 @@ export default function MyClass() {
                         </ul>
                     </nav>
                     <Link to="/signup" className="btn btn-primary">Sign Up</Link>
-                    <button className="nav-toggle-btn" aria-label="open manu" data-nav-toggler>
+                    <button className="nav-toggle-btn" aria-label="open manu" data-nav-toggler onClick={openNavebar}>
                         <img src={menuIcon} className=' opacity-70' width={16} height={16} alt="" />
                     </button>
                     <div className="overlay" data-nav-toggler data-overlay />

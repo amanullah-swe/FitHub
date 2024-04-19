@@ -61,6 +61,11 @@ body {
     --primary: hsla(165, 77%, 17%, 1);
     --secondary: #dff3c8;
     --size: 200px;
+
+    @media not all and (min-width: 768px) {
+        --size: 130px;
+    }
+
     animation: progress 2s 0.5s forwards;
     width: var(--size);
     aspect-ratio: 5/2;
