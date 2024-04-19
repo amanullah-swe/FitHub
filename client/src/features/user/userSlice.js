@@ -94,7 +94,7 @@ export const fetchUserDataAsync = createAsyncThunk(
 export const updateUserPesonalInfromationAsync = createAsyncThunk(
   'user/updateUserPersonal-info',
   async (userData) => {
-    const response = await fetch('http://localhost:8080/api/user/personal-info', {
+    const response = await fetch(baseUrl + '/api/user/personal-info', {
       method: 'PUT',
       credentials: 'include',
       headers: {
@@ -115,7 +115,7 @@ export const updateUserPesonalInfromationAsync = createAsyncThunk(
 export const updateUserHealthInfromationAsync = createAsyncThunk(
   'user/updateUserhealth-info',
   async (userData) => {
-    const response = await fetch('http://localhost:8080/api/user/health-info', {
+    const response = await fetch(baseUrl + '/api/user/health-info', {
       method: 'PUT',
       credentials: 'include',
       headers: {
