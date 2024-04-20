@@ -46,7 +46,7 @@ function page() {
     });
 
     return (
-        <div className='h-screen flex flex-row bg-offwhite pl-[180px] max-md:pl-0 overflow-hidden relative'>
+        <div className='h-[100dvh] flex flex-row bg-offwhite pl-[180px] max-md:pl-0 overflow-hidden relative'>
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
