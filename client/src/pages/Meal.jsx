@@ -74,7 +74,7 @@ export default function Meal() {
                 theme="light"
                 transition={Zoom}
             />
-            <section className='px-20 py-24 max-md:p-8 flex flex-col w-full overflow-y-scroll max-md:pb-60 '>
+            <section className='px-20 py-24 max-md:p-8 flex flex-col w-full overflow-y-scroll max-md:pb-[110px] relative'>
                 <div className='flex flex-row gap-10'>
                     <div className='flex flex-row gap-10 max-md:flex-col w-full'>
                         <img className='rounded-xl shadow-md border' src={baseUrl + meal?.images} alt='meal' width={300} />

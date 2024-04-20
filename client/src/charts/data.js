@@ -868,7 +868,19 @@ export const PolarChartFilter = (Data) => {
         mergeArray = mergeArray.concat(snackPm);
     })
     const uniqueArray = uniqueWithOccr(mergeArray);
-    return uniqueArray;
+    function compare(a, b) {
+        if (a.occr > b.occr) {
+            return -1;
+        }
+        if (a.occr < b.occr) {
+            return 1;
+        }
+        return 0;
+    }
+
+    let temp = uniqueArray.sort(compare);
+    temp = temp.slice(0, 7)
+    return temp;
 }
 
 

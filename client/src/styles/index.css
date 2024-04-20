@@ -27,11 +27,12 @@ html {
     font-size: 8.5px;
     color: #000;
     scroll-behavior: smooth;
+    height: -webkit-fill-available;
 }
 
 body {
     color: #000;
-
+    height: -webkit-fill-available;
 }
 
 

@@ -32,5 +32,5 @@ export const data = {
 };
 
 export default function Polarchart() {
-    return <PolarArea data={data} className='bg-white shadow-xl rounded-3xl p-4' />;
+    return <PolarArea data={data} className='bg-white w-full shadow-xl rounded-3xl p-4' />;
 }

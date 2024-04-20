@@ -54,5 +54,5 @@ export const data = {
 };
 
 export default function Linechartcalories() {
-    return <Line options={options} data={data} className='bg-white shadow-xl rounded-3xl p-4' />;
+    return <Line options={options} data={data} className='bg-white w-full shadow-xl rounded-3xl p-4' />;
 }

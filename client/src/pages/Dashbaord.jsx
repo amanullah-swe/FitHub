@@ -6,9 +6,10 @@ import Linechart from '../charts/Linechart.jsx'
 import Linechartcalories from '../charts/LineChart(calories).jsx'
 import Linechartcaloriesburn from '../charts/Linechart(caloriesburn).jsx'
 
+
 function Dashbaord() {
     return (
-        <div className='w-full flex bg-offwhite h-screen relative pl-[180px] max-md:pl-0'>
+        <div className='w-full flex bg-offwhite h-screen relative pl-[180px] max-md:pl-0' data-container>
             <Leftsidebar />
             <div className='flex flex-grow flex-col gap-10 overflow-auto px-20 pt-32 pb-40 max-md:pb-[115px] max-md:px-5 scroll-smooth'>
                 <h1 className=' font-heading self-center text-6xl text-customgreen font-bold leading-10 shadow px-4 py-2  bg-offwhite '>Dashboard</h1>

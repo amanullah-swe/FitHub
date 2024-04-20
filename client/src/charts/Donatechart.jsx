@@ -12,7 +12,7 @@ export const options = {
         },
         title: {
             display: true,
-            text: 'Most consumed meals',
+            text: 'Most 7 consumed meals',
         },
     },
 };
@@ -72,5 +72,5 @@ export const data = {
 };
 
 export function Donatechart() {
-    return <Doughnut data={data} options={options} className='bg-white shadow-xl rounded-3xl p-4' />;
+    return <Doughnut data={data} options={options} className='bg-white w-full shadow-xl rounded-3xl p-4' />;
 }
