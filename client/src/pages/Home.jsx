@@ -61,7 +61,7 @@ function page() {
                 transition={Zoom}
             />
             <Leftsidebar />
-            <div className='px-10 py-5 flex flex-col  w-full max-md:pb-[102px]' >
+            <div className='px-10 py-5 flex flex-col  w-full max-md:pb-[102px] max-md:px-4'  >
                 {/* date and all  */}
                 <div className='w-full flex flex-col border rounded-lg bg-white py-1.3'>
 

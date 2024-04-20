@@ -3,7 +3,7 @@ import { courses3 } from '../assets/images'
 
 function Blog() {
     return (
-        <div className='w-full  h-ful bg-[#ffff] pb-20 '>
+        <div className='w-full  h-[100dvh] bg-[#ffff] pb-20 '>
             <div className="blog-card max-w-[800px] m-auto">
                 <div className="wrapper">
                     <time className="publish-date" dateTime="2022-02-24">

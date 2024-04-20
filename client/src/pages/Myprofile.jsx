@@ -11,7 +11,7 @@ export default function Myprofile() {
         dispatch(fetchUserDataAsync())
     }, [])
     return (
-        <div className="w-full h-screen  flex bg-offwhite pl-[180px] max-md:pl-0 relative">
+        <div className="w-full h-[100dvh]  flex bg-offwhite pl-[180px] max-md:pl-0 relative">
             <Leftsidebar />
 
             <div className='w-full h-full px-12 py-6 overflow-y-scroll max-md:px-3 max-md:pb-[100px]'>

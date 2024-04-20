@@ -36,7 +36,7 @@ export default function signin() {
 
 
     return (
-        <div className="flex flex-1 flex-col justify-center h-full min-h-screen px-6 py-12 lg:px-8 bg-offwhite">
+        <div className="flex flex-1 flex-col justify-center h-full min-h-[100dvh] px-6 py-12 lg:px-8 bg-offwhite">
             <TostifyPop />
             <div className="sm:mx-auto sm:w-full sm:max-w-5xl">
                 <img

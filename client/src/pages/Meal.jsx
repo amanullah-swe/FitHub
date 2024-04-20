@@ -16,6 +16,7 @@ export default function Meal() {
     const params = useParams();
     const dispatch = useDispatch();
     const meal = useSelector(selectMeal);
+    const otherDataSize = meal.otherData.length - 1;
     const calculatedNutrients = useSelector(selectCalculatedNutrients);
     const [mealType, setmealType] = useState('breakfast');
     const [unite, setUnite] = useState(100);
@@ -60,7 +61,6 @@ export default function Meal() {
     });
     return (
         <main className='h-screen w-full flex pl-[180px] max-md:pl-0'>
-            <Leftsidebar />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -74,10 +74,11 @@ export default function Meal() {
                 theme="light"
                 transition={Zoom}
             />
-            <section className='px-20 py-24 max-md:p-8 flex flex-col w-full overflow-y-scroll max-md:pb-[110px] relative'>
+            <Leftsidebar />
+            <section className='px-20 h-[100dvh] py-24 max-md:p-8 flex flex-col w-full overflow-y-scroll max-md:pb-[110px] relative'>
                 <div className='flex flex-row gap-10'>
                     <div className='flex flex-row gap-10 max-md:flex-col w-full'>
-                        <img className='rounded-xl shadow-md border' src={baseUrl + meal?.images} alt='meal' width={300} />
+                        <img className='rounded-xl shadow-md border min-w-[300px] aspect-square' src={baseUrl + meal?.images} alt='meal' width={300} />
                         <div className='flex flex-col justify-between w-full'>
                             <div className='w-full'>
                                 <h1 className='font-heading text-5xl font-bold text-black leading-20 '>{meal?.name} </h1>
@@ -114,7 +115,7 @@ export default function Meal() {
                 </div>
 
                 {/* nuitritions */}
-                <div className='mt-16 p-8  flex flex-col gap-6 border shadow'>
+                <div className='mt-16 p-8  flex flex-col gap-6 border shadow-lg'>
                     {nutrientsArrayFilter(calculatedNutrients)?.map(({ name, value }, index) => (
                         <div className={`flex justify-between ${" border-b"}`} key={index}>
                             <p className='font-body text-3xl font-normal leading-8'> {name}</p>
@@ -124,9 +125,9 @@ export default function Meal() {
                 </div>
 
                 {/* Additional information */}
-                <div className='mt-16 p-8  flex flex-col gap-6 border '>
+                <div className='mt-16 p-8  flex flex-col gap-6 border shadow-lg '>
                     {meal.otherData.map((data, index) => (
-                        <div key={index} className={`flex flex-row justify-between w-full px-4 ${index && " border-b"}`}>
+                        <div key={index} className={`flex flex-row justify-between w-full px-4 ${index != otherDataSize ? " border-b border-black pb-4" : ''}`}>
                             <p className='w-full font-body text-3xl font-normal leading-8'>{data.name}</p>
                             <div className={`w-full flex flex-row gap-3 `}> {data.value.map((val, index) => (
                                 <p key={index} className='font-body text-3xl font-normal leading-8'>{val},</p>

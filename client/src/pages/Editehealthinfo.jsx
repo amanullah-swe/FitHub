@@ -81,7 +81,7 @@ const EditeHealthinfo = () => {
             }}
         >
             {({ values, handleBlur, handleChange, touched, errors }) => (
-                <Form className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-offwhite">
+                <Form className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-offwhite min-h-[100dvh]">
                     <TostifyPop />
                     <div className="sm:mx-auto sm:w-full sm:max-w-5xl mt-16">
                         <h2 className="mt-10 text-center text-5xl text-black font-bold leading-9 tracking-tigh">

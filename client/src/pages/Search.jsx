@@ -20,9 +20,9 @@ function Search() {
     }
 
     return (
-        <div className='w-full h-screen flex  overflow-hidden relative pl-[180px] max-md:pl-0'>
+        <div className='w-full h-[100dvh] flex  overflow-hidden relative pl-[180px] max-md:pl-0'>
             <Leftsidebar />
-            <div className='flex-gow py-10 px-10 flex flex-col items-center w-full'>
+            <div className='flex-gow p-10 flex flex-col items-center w-full max-md:p-2'>
                 <form action="" className=' sticky w-[90%]  top-20 bg-white shadow rounded-2xl' onSubmit={handleSubmite}>
                     <div className='flex h-24 rounded-2xl  border border-black w-full'>
                         <input
@@ -42,7 +42,7 @@ function Search() {
 
 
                 {/*show result  */}
-                <div className={'mt-10 px-5 w-full'}  >
+                <div className={'mt-20 px-5 w-full'}  >
                     <FoodList removebutton={false} title='Results' data={dataArray} />
                 </div>
             </div>
