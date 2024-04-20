@@ -5,11 +5,10 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { getPreviousDate } from '../helpers/getPrevioudDate';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDailyFitnessAndMealsDataAsync } from '../features/fitnesAndDiet/fitnessAndDietSlice';
+import { addDailyFitnessAndMealsDataAsync, clearDietAndMealApiMessage, selectDietAndMealApiMessage } from '../features/fitnesAndDiet/fitnessAndDietSlice';
 import { calculateNutrients, fetchMelaByIdAsync, selectCalculatedNutrients, selectMeal } from '../features/meal/mealSlice';
-import { ToastContainer, Zoom, toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 import { baseUrl } from '../app/constant';
+import TostifyPop, { errorPop, successPop } from '../components/TostifyPop';
 
 
 export default function Meal() {
@@ -21,7 +20,18 @@ export default function Meal() {
     const [mealType, setmealType] = useState('breakfast');
     const [unite, setUnite] = useState(100);
     const [serving, setServing] = useState(1);
-
+    const requestStatus = useSelector(selectDietAndMealApiMessage);
+    useEffect(() => {
+        if (requestStatus.success) {
+            console.log(requestStatus);
+            successPop(requestStatus.success)
+            dispatch(clearDietAndMealApiMessage());
+            return;
+        }
+        console.log(requestStatus.error);
+        errorPop(requestStatus.error)
+        dispatch(clearDietAndMealApiMessage());
+    }, [requestStatus])
 
 
     useEffect(() => {
@@ -30,7 +40,6 @@ export default function Meal() {
     }, []);
 
     useEffect(() => {
-        console.log(typeof (+unite), typeof (+serving));
         dispatch(calculateNutrients({ unite: unite, serving_size: serving }));
     }, [unite, serving])
 
@@ -44,38 +53,12 @@ export default function Meal() {
         };
         const date = getPreviousDate();
         dispatch(addDailyFitnessAndMealsDataAsync({ meal: tempMeal, date, mealType }));
-        successPop();
-
     }
-
-    const successPop = () => toast.success('Your meal added successfully', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Zoom,
-    });
     return (
         <main className='h-screen w-full flex pl-[180px] max-md:pl-0'>
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Zoom}
-            />
+            <TostifyPop />
             <Leftsidebar />
-            <section className='px-20 h-[100dvh] py-24 max-md:p-8 flex flex-col w-full overflow-y-scroll max-md:pb-[110px] relative'>
+            <section className='px-20 h-[100dvh] py-24 max-md:p-8 flex flex-col w-full overflow-y-scroll max-md:pb-[70px] relative'>
                 <div className='flex flex-row gap-10'>
                     <div className='flex flex-row gap-10 max-md:flex-col w-full'>
                         <img className='rounded-xl shadow-md border min-w-[300px] aspect-square' src={baseUrl + meal?.images} alt='meal' width={300} />

@@ -1,11 +1,12 @@
 import React from 'react'
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Zoom, toast } from 'react-toastify';
 
 function TostifyPop() {
     return (
         <ToastContainer
             position="top-center"
-            autoClose={5000}
+            autoClose={1000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
@@ -34,7 +35,7 @@ export const successPop = (message) => toast.success(message, {
 export const errorPop = (error) => {
     toast.error(error, {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

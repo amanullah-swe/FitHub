@@ -1,14 +1,16 @@
 import { useFormik } from 'formik';
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { authRegisterAsync, selectRegesterStatus } from '../features/user/userSlice';
+import { authRegisterAsync, clearRequestStatus, selectRequestStatus } from '../features/user/userSlice';
 import Formfeild from '../components/Formfield';
 import { logo } from '../assets';
 import { signupSchema } from '../schema/formsShema';
+import TostifyPop, { errorPop, successPop } from '../components/TostifyPop';
+import { useEffect } from 'react';
 export default function signup() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
-    const apiCallStatus = useSelector(selectRegesterStatus);
+    const requestStatus = useSelector(selectRequestStatus);
     const initialValues = {
         name: '',
         email: '',
@@ -24,24 +26,34 @@ export default function signup() {
         validationSchema: signupSchema,
         onSubmit: async (values, action) => {
             try {
+                console.log(values);
                 if (values.password != values.confirmPassword) return;
                 dispatch(authRegisterAsync(values));
-                if (apiCallStatus.status == 'idl') {
-                    action.resetForm();
-                    setTimeout(() => {
-                        navigate('/signin', { replace: true })
-                    }, 3000)
-                    return;
-                }
-                console.log(apiCallStatus);
             } catch (error) {
                 console.log(error);
             }
         }
     });
 
+
+    useEffect(() => {
+        if (requestStatus.success) {
+            console.log(requestStatus);
+            successPop(requestStatus.success)
+            dispatch(clearRequestStatus());
+            setTimeout(() => {
+                navigate('/signin')
+            }, 1000)
+            return;
+        }
+        console.log(requestStatus.error);
+        errorPop(requestStatus.error)
+        dispatch(clearRequestStatus());
+    }, [requestStatus])
+
     return (
         <>
+            <TostifyPop />
             <div className="flex min-h-[100dvh] flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-offwhite">
                 <div className="sm:mx-auto sm:w-full sm:max-w-5xl">
                     <img
@@ -69,7 +81,7 @@ export default function signup() {
                         <div>
                             <div>
                                 <button type="submit" className="flex w-full justify-center rounded-md bg-customgreen px-12 py-6 text-2xl font-semibold leading-6 text-white shadow-xl hover:bg-secondary hover:text-primary focus-visible:outline focus-visible:outline-2 transition-all">
-                                    Sign in
+                                    Sign up
                                 </button>
                             </div>
                         </div>

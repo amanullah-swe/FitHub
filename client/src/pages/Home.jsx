@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import FoodList from '../components/FoodList.jsx';
 import Leftsidebar from '../components/Leftsidebar.jsx'
-import { RemoveMealFromDailyFitnessAndMealsDataAsync, fetchDailyFitnessAndMealsDataAsync, selectDate, selectDocumentId, selectFitness, selectHomeError, selectTotalnutrients } from '../features/fitnesAndDiet/fitnessAndDietSlice.js';
+import { RemoveMealFromDailyFitnessAndMealsDataAsync, clearDietAndMealApiMessage, fetchDailyFitnessAndMealsDataAsync, selectDate, selectDietAndMealApiMessage, selectDocumentId, selectFitness, selectHomeError, selectTotalnutrients } from '../features/fitnesAndDiet/fitnessAndDietSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousDate } from '../helpers/getPrevioudDate.js';
 import { ToastContainer, Zoom, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { selectUser } from '../features/user/userSlice.js';
+import TostifyPop, { errorPop, successPop } from '../components/TostifyPop.jsx';
 function page() {
     const dispatch = useDispatch();
     const meals = useSelector(selectFitness);
@@ -16,6 +17,7 @@ function page() {
     const [days, setDays] = useState(0);
     const setcalories = useSelector(selectUser).caloriesGoal;
     const setProtien = useSelector(selectUser).proteinGoal;
+    const requestStatus = useSelector(selectDietAndMealApiMessage);
 
     useEffect(() => {
         const date = getPreviousDate(days);
@@ -28,40 +30,25 @@ function page() {
         e.stopPropagation();
         console.log(mealType, index);
         const meal = meals[mealType][index];
-        console.log(meal);
         dispatch(RemoveMealFromDailyFitnessAndMealsDataAsync({ name, docId, index, mealType, meal }));
-        successRemovePop();
-
     }
-    const successRemovePop = () => toast.success('Your Meal Removed Successfully', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Zoom,
-    });
+    useEffect(() => {
+        if (requestStatus.success) {
+            console.log(requestStatus);
+            successPop(requestStatus.success)
+            dispatch(clearDietAndMealApiMessage());
+            return;
+        }
+        console.log(requestStatus.error);
+        errorPop(requestStatus.error)
+        dispatch(clearDietAndMealApiMessage());
+    }, [requestStatus])
 
     return (
         <div className='h-[100dvh] flex flex-row bg-offwhite pl-[180px] max-md:pl-0 overflow-hidden relative'>
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Zoom}
-            />
+            <TostifyPop />
             <Leftsidebar />
-            <div className='px-10 py-5 flex flex-col  w-full max-md:pb-[102px] max-md:px-4'  >
+            <div className='px-10 py-5 flex flex-col  w-full max-md:pb-[60px] max-md:px-4'  >
                 {/* date and all  */}
                 <div className='w-full flex flex-col border rounded-lg bg-white py-1.3'>
 

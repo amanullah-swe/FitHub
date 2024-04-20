@@ -2,18 +2,31 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { bgOverlay, heroPerson, homeIcon, logo } from '../assets'
 import Leftsidebar from '../components/Leftsidebar.jsx'
-import { fetchUserDataAsync, selectUser } from '../features/user/userSlice.js';
+import { clearRequestStatus, fetchUserDataAsync, selectRequestStatus, selectUser } from '../features/user/userSlice.js';
 import { Link } from 'react-router-dom';
+import TostifyPop, { errorPop, successPop } from '../components/TostifyPop.jsx';
 export default function Myprofile() {
     const dispatch = useDispatch();
+    const requestStatus = useSelector(selectRequestStatus);
     const user = useSelector(selectUser);
     useEffect(() => {
         dispatch(fetchUserDataAsync())
     }, [])
+
+
+    useEffect(() => {
+        if (requestStatus.success) {
+            // successPop(requestStatus.success)
+            dispatch(clearRequestStatus());
+            return;
+        }
+        errorPop(requestStatus.error)
+        dispatch(clearRequestStatus());
+    }, [requestStatus])
     return (
         <div className="w-full h-[100dvh]  flex bg-offwhite pl-[180px] max-md:pl-0 relative">
             <Leftsidebar />
-
+            <TostifyPop />
             <div className='w-full h-full px-12 py-6 overflow-y-scroll max-md:px-3 max-md:pb-[100px]'>
                 {/* personal information */}
                 <div id='container1' className='flex gap-4 flex-row max-md:flex-col bg-white border rounded-3xl px-3 py-6 mb-5 relative shadow-xl '>

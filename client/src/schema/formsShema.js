@@ -10,13 +10,13 @@ export const signupSchema = object({
     profession: string().required('Enter your profession'),
     age: number().required('enter a valid age'),
     gender: string().required('enter you gender'),
-    city: string().min(6).max(99).required('Enter a city'),
+    // city: string().min(6).max(99).required('Enter a city'),
     password: string()
         .required('No password provided.')
         .min(8, 'Password is too short - should be 8 chars minimum.')
         .max(16, 'Password is too loong - should be 16 chars maximum.'),
     confirmPassword: string().required('No confirm password provided.').oneOf([ref('password'), null], 'Passwords must match'),
-    phone: number().min(10).max(10).required('Enter Mobile number')
+    phone: number().required('Enter Mobile number')
 });
 
 

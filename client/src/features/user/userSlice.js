@@ -171,10 +171,11 @@ export const userSlice = createSlice({
       })
       .addCase(authRegisterAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.register.status = 'loading';
+        state.requestStatus.success = 'sign up successfull'
       })
       .addCase(authRegisterAsync.rejected, (state, action) => {
         state.status = 'reject';
+        state.requestStatus.error = action.error.message;
         state.Errors = action.error;
       })
 
@@ -185,11 +186,11 @@ export const userSlice = createSlice({
       .addCase(fetchUserDataAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.data = action.payload;
-        state.Errors = null;
+        state.requestStatus.success = 'request fullfiled'
       })
       .addCase(fetchUserDataAsync.rejected, (state, action) => {
         state.status = 'reject';
-        state.Errors = action.error;
+        state.requestStatus.error = action.error.message;
       })
 
       // UPDATING USER PERSONAL INFORMATION

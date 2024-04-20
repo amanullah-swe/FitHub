@@ -43,6 +43,10 @@ const initialState = {
 
     },
   },
+  dietAndMealApiMessage: {
+    success: null,
+    error: null
+  },
   homeError: false,
 };
 export const fetchDailyFitnessAndMealsDataAsync = createAsyncThunk(
@@ -77,6 +81,10 @@ export const fitnessSlice = createSlice({
     increment: (state) => {
       state.value += 1;
     },
+    clearDietAndMealApiMessage: (state) => {
+      state.dietAndMealApiMessage.success = null;
+      state.dietAndMealApiMessage.error = null;
+    },
   },
   extraReducers: (builder) => {
     // fetch
@@ -86,25 +94,29 @@ export const fitnessSlice = createSlice({
       })
       .addCase(fetchDailyFitnessAndMealsDataAsync.fulfilled, (state, action) => {
         state.status = 'idle';
+        state.dietAndMealApiMessage.success = 'request fullfiled'
         state.data = action.payload;
         state.homeError = null;
       })
       .addCase(fetchDailyFitnessAndMealsDataAsync.rejected, (state, action) => {
         state.status = 'reject';
+        state.dietAndMealApiMessage.error = action.error.message;
         state.homeError = action.error;
       })
 
-      // add
+      // MEAL ADD 
       .addCase(addDailyFitnessAndMealsDataAsync.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(addDailyFitnessAndMealsDataAsync.fulfilled, (state, action) => {
         state.status = 'idle';
+        state.dietAndMealApiMessage.success = 'meal added'
         state.data = action.payload;
         state.homeError = null;
       })
       .addCase(addDailyFitnessAndMealsDataAsync.rejected, (state, action) => {
         state.status = 'reject';
+        state.dietAndMealApiMessage.error = action.error.message;
         state.homeError = action.error;
       })
 
@@ -125,11 +137,12 @@ export const fitnessSlice = createSlice({
   },
 });
 
-export const { increment, } = fitnessSlice.actions;
+export const { increment, clearDietAndMealApiMessage } = fitnessSlice.actions;
 
 export const selectFitness = (state) => state.fitnessAndDiet.data.meals;
 export const selectTotalnutrients = (state) => state.fitnessAndDiet.data.totalNutrients;
 export const selectDate = (state) => state.fitnessAndDiet.data.date;
 export const selectDocumentId = (state) => state.fitnessAndDiet.data._id;
 export const selectHomeError = (state) => state.fitnessAndDiet.homeError;
+export const selectDietAndMealApiMessage = (state) => state.fitnessAndDiet.dietAndMealApiMessage;
 export default fitnessSlice.reducer;
