@@ -43,7 +43,7 @@ function Leftsidebar() {
       </Link>
 
       {/* meals bowl */}
-      <div className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3  py-2 rounded-xl">
+      {/* <div className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3  py-2 rounded-xl">
         <div className=" fill-customgreen">
           <svg className=" fill-inherit" height="32px" width="32px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
             viewBox="0 0 307.429 307.429" xmlSpace="preserve">
@@ -70,7 +70,7 @@ function Leftsidebar() {
           </svg>
         </div>
         <p className="font-heading max-md:hidden font-normal text-primary">Meals</p>
-      </div>
+      </div> */}
 
       {/* profile */}
       <Link to={'/my-profile'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3 py-2 rounded-xl">
@@ -88,8 +88,8 @@ function Leftsidebar() {
         <p className="font-heading max-md:hidden font-normal text-primary">Dashboard</p>
       </Link>
 
-      <Link to={'/signin'} className="flex fill-black items-center justify-center gap-2 h-16  w-56 max-md:w-fit  border px-12 py-2 rounded-xl bottom-24  md:absolute">
-        <div className="fill-customgreen stroke-customgreen">
+      <Link to={'/signin'} className="flex fill-black items-center justify-center gap-2 h-16  w-56 max-md:w-[32px] max-md:h-[32px] border px-12 py-2 rounded-xl bottom-24  md:absolute">
+        <div className="fill-customgreen stroke-customgreen max-w-[32px] h-[32px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="ionicon"
