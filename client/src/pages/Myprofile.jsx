@@ -14,7 +14,7 @@ export default function Myprofile() {
         <div className="w-full h-screen  flex bg-offwhite pl-[180px] max-md:pl-0 relative">
             <Leftsidebar />
 
-            <div className='w-full h-full px-12 py-6 overflow-y-scroll max-md:px-3'>
+            <div className='w-full h-full px-12 py-6 overflow-y-scroll max-md:px-3 max-md:pb-[100px]'>
                 {/* personal information */}
                 <div id='container1' className='flex gap-4 flex-row max-md:flex-col bg-white border rounded-3xl px-3 py-6 mb-5 relative shadow-xl '>
                     <div className=' w-[300px]  h-[300px] overflow-hidden'>
@@ -164,7 +164,7 @@ export default function Myprofile() {
 
                     <div className='mt-10 flex flex-col gap-8 text-black'>
                         <div className='flex flex-row w-full'>
-                            <p className='px-12 py-4 font-body text-3xl leading-10 w-2/3'>NotificationPreferences</p>
+                            <p className='px-12 py-4 font-body text-3xl leading-10 w-2/3 max-md:w-full'>Notification Preferences</p>
                             <div className='flex flex-col gap-4 items-start'>
                                 <label className=" items-center cursor-pointer px-12 flex gap-4 justify-between w-full">
                                     <span className="ms-3 text-3xl font-medium text-gray-900 ">Email</span>
@@ -185,15 +185,15 @@ export default function Myprofile() {
                         </div>
 
                         <div className='flex flex-row w-full'>
-                            <p className='px-12 py-4 font-body text-3xl leading-10 w-2/3'>Privacy</p>
+                            <p className='px-12 py-4 font-body text-3xl leading-10 w-2/3 max-md:w-full'>Privacy</p>
                             <div className='flex flex-col gap-4 items-start'>
                                 <label className=" items-center cursor-pointer px-12 flex gap-4 justify-between w-full">
-                                    <span className="ms-3 text-3xl font-medium text-gray-900 ">profileVisibility</span>
+                                    <span className="ms-3 text-3xl font-medium text-gray-900 max-md:w-full ">profile Visibility</span>
                                     <input type="checkbox" hidden value="" className="sr-only peer" />
                                     <div className="relative w-24 h-12 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-10 after:w-10 after:transition-all dark:border-primary peer-checked:bg-customgreen"></div>
                                 </label>
                                 <label className=" items-center cursor-pointer px-12  flex justify-between w-full">
-                                    <span className="ms-3 text-3xl font-medium text-gray-900 ">dataSharing</span>
+                                    <span className="ms-3 text-3xl font-medium text-gray-900 max-md:w-full ">data Sharing</span>
                                     <input type="checkbox" hidden value="" className="sr-only peer" />
                                     <div className="relative w-24 h-12 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-10 after:w-10 after:transition-all dark:border-primary peer-checked:bg-customgreen"></div>
                                 </label>
