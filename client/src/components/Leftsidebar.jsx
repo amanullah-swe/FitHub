@@ -5,7 +5,7 @@ import { homeIcon, logo } from "../assets"
 
 function Leftsidebar() {
   return (
-    <div className="flex flex-col items-center max-md:justify-between  gap-20 h-full w-[180px] bg-offwhite py-24 px-7 boder border-r border-r-customgreen absolute z-50 min-md:top-0 left-0 max-md:bottom-0 max-md:flex-row max-md:w-full max-md:h-[50px] max-md:gap-5 max-md:border-t-customgreen max-md:border-t  ">
+    <div className="flex flex-col items-center max-md:justify-between  gap-20 h-full w-[180px] bg-offwhite py-24 px-7 boder border-r border-r-customgreen absolute z-50 min-md:top-0 left-0 max-md:bottom-0 max-md:flex-row max-md:w-full max-md:h-[100px] max-md:gap-5 max-md:border-t-customgreen max-md:border-t  ">
       {/* log */}
       {/* <Link to={'/'} className="flex items-center justify-center gap-4  w-56 max-md:w-fit  px-12 py-2 rounded-xl max-md:hidden">
         <img src={logo} width={40} alt="" />
