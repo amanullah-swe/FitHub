@@ -12,11 +12,13 @@ const NutrientsSchema = {
 };
 
 // Define workout sub-schema
-const WorkoutSchema = {
-    workoutType: String,
+const WorkoutSchema = new Schema({
+    name: String,
+    intensity: String,
     duration: Number,
-    caloriesBurned: Number
-};
+    caloriesBurned: Number,
+    metValue: Number
+});
 
 // Define meal sub-schema
 const MealSchema = {
@@ -35,6 +37,18 @@ const MealSchema = {
 const DailyFitnessAndDietSchema = new Schema({
     userId: { type: String, require: true },
     date: { type: String, required: true },
+    proteinGoal: {
+        type: Number,
+        default: 0
+    },
+    caloriesGoal: {
+        type: Number,
+        default: 0
+    },
+    weight: {
+        type: Number,
+        default: 0
+    },
     currentFitnessLevel: { type: String, required: true },
     totalCaloriesBurned: { type: Number, required: true },
     totalNutrients: NutrientsSchema,

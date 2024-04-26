@@ -1,17 +1,20 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { homeIcon, logo } from "../assets"
+import { useSelector } from "react-redux";
+import { selectAuth } from "../features/user/userSlice";
 
 
 function Leftsidebar() {
+  const auth = useSelector(selectAuth);
   return (
     <div className="flex flex-col items-center max-md:justify-between  gap-20 h-full w-[180px] bg-offwhite py-24 px-7 boder border-r border-r-customgreen absolute z-50 min-md:top-0 left-0 max-md:bottom-0 max-md:flex-row max-md:w-full max-md:h-[60px] max-md:gap-5 max-md:border-t-customgreen max-md:border-t max-md:py-0  ">
-      {/* log */}
-      {/* <Link to={'/'} className="flex items-center justify-center gap-4  w-56 max-md:w-fit  px-12 py-2 rounded-xl max-md:hidden">
+      {/* logo */}
+      <Link to={'/'} className="flex items-center justify-center gap-4  w-56 max-md:w-fit  px-12 py-2 rounded-xl max-md:hidden">
         <img src={logo} width={40} alt="" />
-        <a href="#" className="logo2  flex items-end">Fithub <span className="span text-5xl"> .</span>
-        </a>
-      </Link> */}
+        <p className="logo2  flex items-end">Fithub <span className="span text-5xl"> .</span>
+        </p>
+      </Link>
       {/* home */}
       <Link to={'/home'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3 py-2 rounded-xl">
         <div className="fill-customgreen">
@@ -24,7 +27,7 @@ function Leftsidebar() {
       </Link>
 
       {/* search */}
-      <Link to={'/search'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3 py-2 rounded-xl">
+      <Link to={'/search'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3 py-2 rounded-xl max-md:hidden">
         <div className=" fill-customgreen stroke-customgreen">
           <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_15_152) " className=" stroke-inherit" >
@@ -43,7 +46,7 @@ function Leftsidebar() {
       </Link>
 
       {/* meals bowl */}
-      {/* <div className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3  py-2 rounded-xl">
+      <Link to={'/create-meal'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3  py-2 rounded-xl">
         <div className=" fill-customgreen">
           <svg className=" fill-inherit" height="32px" width="32px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
             viewBox="0 0 307.429 307.429" xmlSpace="preserve">
@@ -69,11 +72,11 @@ function Leftsidebar() {
             </g>
           </svg>
         </div>
-        <p className="font-heading max-md:hidden font-normal text-primary">Meals</p>
-      </div> */}
+        <p className="font-heading max-md:hidden font-normal text-primary">create</p>
+      </Link>
 
       {/* profile */}
-      <Link to={'/my-profile'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3 py-2 rounded-xl">
+      <Link to={'/my-profile'} className="flex items-center justify-start gap-2  w-56 max-md:w-fit  border px-3 py-2 rounded-xl max-md:hidden">
         <div className=" fill-customgreen">
           <svg width="32px" height="32px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" className=" fill-inherit" clipRule="evenodd" d="M16.5 7.063C16.5 10.258 14.57 13 12 13c-2.572 0-4.5-2.742-4.5-5.938C7.5 3.868 9.16 2 12 2s4.5 1.867 4.5 5.063zM4.102 20.142C4.487 20.6 6.145 22 12 22c5.855 0 7.512-1.4 7.898-1.857a.416.416 0 0 0 .09-.317C19.9 18.944 19.106 15 12 15s-7.9 3.944-7.989 4.826a.416.416 0 0 0 .091.317z" fill="#000000" /></svg>
         </div>
@@ -88,7 +91,7 @@ function Leftsidebar() {
         <p className="font-heading max-md:hidden font-normal text-primary">Dashboard</p>
       </Link>
 
-      <Link to={'/signin'} className="flex fill-black items-center justify-center gap-2 h-16  w-56 max-md:w-[32px] max-md:h-[32px] border px-12 py-2 rounded-xl bottom-24  md:absolute">
+      {auth ? <Link to={'/signin'} className="flex fill-black items-center justify-center gap-2 h-16  w-58 max-md:w-[32px] max-md:h-[32px] border px-12 py-2 rounded-xl bottom-24  md:absolute">
         <div className="fill-customgreen stroke-customgreen max-w-[32px] h-[32px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -106,8 +109,28 @@ function Leftsidebar() {
             />
           </svg>
         </div>
-        <p className="font-heading max-md:hidden font-normal text-primary">logout</p>
+        <p className="font-heading max-md:hidden font-normal text-primary">Sing Out</p>
       </Link>
+        : <Link to={'/signin'} className="flex fill-black items-center justify-center gap-2 h-16  w-58 max-md:w-[32px] max-md:h-[32px] border px-12 py-2 rounded-xl bottom-24  md:absolute">
+          <div className="fill-customgreen stroke-customgreen max-w-[32px] h-[32px]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="ionicon"
+              viewBox="0 0 512 512"
+              width={32}
+            >
+              <path
+                d="M304 336v40a40 40 0 01-40 40H104a40 40 0 01-40-40V136a40 40 0 0140-40h152c22.09 0 48 17.91 48 40v40M368 336l80-80-80-80M176 256h256"
+                fill="none"
+                stroke="inherit"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={32}
+              />
+            </svg>
+          </div>
+          <p className="font-heading max-md:hidden font-normal text-primary">Sign In </p>
+        </Link>}
     </div>
   )
 }

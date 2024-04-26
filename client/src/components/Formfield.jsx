@@ -1,8 +1,8 @@
-const Formfeild = ({ handleBlur, handleChange, name, value, label, error, touch }) => {
+const Formfeild = ({ handleBlur, handleChange, name, value, label, error, touch, type }) => {
     return (
         <div className='w-full'>
             <div className="flex items-center justify-between">
-                <label htmlFor={name} className=" text-2xl font-semibold leading-10 flex flex-col items-center">
+                <label htmlFor={name} className=" text-2xl font-semibold leading-10 flex flex-col">
                     {label}:{touch && <span className="text-red-500 text-[10px]">{error}</span>}
                 </label>
             </div>
@@ -10,7 +10,7 @@ const Formfeild = ({ handleBlur, handleChange, name, value, label, error, touch 
                 <input
                     id={label}
                     name={name}
-                    type='text'
+                    type={type ? type : "text"}
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={value}

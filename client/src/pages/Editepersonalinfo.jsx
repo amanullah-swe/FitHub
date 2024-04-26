@@ -6,6 +6,7 @@ import Formfeild from "../components/Formfield"
 import { personalInformaionSchema } from '../schema/formsShema';
 import TostifyPop, { errorPop, successPop } from '../components/TostifyPop';
 import { useEffect } from 'react';
+import Navbar from '../components/Navbar';
 export default function Editepersonalinfo() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -52,6 +53,7 @@ export default function Editepersonalinfo() {
 
     return (
         <>
+            <Navbar />
             <TostifyPop />
             <div className="flex min-h-[100dvh] flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-offwhite">
                 <div className="sm:mx-auto sm:w-full sm:max-w-5xl">

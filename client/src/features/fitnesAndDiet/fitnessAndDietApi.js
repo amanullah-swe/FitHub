@@ -16,6 +16,9 @@ export function fetchDailyFitnessAndMealsData({ date }) {
         date: date,
         currentFitnessLevel: "",
         totalCaloriesBurned: 0,
+        proteinGoal: 0,
+        caloriesGoal: 0,
+        weight: 0,
         totalNutrients: {
           protein: 0,
           calories: 0,
@@ -58,6 +61,7 @@ export function fetchDailyFitnessAndMealsData({ date }) {
   );
 }
 export function addDailyFitnessAndMealsData({ date, meal, mealType }) {
+  console.log({ date, meal, mealType });
   return new Promise(async (resolve, reject) => {
     const response = await fetch(`${baseUrl}/api/addMeals`, {
       credentials: "include",
@@ -83,7 +87,7 @@ export function RemoveMealFromDailyFitnessAndMealsData({ name, docId, index, mea
   return new Promise(async (resolve, reject) => {
     const response = await fetch(`${baseUrl}/api/remove-meals`, {
       credentials: "include",
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

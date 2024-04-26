@@ -23,7 +23,7 @@ export async function login(req: Request, res: Response) {
     res.cookie('token', token, {
       path: '/', // Set the path to '/'
       httpOnly: true,
-      maxAge: 3600000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       secure: true,
       sameSite: 'none'
     });
@@ -34,4 +34,9 @@ export async function login(req: Request, res: Response) {
     console.log(error);
     return res.status(504).json({ error });
   }
+}
+
+export async function authChecker(req: Request, res: Response) {
+  return res.status(200).json("user authenticated");
+
 }

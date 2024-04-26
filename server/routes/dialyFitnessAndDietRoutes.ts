@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AddMealAndFitnessDataOfUser, getDailyMealAndFitnessByUserId, removeMealFromDailyMealAndFitness } from "../controller/dailyFitnessAndDietSchemaController";
+import { AddMealAndFitnessDataOfUser, AddWorkout, getDailyMealAndFitnessByUserId, removeMealFromDailyMealAndFitness, removeWorkout } from "../controller/dailyFitnessAndDietSchemaController";
 import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = Router();
@@ -8,6 +8,8 @@ router.post('/addMeals', authMiddleware, AddMealAndFitnessDataOfUser);
 
 router.post('/daily-meals-and-fitness-data', authMiddleware, getDailyMealAndFitnessByUserId);
 
-router.post('/remove-meals', authMiddleware, removeMealFromDailyMealAndFitness);
+router.delete('/remove-meals', authMiddleware, removeMealFromDailyMealAndFitness);
+router.post('/add-workout', authMiddleware, AddWorkout);
+router.delete('/remove-workout', authMiddleware, removeWorkout);
 
 export default router;

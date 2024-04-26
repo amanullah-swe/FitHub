@@ -4,6 +4,7 @@ import { testMealImage } from '../assets';
 import FoodList from '../components/FoodList.jsx';
 import Leftsidebar from '../components/Leftsidebar.jsx'
 import { baseUrl } from '../app/constant.js';
+import Navbar from '../components/Navbar.jsx';
 
 function Search() {
     let windowWidth = window.innerWidth - 180;
@@ -20,7 +21,8 @@ function Search() {
     }
 
     return (
-        <div className='w-full h-[100dvh] flex  overflow-hidden relative pl-[180px] max-md:pl-0'>
+        <div className='w-full h-[100dvh] flex  overflow-hidden relative pl-[180px] max-md:pl-0 max-md:pt-[60px]' >
+            <Navbar />
             <Leftsidebar />
             <div className='flex-gow p-10 flex flex-col items-center w-full max-md:p-2'>
                 <form action="" className=' sticky w-[90%]  top-20 bg-white shadow rounded-2xl' onSubmit={handleSubmite}>

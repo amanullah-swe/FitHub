@@ -16,7 +16,11 @@ import Editehealthinfo from './pages/Editehealthinfo.jsx';
 import Landing from './pages/Landing.jsx';
 import Dashbaord from './pages/Dashbaord.jsx';
 import Blog from './pages/Blog.jsx';
-
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { checkAuthAsync } from './features/user/userSlice.js';
+import Createmeal from './pages/Createmeal.jsx';
+import Custommeal from './pages/Custommeal.jsx';
 
 
 const router = createBrowserRouter([
@@ -33,7 +37,7 @@ const router = createBrowserRouter([
     element: <Myprofile />,
   },
   {
-    path: "/meal/:id",
+    path: "/meal",
     element: <Meal />,
   },
   {
@@ -65,13 +69,23 @@ const router = createBrowserRouter([
     element: <Blog />,
   },
   {
+    path: "/create-meal",
+    element: <Createmeal />
+  },
+  {
+    path: "/custom-maeal",
+    element: <Custommeal />
+  },
+  {
     path: "*",
     element: <Error404 />,
   },
 ]);
 function App() {
-
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkAuthAsync());
+  }, [])
 
   return (
     <div >

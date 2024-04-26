@@ -1,12 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RemoveMealFromDailyFitnessAndMealsData, addDailyFitnessAndMealsData, fetchDailyFitnessAndMealsData } from './fitnessAndDietApi.js'
 import { getPreviousDate } from '../../helpers/getPrevioudDate.js';
+import { baseUrl } from '../../app/constant.js';
 
 
 const initialState = {
   data: {
     date: getPreviousDate(),
     currentFitnessLevel: "",
+    caloriesGoal: 0,
+    proteinGoal: 0,
+    weight: 0,
     totalCaloriesBurned: 0,
     totalNutrients: {
       protein: 0,
@@ -18,12 +22,6 @@ const initialState = {
       sugar: 0
     },
     workouts: [
-      {
-        workoutType: "Running",
-        duration: 30,
-        caloriesBurned: 300
-      },
-      // Additional workout entries
     ],
     meals: {
       breakfast: [
@@ -73,6 +71,59 @@ export const RemoveMealFromDailyFitnessAndMealsDataAsync = createAsyncThunk(
   }
 );
 
+export const addWorkout = createAsyncThunk(
+  "workouts/add",
+  async (workoutData, { rejectWithValue }) => {
+    try {
+      const response = await fetch(baseUrl + "/api/add-workout",
+        {
+          method: "POST",
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(workoutData),
+        });
+
+      if (!response.ok) {
+        const errorMessage = await response.json();
+        return rejectWithValue(errorMessage.error);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue("An unexpected error occurred.");
+    }
+  }
+);
+
+export const removeWorkout = createAsyncThunk(
+  "workouts/remove",
+  async (workoutData, { rejectWithValue }) => {
+    try {
+      const response = await fetch(baseUrl + "/api/remove-workout",
+        {
+          method: "DELETE",
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(workoutData),
+        });
+
+      if (!response.ok) {
+        const errorMessage = await response.json();
+        return rejectWithValue(errorMessage.error);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue("An unexpected error occurred.");
+    }
+  }
+);
 export const fitnessSlice = createSlice({
   name: 'fitnessAndDiet',
   initialState,
@@ -121,7 +172,7 @@ export const fitnessSlice = createSlice({
       })
 
 
-      // remvove
+      // remvoveMeals
       .addCase(RemoveMealFromDailyFitnessAndMealsDataAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -134,6 +185,39 @@ export const fitnessSlice = createSlice({
         state.status = 'reject';
         state.userError = action.error;
       })
+
+
+      // ADD  workouts  
+      .addCase(addWorkout.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(addWorkout.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.dietAndMealApiMessage.success = 'workout added'
+        state.data = action.payload;
+        state.homeError = null;
+      })
+      .addCase(addWorkout.rejected, (state, action) => {
+        state.status = 'reject';
+        state.dietAndMealApiMessage.error = action.error;
+        state.homeError = action.error;
+      })
+
+      // REMOVE  workouts  
+      .addCase(removeWorkout.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(removeWorkout.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.dietAndMealApiMessage.success = 'workout added'
+        state.data = action.payload;
+        state.homeError = null;
+      })
+      .addCase(removeWorkout.rejected, (state, action) => {
+        state.status = 'reject';
+        state.dietAndMealApiMessage.error = action.error;
+        state.homeError = action.error;
+      })
   },
 });
 
@@ -145,4 +229,8 @@ export const selectDate = (state) => state.fitnessAndDiet.data.date;
 export const selectDocumentId = (state) => state.fitnessAndDiet.data._id;
 export const selectHomeError = (state) => state.fitnessAndDiet.homeError;
 export const selectDietAndMealApiMessage = (state) => state.fitnessAndDiet.dietAndMealApiMessage;
+export const selectWorkouts = (state) => state.fitnessAndDiet.data.workouts;
+export const caloriesGoal = (state) => state.fitnessAndDiet.data.caloriesGoal;
+export const proteinGoal = (state) => state.fitnessAndDiet.data.proteinGoal;
+export const weight = (state) => state.fitnessAndDiet.data.weight;
 export default fitnessSlice.reducer;

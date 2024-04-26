@@ -1,15 +1,29 @@
 
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchMelaById } from './mealApi';
+import { fetchMealById } from './mealApi';
 
 export const fetchMelaByIdAsync = createAsyncThunk(
     'meal/fetch data',
     async ({ id }) => {
-        const response = await fetchMelaById({ id });
+        const response = await fetchMealById({ id });
         return response;
     }
 );
+
+const fetchMealByIdThunk = createAsyncThunk(
+    'meals/fetchById',
+    async (id) => {
+        try {
+            const meal = await fetchMealById({ id });
+            return meal;  // Return the fetched meal data on success
+        } catch (error) {
+            // Reject the thunk with the error object
+            return rejectWithValue(error);
+        }
+    }
+);
+
 
 
 const initialState = {
@@ -54,7 +68,7 @@ const initialState = {
         cholesterol: 0,
         sugar: 0
     },
-    mealsError: null,
+    mealError: null,
 };
 
 export const mealSlice = createSlice({
@@ -64,6 +78,31 @@ export const mealSlice = createSlice({
     reducers: {
         increment: (state) => {
             state.value += 1;
+        },
+        showCustomMeals: (state, action) => {
+            state.data.name = action.payload?.name || "meal ";
+            state.data.description = action.payload?.description || "meal descriptoin";
+            state.data.images = action.payload?.images || '';
+            state.data.nutrients = action.payload?.nutrients || {
+                protein: 0,
+                calories: 0,
+                carbohydrates: 0,
+                fiber: 0,
+                fat: 0,
+                cholesterol: 0,
+                sugar: 0
+            };
+            // to make sure that other meals data is not be displayed 
+            state.data.otherData = [
+                { name: "Benefits", value: [] },
+                { name: "category", value: [] },
+                { name: "avoid", value: [] },
+                { name: "warnings", value: [] },
+                { name: "storage", value: [] },
+                { name: "origin", value: [] },
+                { name: "availability", value: [] },
+                { name: "alternative_names", value: [] }
+            ]
         },
         calculateNutrients: (state, action) => {
             // originalNutrient * unit * sevignssize / 100
@@ -92,12 +131,12 @@ export const mealSlice = createSlice({
             })
             .addCase(fetchMelaByIdAsync.rejected, (state, action) => {
                 state.status = 'reject';
-                state.userError = action.error;
+                state.mealError = action.error.error;
             })
     },
 });
 
-export const { increment, calculateNutrients } = mealSlice.actions;
+export const { increment, calculateNutrients, showCustomMeals } = mealSlice.actions;
 
 export const selectMeal = (state) => state.meal.data;
 export const selectCalculatedNutrients = (state) => state.meal.calulatedNutrients;

@@ -5,11 +5,13 @@ import Leftsidebar from '../components/Leftsidebar.jsx'
 import Linechart from '../charts/Linechart.jsx'
 import Linechartcalories from '../charts/LineChart(calories).jsx'
 import Linechartcaloriesburn from '../charts/Linechart(caloriesburn).jsx'
+import Navbar from '../components/Navbar.jsx'
 
 
 function Dashbaord() {
     return (
-        <div className='w-full flex bg-offwhite h-[100dvh] relative pl-[180px] max-md:pl-0' data-container>
+        <div className='w-full flex bg-offwhite h-[100dvh] relative pl-[180px] max-md:pl-0 max-md:pt-[50px]' data-container>
+            <Navbar />
             <Leftsidebar />
             <div className='flex flex-grow flex-col gap-10 overflow-auto px-20 pt-32 pb-40 max-md:pb-[70px] max-md:px-5 scroll-smooth'>
                 <h1 className=' font-heading self-center text-6xl text-customgreen font-bold leading-10 shadow px-4 py-2  bg-offwhite '>Dashboard</h1>
@@ -31,7 +33,7 @@ function Dashbaord() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

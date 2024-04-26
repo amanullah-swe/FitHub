@@ -26,6 +26,8 @@ import forwardArrowIcon from './arrow-forward-outline.svg';
 import closeIcon from './close-outline.svg'
 import menuIcon from './menu-outline.svg';
 import heartIcon from './heart.svg'
+import userImageIcon from './user-image-icon.svg'
+import imageBreakIcon from './broken_image.svg'
 
 
 export {
@@ -56,5 +58,7 @@ export {
     forwardArrowIcon,
     closeIcon,
     menuIcon,
-    heartIcon
+    heartIcon,
+    userImageIcon,
+    imageBreakIcon
 }

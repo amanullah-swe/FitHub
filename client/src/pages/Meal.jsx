@@ -2,20 +2,27 @@ import React from 'react';
 import { testMealImage } from '../assets'
 import Leftsidebar from '../components/Leftsidebar'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { getPreviousDate } from '../helpers/getPrevioudDate';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDailyFitnessAndMealsDataAsync, clearDietAndMealApiMessage, selectDietAndMealApiMessage } from '../features/fitnesAndDiet/fitnessAndDietSlice';
-import { calculateNutrients, fetchMelaByIdAsync, selectCalculatedNutrients, selectMeal } from '../features/meal/mealSlice';
+import { addDailyFitnessAndMealsDataAsync, clearDietAndMealApiMessage, fetchDailyFitnessAndMealsDataAsync, selectDietAndMealApiMessage, selectFitness } from '../features/fitnesAndDiet/fitnessAndDietSlice';
+import { calculateNutrients, fetchMelaByIdAsync, selectCalculatedNutrients, selectMeal, showCustomMeals } from '../features/meal/mealSlice';
 import { baseUrl } from '../app/constant';
 import TostifyPop, { errorPop, successPop } from '../components/TostifyPop';
+import { imageBreakIcon, userImageIcon } from '../assets/images';
 
-
+// NOTE 
+/* this component trying to display the two types of meal one is provides by the website and second is the user created 
+1) if meal is provide by website then its simple take id from the parameter and go and fetch the data by fetchMealById fucntion 
+2) in second case we take the some information in the params like  mealtype, meal so take data from the dailymeal object where the data is present 
+**/
 export default function Meal() {
-    const params = useParams();
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
     const dispatch = useDispatch();
     const meal = useSelector(selectMeal);
-    const otherDataSize = meal.otherData.length - 1;
+    const otherDataSize = meal?.otherData?.length - 1;
     const calculatedNutrients = useSelector(selectCalculatedNutrients);
     const [mealType, setmealType] = useState('breakfast');
     const [unite, setUnite] = useState(100);
@@ -23,26 +30,25 @@ export default function Meal() {
     const requestStatus = useSelector(selectDietAndMealApiMessage);
     useEffect(() => {
         if (requestStatus.success) {
-            console.log(requestStatus);
             successPop(requestStatus.success)
             dispatch(clearDietAndMealApiMessage());
             return;
         }
-        console.log(requestStatus.error);
         errorPop(requestStatus.error)
         dispatch(clearDietAndMealApiMessage());
     }, [requestStatus])
 
-
+    // FETCH THE MEAL BY MEAL ID
     useEffect(() => {
-        dispatch(fetchMelaByIdAsync({ id: params.id }))
-
+        dispatch(fetchMelaByIdAsync({ id }))
     }, []);
 
+    // TO CHANGE THE VALUE BASE ON THE SIZE 
     useEffect(() => {
         dispatch(calculateNutrients({ unite: unite, serving_size: serving }));
     }, [unite, serving])
 
+    //ADD MEAL
     const handleAddMeal = (e) => {
         const tempMeal = {
             _id: meal._id,
@@ -61,7 +67,7 @@ export default function Meal() {
             <section className='px-20 h-[100dvh] py-24 max-md:p-8 flex flex-col w-full overflow-y-scroll max-md:pb-[70px] relative'>
                 <div className='flex flex-row gap-10'>
                     <div className='flex flex-row gap-10 max-md:flex-col w-full'>
-                        <img className='rounded-xl shadow-md border min-w-[300px] aspect-square' src={baseUrl + meal?.images} alt='meal' width={300} />
+                        <img className='rounded-xl shadow-md border min-w-[300px] aspect-square' src={meal?.images ? baseUrl + meal?.images : imageBreakIcon} alt='meal' width={300} />
                         <div className='flex flex-col justify-between w-full'>
                             <div className='w-full'>
                                 <h1 className='font-heading text-5xl font-bold text-black leading-20 '>{meal?.name} </h1>
@@ -69,13 +75,13 @@ export default function Meal() {
                             </div>
                             <div className='flex flex-col gap-5 '>
                                 <div className='flex gap-6'>
-                                    <input type="number" className=' h-16 w-56 outline-none text-center shadow-md' name="unit" autocomplete="off" value={unite} id="" onChange={(e) => { setUnite(e.target.value) }} />
+                                    <input type="number" className=' h-16 w-56 outline-none text-center shadow-md' name="unit" autoComplete="off" value={unite} id="" onChange={(e) => { setUnite(e.target.value) }} />
                                     <select name="serving" id="" className='h-16 w-56 px-4 text-left text-3xl font-normal leading-8 font-body outline-none shadow-md' value={serving} onChange={(e) => { setServing(e.target.value) }}>
                                         <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal?.serving_sizes?.grams}>grams</option>
-                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal.serving_sizes.cups}>cups</option>
-                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal.serving_sizes.ounces}>ounces</option>
-                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal.serving_sizes.teaspoons}>teaspoons</option>
-                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal.serving_sizes.tablespoons}>tablespoons</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal?.serving_sizes?.cups}>cups</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal?.serving_sizes?.ounces}>ounces</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal?.serving_sizes?.teaspoons}>teaspoons</option>
+                                        <option className='text-3xl font-normal leading-8 font-body px-4 py-4 my-4 ' value={meal?.serving_sizes?.tablespoons}>tablespoons</option>
 
                                     </select>
                                 </div>
@@ -109,7 +115,7 @@ export default function Meal() {
 
                 {/* Additional information */}
                 <div className='mt-16 p-8  flex flex-col gap-6 border shadow-lg '>
-                    {meal.otherData.map((data, index) => (
+                    {meal?.otherData?.map((data, index) => (
                         <div key={index} className={`flex flex-row justify-between w-full px-4 ${index != otherDataSize ? " border-b border-black pb-4" : ''}`}>
                             <p className='w-full font-body text-3xl font-normal leading-8'>{data.name}</p>
                             <div className={`w-full flex flex-row gap-3 `}> {data.value.map((val, index) => (
@@ -126,8 +132,7 @@ export default function Meal() {
 }
 
 
-
 const nutrientsArrayFilter = (nutrients) => Object.keys(nutrients).map(key => ({
     name: key,
     value: nutrients[key]
-}));
+}))

@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../models/user";
+import DailyFitnessAndDietModel from "../models/dailyFitnessAndDietSchema";
+import { getPreviousDate } from "../helpers/getPrevioudDate";
 export async function getUserById(req: Request, res: Response) {
 
     try {
@@ -83,6 +85,7 @@ export async function updateHealthInfo(req: Request, res: Response) {
             }
         );
         if (!user) res.status(404).json({ message: "security error" });
+        const upadatedDietAndFitness = await DailyFitnessAndDietModel.findOneAndUpdate({ userId, date: getPreviousDate(0) }, { weight: weight.value, caloriesGoal, proteinGoal }, { new: true })
         res.status(200).json(user);
     } catch (error) {
         console.log(error);

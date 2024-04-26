@@ -63,7 +63,7 @@
    * spacing
    */
 
-  --section-padding: 60px;
+  --section-padding: 30px;
 
   /**
    * shadow
@@ -237,7 +237,7 @@ body {
 }
 
 .h3 {
-  font-size: var(--fs-4);
+  font-size: var(--fs-3);
 }
 
 .grid-list {
@@ -732,7 +732,7 @@ body {
 \*-----------------------------------*/
 
 .course-card .card-banner {
-  margin-block-end: 30px;
+  /* margin-block-end: 30px; */
 }
 
 .course-card .card-content {
@@ -857,24 +857,33 @@ body {
 /*-----------------------------------*\
   #APP
 \*-----------------------------------*/
-
-.app-card {
-  position: relative;
-  background-color: var(--orange-web);
-  padding: 30px;
-  border-radius: var(--radius-2);
-  text-align: center;
-  overflow: hidden;
-  z-index: 1;
+.app {
+  background-color: var(--white);
+  min-height: 420px;
+  display: flex;
+  align-content: center;
+  transition: var(--transition-2);
+  padding: 10px;
 }
+
 
 .app .section-subtitle {
   font-size: var(--fs-6);
 }
 
 .app .section-title {
-  color: var(--white);
-  margin-block-end: 40px;
+  color: var(--dark);
+}
+
+.app .title-wrapper {
+  position: relative;
+  padding-block: 40px;
+  z-index: 1;
+}
+
+.app .card-text {
+  font-size: var(--fs-5);
+  margin-block: 20px 35px;
 }
 
 .app .wrapper {
@@ -882,51 +891,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 30px;
 }
-
-.app .app-link {
-  background-color: var(--white);
-  min-height: 50px;
-  padding-inline: 20px;
-  border-radius: var(--radius-10);
-  display: grid;
-  place-content: center;
-  outline: 4px solid var(--white_15);
-}
-
-.app .app-link .img {
-  width: 100px;
-}
-
-.app-card::before,
-.app-card::after {
-  content: "";
-  position: absolute;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  z-index: -1;
-}
-
-.app-card::before {
-  width: 80px;
-  height: 130px;
-  background-image: url('../images/app-shape-1.png');
-  top: -50px;
-  right: 20px;
-}
-
-.app-card::after {
-  width: 100px;
-  height: 150px;
-  background-image: url('../images/app-shape-2.png');
-  bottom: -50px;
-  left: 20px;
-}
-
-
-
 
 
 /*-----------------------------------*\
@@ -1231,20 +1196,8 @@ body {
    * APP
    */
 
-  .app-card {
-    padding: 50px;
-  }
 
-  .app-card::before {
-    width: 150px;
-    height: 250px;
-  }
 
-  .app-card::after {
-    width: 190px;
-    height: 290px;
-    bottom: -70px;
-  }
 
 
 
@@ -1387,7 +1340,7 @@ body {
    */
 
   .app-card {
-    padding: 100px 50px;
+    padding: 50px 25px;
   }
 
 }

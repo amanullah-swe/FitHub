@@ -1,7 +1,436 @@
 import React from 'react'
-import { abouteBanner, appStore, closeIcon, courses1, courses2, courses3, courses4, courses5, courses6, facebookIcon, forwardArrowIcon, heartIcon, heroBanner, linkedinIcon, menuIcon, playStore, service1, service2, service3, skyIcon, twiterIcon, upArrowIcon } from '../assets/images';
+import { abouteBanner, appStore, closeIcon, courses1, courses2, courses3, courses4, courses5, courses6, facebookIcon, forwardArrowIcon, heartIcon, heroBanner, linkedinIcon, menuIcon, playStore, service1, service2, service3, skyIcon, twiterIcon, upArrowIcon, userImageIcon } from '../assets/images';
 import { logo } from '../assets';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../features/user/userSlice';
+import Testomonialcard from '../components/Testomonialcard';
+import Blogcard from '../components/Blogcard';
+
+
+const articles = [
+    {
+        author: "Khan Faiz",
+        likes: 20,
+        shares: 30,
+        title: "The Crucial Role of Diet in Daily Life",
+        content: "A well-balanced diet plays a pivotal role in maintaining optimal health and well-being for individuals of all ages. Each day, the food choices we make directly impact our energy levels, mood, cognitive function, and overall vitality. Incorporating a variety of nutrient-rich foods such as fruits, vegetables, whole grains, lean proteins, and healthy fats into our meals provides essential vitamins, minerals, and antioxidants necessary for supporting bodily functions and preventing chronic diseases. Furthermore, maintaining a healthy diet can help regulate weight, reduce the risk of obesity, heart disease, diabetes, and other health conditions. By making mindful dietary choices and adopting sustainable eating habits, individuals can enhance their quality of life and promote long-term health and longevity."
+    },
+    {
+        author: "Khan Faiz",
+        likes: 20,
+        shares: 30,
+        title: "The Importance of Regular Exercise",
+        content: "Regular exercise is an indispensable component of a healthy lifestyle, offering a myriad of physical, mental, and emotional benefits. Engaging in physical activity on a consistent basis strengthens muscles, improves cardiovascular health, enhances flexibility, and boosts overall fitness levels. Moreover, exercise releases endorphins, neurotransmitters that promote feelings of happiness and reduce stress and anxiety. By incorporating regular exercise into our routines, we can alleviate symptoms of depression, enhance cognitive function, and improve sleep quality. Additionally, physical activity stimulates the production of growth factors that support brain health and neuroplasticity, reducing the risk of cognitive decline and age-related diseases. Whether it's through cardiovascular workouts, strength training, yoga, or outdoor activities, prioritizing regular exercise is essential for optimizing health and well-being."
+    },
+    {
+        author: "Khan Faiz",
+        likes: 20,
+        shares: 30,
+        title: "The Transformative Effects of Yoga",
+        content: "Yoga is renowned for its transformative effects on the mind, body, and spirit, offering a holistic approach to health and wellness. Through a combination of physical postures, breathwork, and meditation, yoga cultivates strength, flexibility, and balance while promoting relaxation and stress reduction. Regular practice of yoga can alleviate muscle tension, improve posture, and enhance joint mobility, mitigating the risk of injury and promoting physical resilience. Moreover, yoga fosters mental clarity, emotional stability, and a profound sense of inner peace, empowering practitioners to navigate life's challenges with equanimity and grace. Research has shown that yoga may also have therapeutic benefits for various health conditions, including chronic pain, anxiety disorders, and depression. By embracing the practice of yoga, individuals can embark on a journey of self-discovery, self-care, and holistic healing, unlocking their full potential and embracing a life of vitality and well-being."
+    }
+];
+
+const openNavebar = () => {
+    const navbar = document.querySelector("[data-navbar]");
+    const overlay = document.querySelector("[data-overlay]");
+    navbar.classList.toggle("active");
+    overlay.classList.toggle("active");
+}
+const closeNavbar = function () {
+    const navbar = document.querySelector("[data-navbar]");
+    const overlay = document.querySelector("[data-overlay]");
+    navbar.classList.remove("active");
+    overlay.classList.remove("active");
+    console.log('i got click')
+}
+
+
+
+export default function MyClass() {
+    const auth = useSelector(selectAuth);
+    const testemonials = [
+        {
+            author: "Jane Smith",
+            title: "Great for Tracking Meals",
+            description: "FitHub makes it easy to track my meals and understand the nutrients I'm consuming. The meal page is super intuitive, and the customizable serving sizes are a nice touch. Highly recommended for anyone looking to manage their diet!"
+        },
+        {
+            author: "John Doe",
+            title: "Helps Me Stay on Track",
+            description: "I've always struggled with staying consistent with my diet, but FitHub's dashboard and interactive graphs keep me on track. The weekly summaries are great for seeing my progress, and I love the flexibility to add or remove meals from my daily routine."
+        },
+        {
+            author: "Sarah Lee",
+            title: "A Complete Nutrition Solution",
+            description: "FitHub is a one-stop solution for all my nutrition needs. It provides detailed information about each meal, including health benefits and what to avoid if you have certain illnesses. The advanced search system makes finding meals and their alternatives easy."
+        }
+    ]
+
+    return (
+        <div className='prose  bg-white' onLoad={animationLoad} id='landingpage'>
+            {/* - #HEADER*/}
+            <header className="header shadow-md" data-header>
+                <div className="container">
+                    <a href="#" className="logo flex gap-4 items-center">
+                        <img src={logo} width={55} alt="" />
+                        Fithub<span className="span text-6xl">.</span>
+                    </a>
+                    <nav className="navbar" data-navbar>
+                        <button className="nav-toggle-btn" aria-label="close menu" data-nav-toggler onClick={closeNavbar}>
+                            <img src={closeIcon} className=' opacity-70' width={16} height={16} alt="" />
+                        </button>
+                        <ul className="navbar-list">
+                            <li className="navbar-item">
+                                <Link to="/home" className="navbar-link" data-nav-link>Home</Link>
+                            </li>
+                            <li className="navbar-item">
+                                <a href="#about" className="navbar-link" data-nav-link>About Us</a>
+                            </li>
+                            <li className="navbar-item">
+                                <a href="#course" className="navbar-link" data-nav-link>Experiences</a>
+                            </li>
+                            <li className="navbar-item">
+                                <a href="#blog" className="navbar-link" data-nav-link>Blog</a>
+                            </li>
+                            <li className="navbar-item">
+                                <a href="#dev" className="navbar-link" data-nav-link>developers</a>
+                            </li>
+                            <li className="navbar-item">
+                                <a href="#contact" className="navbar-link" data-nav-link>Contact</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    {auth ? <Link to="/signup" className="btn btn-primary">Sign Out</Link> : <Link to="/signup" className="btn btn-primary">Sign In</Link>}
+                    <button className="nav-toggle-btn" aria-label="open manu" data-nav-toggler onClick={openNavebar}>
+                        <img src={menuIcon} className=' opacity-70' width={16} height={16} alt="" />
+                    </button>
+                    <div className="overlay" data-nav-toggler data-overlay />
+                </div>
+            </header>
+            <main>
+                <article>
+                    { /* - #HERO */}
+                    <section className="section hero " aria-label="hero" id="home" data-section style={{ backgroundImage: `url("${heroBanner}")` }}>
+                        <div className="container">
+                            <p className="hero-subtitle">Fitness &amp; Nutrition</p>
+                            <h1 className="h1 hero-title">This life style for your fitness, not only diet.</h1>
+                            <p className="hero-text">
+                                It has survived not only five centuries but also
+                            </p>
+                            <a href="#" className="btn btn-secondary">Start Tracking</a>
+                            <div className="social-wrapper">
+                                <p className="social-title">Connect with us:</p>
+                                <ul className="social-list">
+                                    {/* facebook */}
+                                    <li>
+                                        <a href="#" className="social-link">
+                                            <img src={facebookIcon} className=' opacity-70' width={16} height={16} alt="" />
+                                        </a>
+                                    </li>
+                                    {/* skype */}
+                                    <li>
+                                        <a href="#" className="social-link">
+                                            <img src={skyIcon} className=' opacity-70' width={16} height={16} alt="" />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="social-link">
+                                            <img src={twiterIcon} className=' opacity-70' width={16} height={16} alt="" />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="social-link">
+                                            <img src={linkedinIcon} className=' opacity-70' width={16} height={16} alt="" />
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    {/* - #SERVICE*/}
+                    <section className="section service " aria-label="service" data-section>
+                        <div className="container">
+                            <ul className="grid-list">
+                                <li>
+                                    <div className="service-card">
+                                        <div className="card-icon">
+                                            <img src={service1} width={60} height={60} loading="lazy" alt="Women’s Course" />
+                                        </div>
+                                        <h3 className="h3">
+                                            <a href="#" className="card-title">Meal Management</a>
+                                        </h3>
+                                        <p className="card-text">
+                                            Plan and track meals with tools for customizing, scheduling, and saving recipes to help you maintain a balanced diet.
+                                        </p>
+                                        <a href="#" className="btn btn-secondary">
+                                            <img src={forwardArrowIcon} className=' opacity-70' width={16} height={16} alt="" />
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="service-card  ">
+                                        <div className="card-icon">
+                                            <img src={service2} width={60} height={60} loading="lazy" alt="Basic Course" />
+                                        </div>
+                                        <h3 className="h3">
+                                            <a href="#" className="card-title">Food Insights</a>
+                                        </h3>
+                                        <p className="card-text">
+                                            Explore nutritional content and ingredients to understand the health benefits of various foods and make informed dietary choices.
+                                        </p>
+                                        <a href="#" className="btn btn-secondary">
+                                            <img src={forwardArrowIcon} className=' opacity-70' width={16} height={16} alt="" />
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="service-card">
+                                        <div className="card-icon">
+                                            <img src={service3} width={60} height={60} loading="lazy" alt="Men’s Course" />
+                                        </div>
+                                        <h3 className="h3">
+                                            <a href="#" className="card-title">Dashboard</a>
+                                        </h3>
+                                        <p className="card-text">
+                                            View graphs and charts that display your daily calorie intake and nutrient levels for easy health monitoring.
+                                        </p>
+                                        <a href="#" className="btn btn-secondary">
+                                            <img src={forwardArrowIcon} className=' opacity-70' width={16} height={16} alt="" />
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    {/* - #ABOUT */}
+                    <section className="section about " aria-label="about" id="about" data-section>
+                        <div className="container">
+                            <div className="about-banner img-holder" style={{ width: 470, height: 580 }}>
+                                <img src={abouteBanner} width={470} height={580} loading="lazy" alt="about banner" className="img-cover" />
+                                <Link to={'/signup'} className="btn btn-secondary">Create Account</Link>
+                            </div>
+                            <div className="about-content">
+                                <p className="section-subtitle">accurate and correct information</p>
+                                <h2 className="h2 section-title">Fithub - Your Ultimate Companion</h2>
+                                <p className="section-text">
+                                    FitHub is a comprehensive web application designed to simplify nutrition tracking and fitness management. Provide users with an intuitive platform to track their meals, monitor nutrient intake, and achieve their health goals effectively.
+                                </p>
+                                <h3 className="about-h3">Feature</h3>
+                                <p className="section-text">
+                                    Daily Meal Tracking<br />
+                                    Previous Meal Navigation<br />
+                                    Dashboard <br />
+                                    Profile Management<br />
+                                    Advanced Search System<br />
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    {/* - #Testomonials */}
+                    <section className="section course" aria-label="course" id="course" data-section>
+                        <div className="container">
+                            <div className="title-wrapper">
+                                <p className="section-subtitle">100+ Users</p>
+                                <h2 className="h2 section-title">Testimonials &amp;   Experiences</h2>
+                            </div>
+                            <ul className="grid-list">
+                                {testemonials.map(({ title, description, author }) => {
+                                    return (<li>
+                                        <Testomonialcard image={userImageIcon} title={title} description={description} author={author} />
+                                    </li>)
+                                })}
+                            </ul >
+                        </div >
+                    </section >
+                    {/* - #BLOG*/}
+                    <section className="section blog " aria-label="blog" id="blog" data-section >
+                        <div className="container">
+                            <div className="title-wrapper">
+                                <h2 className="h2 section-title">Latest Article of Nutrition</h2>
+                            </div>
+                            <ul className="grid-list">
+                                {articles.map((item) => {
+
+                                    return (
+                                        < li >
+                                            <Blogcard {...item} content={item.content.slice(0, 150) + " . . ."} />
+                                        </li>
+                                    )
+                                })}
+
+                            </ul>
+                        </div>
+                    </section >
+                    {/* - Developer information*/}
+                    <section id='dev' className="app" aria-label="app" data-section >
+                        <div className="w-full p-[100px] max-md:p-[20px]">
+                            <h2 className="h2 section-title">Developers</h2>
+                            <div className='space-y-28 '>
+                                {/* shaikh amanullah */}
+                                <div className='w-full h-full flex items-center justify-center max-md:flex-col'>
+                                    <div className='w-full flex items-center justify-center '>
+                                        <img src={userImageIcon} className='w-[400px]' alt="" />
+                                    </div>
+                                    <div className='w-full'>
+                                        <div className='mb-10'>
+                                            <h3 className='h3'>Shaikh Amanullah</h3>
+                                            <h4 className=''> Full Stack Developer</h4>
+                                        </div>
+                                        <div className='mb-10'>
+                                            <h5 className='h3'>Professional Background</h5>
+                                            <p className='mt-5'>John Doe is a highly skilled full-stack developer with over 7 years of experience in the software industry. He has a strong background in developing scalable web applications, specializing in JavaScript, React, and Node.js. John holds a Bachelor's degree in Computer Science from Stanford University.</p>
+                                        </div>
+                                        <div className='mb-10'>
+                                            <h5 className='h3'>
+                                                Skills and Expertise
+                                            </h5>
+                                            <ul className='mt-5'>
+                                                <li className='h4'>
+
+                                                    <span className=' font-semibold inline'>Front-End Development:</span>   Proficient in React, Angular, HTML5, CSS3, and JavaScript ES6.
+                                                </li>
+                                                <li className='h4'>
+                                                    <span className=' font-semibold inline'> Back-End Development:</span>  Experienced with Node.js, Express, and Python Django.
+                                                </li>
+                                                <li className='h4'>
+                                                    <span className=' font-semibold inline'> Databases:</span>  Skilled in working with MongoDB, MySQL, and PostgreSQL.
+                                                </li>
+                                                <li className='h4'>
+                                                    <span className=' font-semibold inline'>  Other Skills:</span> Git version control, Agile methodologies, RESTful APIs, and TDD.
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/*Faiz khan */}
+                                <div className='w-full h-full flex items-center justify-center max-md:flex-col'>
+                                    <div className='w-full'>
+                                        <div className='mb-10'>
+                                            <h3 className='h3'>Faiz khan</h3>
+                                            <h4 className=''> Full Stack Developer</h4>
+                                        </div>
+                                        <div className='mb-10'>
+                                            <h5 className='h3'>Professional Background</h5>
+                                            <p className='mt-5'>John Doe is a highly skilled full-stack developer with over 7 years of experience in the software industry. He has a strong background in developing scalable web applications, specializing in JavaScript, React, and Node.js. John holds a Bachelor's degree in Computer Science from Stanford University.</p>
+                                        </div>
+                                        <div className='mb-10'>
+                                            <h5 className='h3'>
+                                                Skills and Expertise
+                                            </h5>
+                                            <ul className='mt-5'>
+                                                <li className='h4'>
+                                                    <span className=' font-semibold inline'>Front-End Development:</span>   Proficient in React, Angular, HTML5, CSS3, and JavaScript ES6.
+                                                </li>
+                                                <li className='h4'>
+                                                    <span className=' font-semibold inline'> Back-End Development:</span>  Experienced with Node.js, Express, and Python Django.
+                                                </li>
+                                                <li className='h4'>
+                                                    <span className=' font-semibold inline'> Databases:</span>  Skilled in working with MongoDB, MySQL, and PostgreSQL.
+                                                </li>
+                                                <li className='h4'>
+                                                    <span className=' font-semibold inline'>  Other Skills:</span> Git version control, Agile methodologies, RESTful APIs, and TDD.
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className='w-full flex items-center justify-center '>
+                                        <img src={userImageIcon} className='w-[400px]' alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section >
+                </article >
+            </main >
+            {/* - #FOOTER */}
+            <footer className="footer" id='contact' >
+                <div className="footer-top section" data-section>
+                    <div className="container">
+                        <div className="footer-list">
+                            <p className="footer-list-title">Subscribe Newsletter</p>
+                            <p className="footer-list-text">
+                                Lorem Ipsum has been them an industry printer took a galley make book.
+                            </p>
+                            <form action className="footer-form">
+                                <input type="email" name="email_address" aria-label="email" placeholder="Enter email" required className="email-field" />
+                                <button type="submit" className="btn btn-secondary">Subscribe Now</button>
+                            </form>
+                        </div>
+                        <ul className="footer-list">
+                            <li>
+                                <p className="footer-list-title">Contact Us</p>
+                            </li>
+                            <li>
+                                <a href="#" className="footer-link">LinkedIn</a>
+                            </li>
+                            <li>
+                                <a href="#" className="footer-link">Instagram</a>
+                            </li>
+                            <li>
+                                <a href="#" className="footer-link">Github</a>
+                            </li>
+                            <li>
+                                <a href="#" className="footer-link">Twiter</a>
+                            </li>
+                        </ul>
+                        <ul className="footer-list">
+                            <li>
+                                <p className="footer-list-title">Help Links</p>
+                            </li>
+                            <li>
+                                <a href="#" className="footer-link">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" className="footer-link">Discussion</a>
+                            </li>
+                            <li>
+                                <a href="#" className="footer-link">Terms &amp; Conditions</a>
+                            </li>
+                            <li>
+                                <a href="#" className="footer-link">Customer Support</a>
+                            </li>
+                            <li>
+                                <a href="#" className="footer-link">FAQ’s</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="footer-bottom">
+                    <div className="container">
+                        <p className="copyright">
+                            © 2022 Futras Made With{" "}
+                            <img src={heartIcon} className='inline' width={16} height={16} alt="" /> by
+                            <a href="#" className="copyright-link"> {' '}shaikh amanullah</a>
+                        </p>
+                        <ul className="footer-bottom-list">
+                            <li className="footer-bottom-item">
+                                <a href="#" className="footer-bottom-link">Terms of Service</a>
+                            </li>
+                            <li className="footer-bottom-item">
+                                <a href="#" className="footer-bottom-link">Privacy Policy</a>
+                            </li>
+                            <li className="footer-bottom-item">
+                                <a href="#" className="footer-bottom-link">Sitemap</a>
+                            </li>
+                            <li className="footer-bottom-item">
+                                <a href="#" className="footer-bottom-link">Security</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </footer >
+            {/* - #BACK TO TOP */}
+            <a href="#top" className="back-top-btn" aria-label="back to top" data-back-top-btn >
+                <img src={upArrowIcon} className=' opacity-70' width={16} height={16} alt="" />
+            </a >
+            {/* - custom js link*/}
+            {/* - ionicon link*/}
+        </div >
+    )
+};
+
 
 const animationLoad = () => {
     /**
@@ -72,595 +501,3 @@ const animationLoad = () => {
     reveal();
     addEventOnElem(window, "scroll", reveal);
 }
-
-const openNavebar = () => {
-    const navbar = document.querySelector("[data-navbar]");
-    const overlay = document.querySelector("[data-overlay]");
-    navbar.classList.toggle("active");
-    overlay.classList.toggle("active");
-}
-const closeNavbar = function () {
-    const navbar = document.querySelector("[data-navbar]");
-    const overlay = document.querySelector("[data-overlay]");
-    navbar.classList.remove("active");
-    overlay.classList.remove("active");
-    console.log('i got click')
-}
-
-
-
-export default function MyClass() {
-
-    return (
-        <div className='prose  bg-white' onLoad={animationLoad} id='landingpage'>
-            {/* - #HEADER*/}
-            <header className="header shadow-md" data-header>
-                <div className="container">
-                    <a href="#" className="logo flex gap-4 items-center">
-                        <img src={logo} width={55} alt="" />
-                        Fithub<span className="span text-6xl">.</span>
-                    </a>
-                    <nav className="navbar active" data-navbar>
-                        <button className="nav-toggle-btn" aria-label="close menu" data-nav-toggler onClick={closeNavbar}>
-                            <img src={closeIcon} className=' opacity-70' width={16} height={16} alt="" />
-                        </button>
-                        <ul className="navbar-list">
-                            <li className="navbar-item">
-                                <Link to="/home" className="navbar-link" data-nav-link>Home</Link>
-                            </li>
-                            <li className="navbar-item">
-                                <a href="#about" className="navbar-link" data-nav-link>About Us</a>
-                            </li>
-                            <li className="navbar-item">
-                                <a href="#course" className="navbar-link" data-nav-link>All Course</a>
-                            </li>
-                            <li className="navbar-item">
-                                <a href="#blog" className="navbar-link" data-nav-link>Blog</a>
-                            </li>
-                            <li className="navbar-item">
-                                <a href="#contact" className="navbar-link" data-nav-link>Contact</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <Link to="/signup" className="btn btn-primary">Sign Up</Link>
-                    <button className="nav-toggle-btn" aria-label="open manu" data-nav-toggler onClick={openNavebar}>
-                        <img src={menuIcon} className=' opacity-70' width={16} height={16} alt="" />
-                    </button>
-                    <div className="overlay" data-nav-toggler data-overlay />
-                </div>
-            </header>
-            <main>
-                <article>
-                    { /* - #HERO */}
-                    <section className="section hero " aria-label="hero" id="home" data-section style={{ backgroundImage: `url("${heroBanner}")` }}>
-                        <div className="container">
-                            <p className="hero-subtitle">Fitness &amp; Nutrition</p>
-                            <h1 className="h1 hero-title">This life style for your fitness, not only diet.</h1>
-                            <p className="hero-text">
-                                It has survived not only five centuries but also
-                            </p>
-                            <a href="#" className="btn btn-secondary">Start Course</a>
-                            <div className="social-wrapper">
-                                <p className="social-title">Connect with us:</p>
-                                <ul className="social-list">
-                                    {/* facebook */}
-                                    <li>
-                                        <a href="#" className="social-link">
-                                            <img src={facebookIcon} className=' opacity-70' width={16} height={16} alt="" />
-                                        </a>
-                                    </li>
-                                    {/* skype */}
-                                    <li>
-                                        <a href="#" className="social-link">
-                                            <img src={skyIcon} className=' opacity-70' width={16} height={16} alt="" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="social-link">
-                                            <img src={twiterIcon} className=' opacity-70' width={16} height={16} alt="" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="social-link">
-                                            <img src={linkedinIcon} className=' opacity-70' width={16} height={16} alt="" />
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-                    {/* - #SERVICE*/}
-                    <section className="section service " aria-label="service" data-section>
-                        <div className="container">
-                            <ul className="grid-list">
-                                <li>
-                                    <div className="service-card">
-                                        <div className="card-icon">
-                                            <img src={service1} width={60} height={60} loading="lazy" alt="Women’s Course" />
-                                        </div>
-                                        <h3 className="h3">
-                                            <a href="#" className="card-title">Women’s Course</a>
-                                        </h3>
-                                        <p className="card-text">
-                                            Lorem Ipsum is simply dummy themes industryes psum has been them industry the loep into type setting.
-                                        </p>
-                                        <a href="#" className="btn btn-secondary">
-                                            <img src={forwardArrowIcon} className=' opacity-70' width={16} height={16} alt="" />
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="service-card  ">
-                                        <div className="card-icon">
-                                            <img src={service2} width={60} height={60} loading="lazy" alt="Basic Course" />
-                                        </div>
-                                        <h3 className="h3">
-                                            <a href="#" className="card-title">Basic Course</a>
-                                        </h3>
-                                        <p className="card-text">
-                                            Lorem Ipsum is simply dummy themes industryes psum has been them industry the loep into type setting.
-                                        </p>
-                                        <a href="#" className="btn btn-secondary">
-                                            <img src={forwardArrowIcon} className=' opacity-70' width={16} height={16} alt="" />
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="service-card">
-                                        <div className="card-icon">
-                                            <img src={service3} width={60} height={60} loading="lazy" alt="Men’s Course" />
-                                        </div>
-                                        <h3 className="h3">
-                                            <a href="#" className="card-title">Men’s Course</a>
-                                        </h3>
-                                        <p className="card-text">
-                                            Lorem Ipsum is simply dummy themes industryes psum has been them industry the loep into type setting.
-                                        </p>
-                                        <a href="#" className="btn btn-secondary">
-                                            <img src={forwardArrowIcon} className=' opacity-70' width={16} height={16} alt="" />
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                    {/* - #ABOUT */}
-                    <section className="section about " aria-label="about" id="about" data-section>
-                        <div className="container">
-                            <div className="about-banner img-holder" style={{ width: 470, height: 580 }}>
-                                <img src={abouteBanner} width={470} height={580} loading="lazy" alt="about banner" className="img-cover" />
-                                <a href="#" className="btn btn-secondary">Meet Instructor</a>
-                            </div>
-                            <div className="about-content">
-                                <p className="section-subtitle">25+ Years Of Experience</p>
-                                <h2 className="h2 section-title">We have expert instructor for help our clients.</h2>
-                                <p className="section-text">
-                                    Lorem Ipsum is simply dummy text the printing and typesetting standard dummy text ever since the 150 when
-                                    an unknown
-                                    printe specimen book has survived centuries.
-                                </p>
-                                <h3 className="about-h3">100+ Courses</h3>
-                                <p className="section-text">
-                                    Lorem Ipsum is simply dummy text the printing and typesetting standard dummy text ever since the 150 when
-                                    an unknown
-                                    printe specimen book has survived centuries.
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-                    {/* - #COURSE */}
-                    <section className="section course " aria-label="course" id="course" data-section>
-                        <div className="container">
-                            <div className="title-wrapper">
-                                <p className="section-subtitle">100+ Courses Available</p>
-                                <h2 className="h2 section-title">Fitness &amp; Nutrition Courses</h2>
-                            </div>
-                            <ul className="grid-list">
-                                <li>
-                                    <div className="course-card">
-                                        <figure className="card-banner img-holder" style={{ width: 350, height: 300 }}>
-                                            <img src={courses1} width={350} height={300} loading="lazy" alt="Children Nutrition and Cooking" className="img-cover" />
-                                        </figure>
-                                        <div className="card-content">
-                                            <data className="card-price" value={999}>₹999</data>
-                                            <p className="card-author">
-                                                <a href="#" className="card-link">
-                                                    By: <span className="span">Ryan Patterson</span>
-                                                </a>
-                                            </p>
-                                            <h3 className="h3">
-                                                <a href="#" className="card-title">Children Nutrition and Cooking</a>
-                                            </h3>
-                                            <ul className="card-meta-list">
-                                                <li className="card-meta-item">
-                                                    <time dateTime="PT8H20M">08 hr 20 mins</time>
-                                                </li>
-                                                <li className="card-meta-item">
-                                                    <p className="card-meta-text">28 Lectures</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="course-card">
-                                        <figure className="card-banner img-holder" style={{ width: 350, height: 300 }}>
-                                            <img src={courses2} width={350} height={300} loading="lazy" alt="Introduction to Food and Health." className="img-cover" />
-                                        </figure>
-                                        <div className="card-content">
-                                            <data className="card-price" value={1299}>₹1299</data>
-                                            <p className="card-author">
-                                                <a href="#" className="card-link">
-                                                    By: <span className="span">Arlene Daniels</span>
-                                                </a>
-                                            </p>
-                                            <h3 className="h3">
-                                                <a href="#" className="card-title">Introduction to Food and Health.</a>
-                                            </h3>
-                                            <ul className="card-meta-list">
-                                                <li className="card-meta-item">
-                                                    <time dateTime="PT9H25M">09 hr 25 mins</time>
-                                                </li>
-                                                <li className="card-meta-item">
-                                                    <p className="card-meta-text">16 Lectures</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="course-card">
-                                        <figure className="card-banner img-holder" style={{ width: 350, height: 300 }}>
-                                            <img src={courses3} width={350} height={300} loading="lazy" alt="Nutrition and Lifestyle in Pregnancy" className="img-cover" />
-                                        </figure>
-                                        <div className="card-content">
-                                            <data className="card-price" value={999}>₹1999</data>
-                                            <p className="card-author">
-                                                <a href="#" className="card-link">
-                                                    By: <span className="span">Selina Benton</span>
-                                                </a>
-                                            </p>
-                                            <h3 className="h3">
-                                                <a href="#" className="card-title">Nutrition and Lifestyle in Pregnancy</a>
-                                            </h3>
-                                            <ul className="card-meta-list">
-                                                <li className="card-meta-item">
-                                                    <time dateTime="PT3H38M">03 hr 38 mins</time>
-                                                </li>
-                                                <li className="card-meta-item">
-                                                    <p className="card-meta-text">18 Lectures</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="course-card">
-                                        <figure className="card-banner img-holder" style={{ width: 350, height: 300 }}>
-                                            <img src={courses4} width={350} height={300} loading="lazy" alt="Expertise on Fitness, Nutrition and Health" className="img-cover" />
-                                        </figure>
-                                        <div className="card-content">
-                                            <data className="card-price" value={3999}>₹3999</data>
-                                            <p className="card-author">
-                                                <a href="#" className="card-link">
-                                                    By: <span className="span">Ryan Patterson</span>
-                                                </a>
-                                            </p>
-                                            <h3 className="h3">
-                                                <a href="#" className="card-title">Expertise on Fitness, Nutrition and Health</a>
-                                            </h3>
-                                            <ul className="card-meta-list">
-                                                <li className="card-meta-item">
-                                                    <time dateTime="PT2H16M">02 hr 16 mins</time>
-                                                </li>
-                                                <li className="card-meta-item">
-                                                    <p className="card-meta-text">14 Lectures</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li >
-                                <li>
-                                    <div className="course-card">
-                                        <figure className="card-banner img-holder" style={{ width: 350, height: 300 }}>
-                                            <img src={courses5} width={350} height={300} loading="lazy" alt="Hacking exercise for health new science of fitness" className="img-cover" />
-                                        </figure>
-                                        <div className="card-content">
-                                            <data className="card-price" value={6000}>₹6000</data>
-                                            <p className="card-author">
-                                                <a href="#" className="card-link">
-                                                    By: <span className="span">Arlene Daniels</span>
-                                                </a>
-                                            </p>
-                                            <h3 className="h3">
-                                                <a href="#" className="card-title">Hacking exercise for health new science of fitness</a>
-                                            </h3>
-                                            <ul className="card-meta-list">
-                                                <li className="card-meta-item">
-                                                    <time dateTime="PT6H12M">06 hr 12 mins</time>
-                                                </li>
-                                                <li className="card-meta-item">
-                                                    <p className="card-meta-text">35 Lectures</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li >
-                                <li>
-                                    <div className="course-card">
-                                        <figure className="card-banner img-holder" style={{ width: 350, height: 300 }}>
-                                            <img src={courses6} width={350} height={300} loading="lazy" alt="Designing Your Personal Weight Loss Plan" className="img-cover" />
-                                        </figure>
-                                        <div className="card-content">
-                                            <data className="card-price" value={6000}>₹6000</data>
-                                            <p className="card-author">
-                                                <a href="#" className="card-link">
-                                                    By: <span className="span">Selina Benton</span>
-                                                </a>
-                                            </p>
-                                            <h3 className="h3">
-                                                <a href="#" className="card-title">Designing Your Personal Weight Loss Plan</a>
-                                            </h3>
-                                            <ul className="card-meta-list">
-                                                <li className="card-meta-item">
-                                                    <time dateTime="PT9H34M">09 hr 34 mins</time>
-                                                </li>
-                                                <li className="card-meta-item">
-                                                    <p className="card-meta-text">28 Lectures</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li >
-                            </ul >
-                        </div >
-                    </section >
-                    {/* - #BLOG*/}
-                    <section className="section blog " aria-label="blog" id="blog" data-section >
-                        <div className="container">
-                            <div className="title-wrapper">
-                                <p className="section-subtitle">Our Blog Post</p>
-                                <h2 className="h2 section-title">Latest Article of Nutrition</h2>
-                            </div>
-                            <ul className="grid-list">
-                                <li>
-                                    <Link to={'/blog'}>
-                                        <div className="blog-card">
-                                            <div className="wrapper">
-                                                <time className="publish-date" dateTime="2022-02-24">
-                                                    <span className="span">24</span> Feb
-                                                </time>
-                                                <div>
-                                                    <div className="card-author">
-                                                        <a href="#" className="card-link">
-                                                            By: <span className="span">Maddie Rife</span>
-                                                        </a>
-                                                    </div>
-                                                    <ul className="card-meta-list">
-                                                        <li className="card-meta-item">
-                                                            <p className="item-text">87 Likes</p>
-                                                        </li>
-                                                        <li className="card-meta-item">
-                                                            <p className="item-text">58 Share</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <h3 className="h3">
-                                                <a href="#" className="card-title">It was popularised sheets the release contain</a>
-                                            </h3>
-                                            <p className="card-text">
-                                                Lorem sum same dummy text theme industry psum have been them industry the leaf into type setting.
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/blog'}>
-                                        <div className="blog-card">
-                                            <div className="wrapper">
-                                                <time className="publish-date" dateTime="2022-02-24">
-                                                    <span className="span">24</span> Feb
-                                                </time>
-                                                <div>
-                                                    <div className="card-author">
-                                                        <a href="#" className="card-link">
-                                                            By: <span className="span">Maddie Rife</span>
-                                                        </a>
-                                                    </div>
-                                                    <ul className="card-meta-list">
-                                                        <li className="card-meta-item">
-                                                            <p className="item-text">87 Likes</p>
-                                                        </li>
-                                                        <li className="card-meta-item">
-                                                            <p className="item-text">58 Share</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <h3 className="h3">
-                                                <a href="#" className="card-title">It was popularised sheets the release contain</a>
-                                            </h3>
-                                            <p className="card-text">
-                                                Lorem sum same dummy text theme industry psum have been them industry the leaf into type setting.
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/blog'}>
-                                        <div className="blog-card">
-                                            <div className="wrapper">
-                                                <time className="publish-date" dateTime="2022-02-24">
-                                                    <span className="span">24</span> Feb
-                                                </time>
-                                                <div>
-                                                    <div className="card-author">
-                                                        <a href="#" className="card-link">
-                                                            By: <span className="span">Maddie Rife</span>
-                                                        </a>
-                                                    </div>
-                                                    <ul className="card-meta-list">
-                                                        <li className="card-meta-item">
-                                                            <p className="item-text">87 Likes</p>
-                                                        </li>
-                                                        <li className="card-meta-item">
-                                                            <p className="item-text">58 Share</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <h3 className="h3">
-                                                <a href="#" className="card-title">It was popularised sheets the release contain</a>
-                                            </h3>
-                                            <p className="card-text">
-                                                Lorem sum same dummy text theme industry psum have been them industry the leaf into type setting.
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </section >
-                    {/* - #APP*/}
-                    <section className="section app " aria-label="app" data-section >
-                        <div className="container">
-                            <div className="app-card">
-                                <p className="section-subtitle">Mobile App Available</p>
-                                <h2 className="h2 section-title">
-                                    Download our mobile app.<br />
-                                    and start coaching anytime.
-                                </h2>
-                                <div className="wrapper">
-                                    <a href="#" className="app-link" aria-label="play store">
-                                        <img src={playStore} width={134} height={38} loading="lazy" alt="Play Store" className="img" />
-                                    </a>
-                                    <a href="#" className="app-link" aria-label="app store">
-                                        <img src={appStore} width={132} height={38} loading="lazy" alt="App Store" className="img" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </section >
-                </article >
-            </main >
-            {/* - #FOOTER */}
-            <footer className="footer" id='contact' >
-                <div className="footer-top section" data-section>
-                    <div className="container">
-                        <div className="footer-list">
-                            <p className="footer-list-title">Subscribe Newsletter</p>
-                            <p className="footer-list-text">
-                                Lorem Ipsum has been them an industry printer took a galley make book.
-                            </p>
-                            <form action className="footer-form">
-                                <input type="email" name="email_address" aria-label="email" placeholder="Enter email" required className="email-field" />
-                                <button type="submit" className="btn btn-secondary">Subscribe Now</button>
-                            </form>
-                        </div>
-                        <ul className="footer-list">
-                            <li>
-                                <p className="footer-list-title">All Courses</p>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Daily Exercise</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Find Your Balance</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Personal Program</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Natural Process</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Immune System</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Gives You Energy</a>
-                            </li>
-                        </ul>
-                        <ul className="footer-list">
-                            <li>
-                                <p className="footer-list-title">Help Links</p>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Privacy Policy</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Discussion</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Terms &amp; Conditions</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Customer Support</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Course FAQ’s</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Online Classes</a>
-                            </li>
-                        </ul>
-                        <ul className="footer-list">
-                            <li>
-                                <p className="footer-list-title">Opening Hours</p>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Mon-Fri: 9 AM – 6 PM</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Saturday: 9 AM – 4 PM</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Sunday: Closed</a>
-                            </li>
-                            <li>
-                                <p className="footer-list-title address-title">Location</p>
-                            </li>
-                            <li>
-                                <address className="address">
-                                    176 W street name, New<br />
-                                    York, NY 10014
-                                </address>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="footer-bottom">
-                    <div className="container">
-                        <p className="copyright">
-                            © 2022 Futras Made With{" "}
-                            <img src={heartIcon} className='inline' width={16} height={16} alt="" /> by
-                            <a href="#" className="copyright-link"> {' '}codewithsadee</a>
-                        </p>
-                        <ul className="footer-bottom-list">
-                            <li className="footer-bottom-item">
-                                <a href="#" className="footer-bottom-link">Terms of Service</a>
-                            </li>
-                            <li className="footer-bottom-item">
-                                <a href="#" className="footer-bottom-link">Privacy Policy</a>
-                            </li>
-                            <li className="footer-bottom-item">
-                                <a href="#" className="footer-bottom-link">Sitemap</a>
-                            </li>
-                            <li className="footer-bottom-item">
-                                <a href="#" className="footer-bottom-link">Security</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </footer >
-            {/* - #BACK TO TOP */}
-            <a href="#top" className="back-top-btn" aria-label="back to top" data-back-top-btn >
-                <img src={upArrowIcon} className=' opacity-70' width={16} height={16} alt="" />
-            </a >
-            {/* - custom js link*/}
-            {/* - ionicon link*/}
-        </div >
-    )
-};
-
-

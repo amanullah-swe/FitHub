@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import FoodList from '../components/FoodList.jsx';
 import Leftsidebar from '../components/Leftsidebar.jsx'
-import { RemoveMealFromDailyFitnessAndMealsDataAsync, clearDietAndMealApiMessage, fetchDailyFitnessAndMealsDataAsync, selectDate, selectDietAndMealApiMessage, selectDocumentId, selectFitness, selectHomeError, selectTotalnutrients } from '../features/fitnesAndDiet/fitnessAndDietSlice.js';
+import { RemoveMealFromDailyFitnessAndMealsDataAsync, caloriesGoal, clearDietAndMealApiMessage, fetchDailyFitnessAndMealsDataAsync, proteinGoal, removeWorkout, selectDate, selectDietAndMealApiMessage, selectDocumentId, selectFitness, selectHomeError, selectTotalnutrients, selectWorkouts, weight, } from '../features/fitnesAndDiet/fitnessAndDietSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousDate } from '../helpers/getPrevioudDate.js';
-import { ToastContainer, Zoom, toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
-import { selectUser } from '../features/user/userSlice.js';
 import TostifyPop, { errorPop, successPop } from '../components/TostifyPop.jsx';
+import Navebar from '../components/Navbar.jsx'
+import Caloreisburncalculator from '../components/caloriesburncalculator.jsx';
+import Workoutlist from '../components/Workoutlist.jsx';
 function page() {
     const dispatch = useDispatch();
     const meals = useSelector(selectFitness);
@@ -15,10 +15,12 @@ function page() {
     const date = useSelector(selectDate);
     const docId = useSelector(selectDocumentId);
     const [days, setDays] = useState(0);
-    const setcalories = useSelector(selectUser).caloriesGoal;
-    const setProtien = useSelector(selectUser).proteinGoal;
+    const setcalories = useSelector(caloriesGoal);
+    const setProtien = useSelector(proteinGoal);
+    const setweight = useSelector(weight);
+    console.log(setcalories, setProtien, setweight)
     const requestStatus = useSelector(selectDietAndMealApiMessage);
-
+    const workouts = useSelector(selectWorkouts);
     useEffect(() => {
         const date = getPreviousDate(days);
         dispatch(fetchDailyFitnessAndMealsDataAsync({ date }));
@@ -28,25 +30,32 @@ function page() {
     const handleRemoveButton = (e, { index, name, mealType }) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log(mealType, index);
         const meal = meals[mealType][index];
         dispatch(RemoveMealFromDailyFitnessAndMealsDataAsync({ name, docId, index, mealType, meal }));
     }
     useEffect(() => {
         if (requestStatus.success) {
-            console.log(requestStatus);
-            successPop(requestStatus.success)
+            // successPop(requestStatus.success)
             dispatch(clearDietAndMealApiMessage());
             return;
         }
-        console.log(requestStatus.error);
         errorPop(requestStatus.error)
         dispatch(clearDietAndMealApiMessage());
     }, [requestStatus])
 
+    function handleRemoveWorkout(e, workoutId, caloriesBurned) {
+        const workout = {
+            _id: workoutId,
+            date: getPreviousDate(),
+            docId,
+            caloriesBurned
+        }
+        dispatch(removeWorkout(workout));
+    }
     return (
-        <div className='h-[100dvh] flex flex-row bg-offwhite pl-[180px] max-md:pl-0 overflow-hidden relative'>
+        <div className='h-[100dvh] flex flex-row bg-offwhite pl-[180px] max-md:px-0 max-md:pt-[60px] overflow-hidden relative'>
             <TostifyPop />
+            <Navebar />
             <Leftsidebar />
             <div className='px-10 py-5 flex flex-col  w-full max-md:pb-[60px] max-md:px-4'  >
                 {/* date and all  */}
@@ -64,11 +73,13 @@ function page() {
                     </div>
                 </div>
                 <div className=' w-full overflow-y-scroll'>
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.breakfast} title='breakfast' />
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.lunch} title='lunch' />
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.dinner} title='dinner' />
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.snackAm} title='snackAm' />
-                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} data={meals.snackPm} title='snackPm' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} days={days} data={meals.breakfast} title='breakfast' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} days={days} data={meals.lunch} title='lunch' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} days={days} data={meals.dinner} title='dinner' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} days={days} data={meals.snackAm} title='snackAm' />
+                    <FoodList handleRemoveButton={handleRemoveButton} removebutton={date == getPreviousDate()} days={days} data={meals.snackPm} title='snackPm' />
+                    <Workoutlist handleRemoveButton={handleRemoveWorkout} removebutton={date == getPreviousDate()} data={workouts} />
+                    <Caloreisburncalculator weight={setweight} />
                 </div>
             </div>
 

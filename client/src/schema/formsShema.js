@@ -1,4 +1,4 @@
-import { number, object, ref, string, } from 'yup';
+import { number, object, ref, string } from 'yup';
 let loginSchema = object({
     email: string().email().required('enter a valide email'),
     password: string().min(8).max(16).required('Enter a valid password'),
@@ -40,4 +40,55 @@ export const healthInformaionSchema = object({
         value: number().required('Weight value is required'),
         unit: string().required('Weight unit is required'),
     }),
+});
+
+
+const nonNegative = number().test(
+    'isNonNegative',
+    'Value must be non-negative',
+    (value) => value >= 0
+);
+export const createMealSchema = object().shape({
+    name: string().required('Name is required'),
+    description: string().optional(), // Optional field
+    serving_size: number().required('Serving size is required').test(
+        'isNonNegative',
+        'Value must be non-negative',
+        (value) => value >= 0
+    ),
+    protein: number().required('Protein is required').test(
+        'isNonNegative',
+        'Value must be non-negative',
+        (value) => value >= 0
+    ),
+    calories: number().required('Calories are required').test(
+        'isNonNegative',
+        'Value must be non-negative',
+        (value) => value >= 0
+    ),
+    carbohydrates: number().required('Carbohydrates are required').test(
+        'isNonNegative',
+        'Value must be non-negative',
+        (value) => value >= 0
+    ),
+    fiber: number().required('Fiber is required').test(
+        'isNonNegative',
+        'Value must be non-negative',
+        (value) => value >= 0
+    ),
+    fat: number().required('Fat is required').test(
+        'isNonNegative',
+        'Value must be non-negative',
+        (value) => value >= 0
+    ),
+    cholesterol: number().required('Cholesterol is required').test(
+        'isNonNegative',
+        'Value must be non-negative',
+        (value) => value >= 0
+    ),
+    sugar: number().required('Sugar is required').test(
+        'isNonNegative',
+        'Value must be non-negative',
+        (value) => value >= 0
+    ),
 });

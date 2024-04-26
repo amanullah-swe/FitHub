@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import Meal from "../models/meal";
 
+
 export async function findMealById(req: Request, res: Response) {
     const { id } = req.params;
     try {
+        if (!id) return res.status(404).json({ error: "id is undefine" })
         const meal = await Meal.findById(id);
         return res.json(meal);
     } catch (error) {
-        return res.json({ error: error });
+        return res.status(504).json({ error: error });
     }
 }
 export async function findMealByName(req: Request, res: Response) {
@@ -22,7 +24,7 @@ export async function findMealByName(req: Request, res: Response) {
         }).limit(10);
         res.status(200).json([...newMeal]);
     } catch (error) {
-        return res.json({ error: error });
+        return res.status(504).json({ error: error });
     }
 }
 export async function creatMeal(req: Request, res: Response) {
@@ -32,7 +34,7 @@ export async function creatMeal(req: Request, res: Response) {
         await meal.save();
         res.status(201).json({ meal, message: "meal created" });
     } catch (error) {
-
+        return res.status(504).json({ error: error });
     }
 }
 

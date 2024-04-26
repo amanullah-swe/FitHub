@@ -2,12 +2,17 @@ import mongoose from 'mongoose';
 import DailyFitnessAndDietModel from '../models/dailyFitnessAndDietSchema'; // Adjust the import path accordingly
 import { Request, Response } from 'express';
 import { getPreviousDate } from '../helpers/getPrevioudDate'
+import { findMealById } from './mealController';
+import { User } from '../models/user';
 
 type SampleData = {
     userId: String,
     date: string;
     currentFitnessLevel: string;
     totalCaloriesBurned: number;
+    caloriesGoal: number,
+    proteinGoal: number,
+    weight: number,
     totalNutrients: {
         protein: number;
         calories: number;
@@ -18,7 +23,9 @@ type SampleData = {
         sugar: number;
     };
     workouts: Array<{
-        workoutType: string;
+        name: string;
+        intensity: string;
+        metValue: number;
         duration: number;
         caloriesBurned: number;
     }>;
@@ -118,6 +125,8 @@ type Meal = {
     }
 }
 type MealType = 'breakfast' | 'lunch' | 'dinner' | 'snackAm' | "snackPm";
+
+
 // Create a new document
 export async function AddMealAndFitnessDataOfUser(req: Request, res: Response) {
     try {
@@ -125,6 +134,9 @@ export async function AddMealAndFitnessDataOfUser(req: Request, res: Response) {
         const sampleData: SampleData = {
             userId: '',
             date: '',
+            caloriesGoal: 0,
+            proteinGoal: 0,
+            weight: 0,
             currentFitnessLevel: 'Intermediate',
             totalCaloriesBurned: 0,
             totalNutrients: {
@@ -152,8 +164,12 @@ export async function AddMealAndFitnessDataOfUser(req: Request, res: Response) {
         if (!date || !meal || !userId || !mealType) return res.status(504).json({ message: 'send the data proparly ' });
         const isMealExist = await DailyFitnessAndDietModel.findOne({ date, userId });
         if (!isMealExist && date == getPreviousDate()) {
+            const user = await User.findById(userId);
             sampleData.date = date;
             sampleData.userId = userId;
+            sampleData.proteinGoal = user.proteinGoal;
+            sampleData.caloriesGoal = user.caloriesGoal;
+            sampleData.weight = user.weight.value;
             sampleData.totalNutrients = meal.nutrients;
             sampleData.meals[mealType].push(meal);
             const createdDocument = await DailyFitnessAndDietModel.create(sampleData);
@@ -197,6 +213,7 @@ export async function AddMealAndFitnessDataOfUser(req: Request, res: Response) {
     }
 };
 
+// FETCH THE MAELS BY USER ID AND DATE
 export async function getDailyMealAndFitnessByUserId(req: Request, res: Response) {
     const { date, userId }: { date: string, userId: string } = req.body;
     if (!date || !userId) return res.status(404).json({ message: "invalid Inputs pleas provide all the parameters" });
@@ -205,6 +222,7 @@ export async function getDailyMealAndFitnessByUserId(req: Request, res: Response
     return res.status(200).json(document);
 }
 
+//REMOVE MEALS
 export async function removeMealFromDailyMealAndFitness(req: Request, res: Response) {
     const { name, docId, index, mealType, meal }: { name: string, docId: string, index: number, mealType: string, meal: Meal } = req.body;
     if (!name || !docId || typeof (index) != 'number' || !mealType || !meal) {
@@ -233,5 +251,126 @@ export async function removeMealFromDailyMealAndFitness(req: Request, res: Respo
     }
     return res.status(200).json(document);
 }
-// Call the function to create the document
 
+//ADD WORKOUT 
+export async function AddWorkout(req: Request, res: Response) {
+    const sampleData: SampleData = {
+        userId: '',
+        date: '',
+        proteinGoal: 0,
+        caloriesGoal: 0,
+        weight: 0,
+        currentFitnessLevel: 'Intermediate',
+        totalCaloriesBurned: 0,
+        totalNutrients: {
+            protein: 0,
+            calories: 0,
+            carbohydrates: 0,
+            fiber: 0,
+            fat: 0,
+            cholesterol: 0,
+            sugar: 0
+        },
+        workouts: [
+
+        ],
+        meals: {
+            breakfast: [],
+            lunch: [],
+            dinner: [],
+            snackAm: [],
+            snackPm: []
+        }
+    };
+    try {
+        // Define combined type for request body
+        type WorkoutLogEntry = {
+            userId: string;
+            date: string;
+            name: string;
+            intensity: string;
+            duration: number;
+            caloriesBurned: number;
+            metValue: number;
+        };
+
+        // Destructure request body using the defined types
+        const { date, userId, name, intensity, duration, caloriesBurned, metValue }: WorkoutLogEntry = req.body;
+        if (date != getPreviousDate()) {
+            return res.status(402).json({ error: "can not add to previouse date" })
+        }
+        if (!date || !userId || !name || !intensity || !duration || !caloriesBurned || !metValue) return res.status(404).json({ message: 'send the data proparly ' });
+        const isMealExist = await DailyFitnessAndDietModel.findOne({ date, userId });
+        if (!isMealExist && date == getPreviousDate()) {
+            const user = await User.findById(userId);
+            sampleData.proteinGoal = user.proteinGoal;
+            sampleData.caloriesGoal = user.caloriesGoal;
+            sampleData.weight = user.weight.value;
+            sampleData.date = date;
+            sampleData.userId = userId;
+            sampleData.totalCaloriesBurned = caloriesBurned;
+            sampleData.totalNutrients.calories = -caloriesBurned;
+            sampleData.workouts.push({ name, intensity, duration, caloriesBurned, metValue, });
+            const createdDocument = await DailyFitnessAndDietModel.create(sampleData);
+            await createdDocument.save();
+            return res.status(201).json(createdDocument);
+        }
+        else if (isMealExist && date == getPreviousDate()) {
+            const newEntry = await DailyFitnessAndDietModel.findOneAndUpdate(
+                { date, userId },
+                {
+                    $push: { workouts: { name, intensity, caloriesBurned, metValue, duration } },
+                    $inc: {
+                        'totalCaloriesBurned': caloriesBurned,
+                        'totalNutrients.calories': -caloriesBurned,
+                    }
+                },
+                { new: true }
+            );
+            if (!newEntry) return res.status(404).json({ message: 'not found ' });
+            else {
+                await newEntry.save();
+                return res.status(201).json(newEntry);
+            }
+        }
+        return res.status(500).json({ date, serverDate: getPreviousDate() },);
+        // Create document
+    } catch (error) {
+        console.log(error)
+        res.status(504).json({ message: 'Error creating document:', error });
+    }
+};
+
+// REMOVE WORKOUT
+export async function removeWorkout(req: Request, res: Response) {
+    // Define combined type for request body
+    type WorkoutLogEntry = {
+        _id: string,
+        docId: string;
+        date: string;
+        caloriesBurned: number;
+    };
+    // Destructure request body using the defined types
+    const { date, docId, _id, caloriesBurned }: WorkoutLogEntry = req.body;
+    if (date != getPreviousDate()) {
+        return res.status(402).json({ error: "can not add to previouse date" })
+    }
+    if (!date || !docId || !_id || !caloriesBurned) return res.status(402).json({ message: 'send the data proparly ' });
+
+    const document = await DailyFitnessAndDietModel.findOneAndUpdate(
+        { _id: docId },
+        {
+            $pull: { workouts: { _id } },
+            $inc: {
+                'totalCaloriesBurned': -caloriesBurned,
+                'totalNutrients.calories': caloriesBurned,
+            }
+        },
+        { new: true }
+    );
+
+    if (!document) {
+        return res.status(405).json({ message: "Document not found" });
+    }
+    return res.status(200).json(document);
+}
