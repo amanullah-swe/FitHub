@@ -17,7 +17,7 @@ app.use(morgan("dev"));
 app.use(cookieParser())
 app.use(express.json());
 const corsOptions: {} = {
-    origin: [process.env.CROS_ORINGIN_ULR1, process.env.CROS_ORINGIN_ULR2],
+    origin: [process.env.CROS_ORINGIN_ULR1, process.env.CROS_ORINGIN_ULR2, process.env.CROS_ORINGIN_ULR3],
     credentials: true,
     exposedHeaders: 'Authorization, Content-Type, X-Total-Count',
 };

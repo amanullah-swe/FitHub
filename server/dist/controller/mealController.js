@@ -18,11 +18,13 @@ function findMealById(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { id } = req.params;
         try {
+            if (!id)
+                return res.status(404).json({ error: "id is undefine" });
             const meal = yield meal_1.default.findById(id);
             return res.json(meal);
         }
         catch (error) {
-            return res.json({ error: error });
+            return res.status(504).json({ error: error });
         }
     });
 }
@@ -40,7 +42,7 @@ function findMealByName(req, res) {
             res.status(200).json([...newMeal]);
         }
         catch (error) {
-            return res.json({ error: error });
+            return res.status(504).json({ error: error });
         }
     });
 }
@@ -54,6 +56,7 @@ function creatMeal(req, res) {
             res.status(201).json({ meal, message: "meal created" });
         }
         catch (error) {
+            return res.status(504).json({ error: error });
         }
     });
 }

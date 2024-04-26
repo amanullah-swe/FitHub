@@ -6,5 +6,7 @@ const authMiddleware_1 = require("../middleware/authMiddleware");
 const router = (0, express_1.Router)();
 router.post('/addMeals', authMiddleware_1.authMiddleware, dailyFitnessAndDietSchemaController_1.AddMealAndFitnessDataOfUser);
 router.post('/daily-meals-and-fitness-data', authMiddleware_1.authMiddleware, dailyFitnessAndDietSchemaController_1.getDailyMealAndFitnessByUserId);
-router.post('/remove-meals', authMiddleware_1.authMiddleware, dailyFitnessAndDietSchemaController_1.removeMealFromDailyMealAndFitness);
+router.delete('/remove-meals', authMiddleware_1.authMiddleware, dailyFitnessAndDietSchemaController_1.removeMealFromDailyMealAndFitness);
+router.post('/add-workout', authMiddleware_1.authMiddleware, dailyFitnessAndDietSchemaController_1.AddWorkout);
+router.delete('/remove-workout', authMiddleware_1.authMiddleware, dailyFitnessAndDietSchemaController_1.removeWorkout);
 exports.default = router;

@@ -22,7 +22,7 @@ app.use((0, morgan_1.default)("dev"));
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 const corsOptions = {
-    origin: [process.env.CROS_ORINGIN_ULR1, process.env.CROS_ORINGIN_ULR2],
+    origin: [process.env.CROS_ORINGIN_ULR1, process.env.CROS_ORINGIN_ULR2, process.env.CROS_ORINGIN_ULR3],
     credentials: true,
     exposedHeaders: 'Authorization, Content-Type, X-Total-Count',
 };

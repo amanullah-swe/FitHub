@@ -8,9 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateHealthInfo = exports.updatePersonalInfo = exports.getUserById = void 0;
 const user_1 = require("../models/user");
+const dailyFitnessAndDietSchema_1 = __importDefault(require("../models/dailyFitnessAndDietSchema"));
+const getPrevioudDate_1 = require("../helpers/getPrevioudDate");
 function getUserById(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -68,6 +73,7 @@ function updateHealthInfo(req, res) {
             });
             if (!user)
                 res.status(404).json({ message: "security error" });
+            const upadatedDietAndFitness = yield dailyFitnessAndDietSchema_1.default.findOneAndUpdate({ userId, date: (0, getPrevioudDate_1.getPreviousDate)(0) }, { weight: weight.value, caloriesGoal, proteinGoal }, { new: true });
             res.status(200).json(user);
         }
         catch (error) {

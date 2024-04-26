@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = void 0;
+exports.authChecker = exports.login = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const user_1 = require("../../models/user");
@@ -37,7 +37,7 @@ function login(req, res) {
             res.cookie('token', token, {
                 path: '/', // Set the path to '/'
                 httpOnly: true,
-                maxAge: 3600000,
+                maxAge: 7 * 24 * 60 * 60 * 1000,
                 secure: true,
                 sameSite: 'none'
             });
@@ -51,3 +51,9 @@ function login(req, res) {
     });
 }
 exports.login = login;
+function authChecker(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return res.status(200).json("user authenticated");
+    });
+}
+exports.authChecker = authChecker;

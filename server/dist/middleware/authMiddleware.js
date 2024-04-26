@@ -11,7 +11,7 @@ const authMiddleware = (req, res, next) => {
         // Get the token from the cookie (assuming you're using cookie-parser)
         const token = req.cookies.token;
         if (!token)
-            return res.status(401).json({ message: "token is measing login agian" });
+            return res.status(401).json({ message: "token expired, singup again" });
         // Verify the token using your secret key
         const decoded = jsonwebtoken_1.default.verify(token, 'your-secret-key');
         // If the token is valid, set the user ID in the request object
