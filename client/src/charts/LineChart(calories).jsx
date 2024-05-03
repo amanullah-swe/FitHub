@@ -23,36 +23,37 @@ ChartJS.register(
     Legend
 );
 
-const newData = barCharFilter(Data);
+export default function Linechartcalories({ dashboardData }) {
 
-export const options = {
-    responsive: true,
-    plugins: {
-        legend: {
-            position: 'top',
+    const newData = barCharFilter(dashboardData);
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Calories intake',
+            },
         },
-        title: {
-            display: true,
-            text: 'Calories intake',
-        },
-    },
-};
+    };
 
-const labels = newData.map(({ date }) => date);
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: 'calories (cal)',
-            data: newData.map(({ calories }) => calories),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            tension: 0.5,
+    const labels = newData.map(({ date }) => date);
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'calories (cal)',
+                data: newData.map(({ calories }) => calories),
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                tension: 0.5,
 
-        },
-    ],
-};
+            },
+        ],
+    };
 
-export default function Linechartcalories() {
     return <Line options={options} data={data} className='bg-white w-full shadow-xl rounded-3xl p-4' />;
 }

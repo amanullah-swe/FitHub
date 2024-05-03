@@ -23,44 +23,46 @@ ChartJS.register(
     Legend
 );
 
-const newData = barCharFilter(Data);
 
-export const options = {
-    responsive: true,
-    plugins: {
-        legend: {
-            position: 'top',
+
+export default function Linechart({ dashboardData }) {
+
+    const newData = barCharFilter(dashboardData);
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Micro nutrients',
+            },
         },
-        title: {
-            display: true,
-            text: 'Micro nutrients',
-        },
-    },
-};
+    };
 
-const labels = newData.map(({ date }) => date);
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: 'cholesterol (mg)',
-            data: newData.map(({ cholesterol }) => cholesterol),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            tension: 0.5,
+    const labels = newData.map(({ date }) => date);
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'cholesterol (mg)',
+                data: newData.map(({ cholesterol }) => cholesterol),
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                tension: 0.5,
 
-        },
-        {
-            label: 'sugar (g)',
-            data: newData.map(({ sugar }) => sugar),
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            tension: 0.5,
+            },
+            {
+                label: 'sugar (g)',
+                data: newData.map(({ sugar }) => sugar),
+                borderColor: 'rgb(53, 162, 235)',
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                tension: 0.5,
 
-        },
-    ],
-};
-
-export default function Linechart() {
+            },
+        ],
+    };
     return <Line options={options} data={data} className='bg-white w-full shadow-xl rounded-3xl p-4' />;
 }

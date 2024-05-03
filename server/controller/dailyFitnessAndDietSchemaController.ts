@@ -374,3 +374,55 @@ export async function removeWorkout(req: Request, res: Response) {
     }
     return res.status(200).json(document);
 }
+
+
+export async function getDashboardData(req: Request, res: Response) {
+    const { userId }: { userId: string } = req.body;
+
+    if (!userId) {
+        return res.status(404).json({ message: "Invalid Inputs. Please provide all parameters." });
+    }
+
+    const data: Array<any> = [];
+    for (let i = 7; i > 0; i--) {
+        const sampleMeal = {
+            _id: "placeHolder", // Use a more generic placeholder for _id
+            userId,
+            date: getPreviousDate(i), // Consider adding error handling for getPreviousDate return value
+            currentFitnessLevel: "unknown", // More informative placeholder
+            totalCaloriesBurned: 0,
+            totalNutrients: {
+                protein: 0,
+                calories: 0,
+                carbohydrates: 0,
+                fiber: 0,
+                fat: 0,
+                cholesterol: 0,
+                sugar: 0,
+            },
+            workouts: [],
+            meals: {
+                breakfast: [],
+                lunch: [],
+                dinner: [],
+                snackAm: [],
+                snackPm: [],
+            },
+            __v: 0,
+        };
+
+        try {
+            const document = await DailyFitnessAndDietModel.findOne({ date: sampleMeal.date, userId });
+            if (!document) {
+                data.push(sampleMeal);
+            } else {
+                data.push(document);
+            }
+        } catch (error) {
+            console.error("Error fetching document:", error);
+            // Handle database errors appropriately (e.g., return a generic error response)
+        }
+    }
+
+    return res.status(200).json(data);
+}

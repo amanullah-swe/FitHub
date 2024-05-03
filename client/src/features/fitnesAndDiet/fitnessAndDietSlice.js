@@ -41,6 +41,183 @@ const initialState = {
 
     },
   },
+  dashboarData: [
+    {
+      "_id": "placeHolder",
+      "userId": "userID",
+      "date": "date",
+      "currentFitnessLevel": "unknown",
+      "totalCaloriesBurned": 0,
+      "totalNutrients": {
+        "protein": 0,
+        "calories": 0,
+        "carbohydrates": 0,
+        "fiber": 0,
+        "fat": 0,
+        "cholesterol": 0,
+        "sugar": 0
+      },
+      "workouts": [],
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snackAm": [],
+        "snackPm": []
+      },
+      "__v": 0
+    },
+    {
+      "_id": "placeHolder",
+      "userId": "userID",
+      "date": "date",
+      "currentFitnessLevel": "unknown",
+      "totalCaloriesBurned": 0,
+      "totalNutrients": {
+        "protein": 0,
+        "calories": 0,
+        "carbohydrates": 0,
+        "fiber": 0,
+        "fat": 0,
+        "cholesterol": 0,
+        "sugar": 0
+      },
+      "workouts": [],
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snackAm": [],
+        "snackPm": []
+      },
+      "__v": 0
+    },
+    {
+      "_id": "placeHolder",
+      "userId": "userID",
+      "date": "date",
+      "currentFitnessLevel": "unknown",
+      "totalCaloriesBurned": 0,
+      "totalNutrients": {
+        "protein": 0,
+        "calories": 0,
+        "carbohydrates": 0,
+        "fiber": 0,
+        "fat": 0,
+        "cholesterol": 0,
+        "sugar": 0
+      },
+      "workouts": [],
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snackAm": [],
+        "snackPm": []
+      },
+      "__v": 0
+    },
+    {
+      "_id": "placeHolder",
+      "userId": "userID",
+      "date": "date",
+      "currentFitnessLevel": "unknown",
+      "totalCaloriesBurned": 0,
+      "totalNutrients": {
+        "protein": 0,
+        "calories": 0,
+        "carbohydrates": 0,
+        "fiber": 0,
+        "fat": 0,
+        "cholesterol": 0,
+        "sugar": 0
+      },
+      "workouts": [],
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snackAm": [],
+        "snackPm": []
+      },
+      "__v": 0
+    },
+    {
+      "_id": "placeHolder",
+      "userId": "userID",
+      "date": "date",
+      "currentFitnessLevel": "unknown",
+      "totalCaloriesBurned": 0,
+      "totalNutrients": {
+        "protein": 0,
+        "calories": 0,
+        "carbohydrates": 0,
+        "fiber": 0,
+        "fat": 0,
+        "cholesterol": 0,
+        "sugar": 0
+      },
+      "workouts": [],
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snackAm": [],
+        "snackPm": []
+      },
+      "__v": 0
+    },
+    {
+      "_id": "placeHolder",
+      "userId": "userID",
+      "date": "date",
+      "currentFitnessLevel": "unknown",
+      "totalCaloriesBurned": 0,
+      "totalNutrients": {
+        "protein": 0,
+        "calories": 0,
+        "carbohydrates": 0,
+        "fiber": 0,
+        "fat": 0,
+        "cholesterol": 0,
+        "sugar": 0
+      },
+      "workouts": [],
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snackAm": [],
+        "snackPm": []
+      },
+      "__v": 0
+    },
+    {
+      "_id": "placeHolder",
+      "userId": "userID",
+      "date": "date",
+      "currentFitnessLevel": "unknown",
+      "totalCaloriesBurned": 0,
+      "totalNutrients": {
+        "protein": 0,
+        "calories": 0,
+        "carbohydrates": 0,
+        "fiber": 0,
+        "fat": 0,
+        "cholesterol": 0,
+        "sugar": 0
+      },
+      "workouts": [],
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snackAm": [],
+        "snackPm": []
+      },
+      "__v": 0
+    },
+  ],
   dietAndMealApiMessage: {
     success: null,
     error: null
@@ -120,6 +297,34 @@ export const removeWorkout = createAsyncThunk(
       const data = await response.json();
       return data;
     } catch (error) {
+      return rejectWithValue("An unexpected error occurred.");
+    }
+  }
+);
+
+export const dashboardData = createAsyncThunk(
+  "dahboard/get data",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await fetch(baseUrl + "/api/dashboard-data",
+        {
+          method: "GET",
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
+
+      if (!response.ok) {
+        const errorMessage = await response.json();
+        return rejectWithValue(errorMessage.error);
+      }
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error)
       return rejectWithValue("An unexpected error occurred.");
     }
   }
@@ -218,6 +423,22 @@ export const fitnessSlice = createSlice({
         state.dietAndMealApiMessage.error = action.error;
         state.homeError = action.error;
       })
+
+      // DASHBOARD  
+      .addCase(dashboardData.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(dashboardData.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.dietAndMealApiMessage.success = 'workout added'
+        state.dashboarData = action.payload;
+        state.homeError = null;
+      })
+      .addCase(dashboardData.rejected, (state, action) => {
+        state.status = 'reject';
+        state.dietAndMealApiMessage.error = action.error;
+        state.homeError = action.error;
+      })
   },
 });
 
@@ -233,4 +454,5 @@ export const selectWorkouts = (state) => state.fitnessAndDiet.data.workouts;
 export const caloriesGoal = (state) => state.fitnessAndDiet.data.caloriesGoal;
 export const proteinGoal = (state) => state.fitnessAndDiet.data.proteinGoal;
 export const weight = (state) => state.fitnessAndDiet.data.weight;
+export const selectDashboardData = (state) => state.fitnessAndDiet.dashboarData;
 export default fitnessSlice.reducer;

@@ -7,8 +7,8 @@ function Navbar() {
         <div className='w-full absolute top-0 z-60 md:hidden py-4 px-8 flex flex-row justify-between items-center bg-white shadow-lg'>
             <Link to={'/'} className="flex items-center justify-center gap-4  w-56 max-md:w-fit  rounded-xl ">
                 <img src={logo} width={40} alt="" />
-                <a href="#" className="logo2  flex items-end">Fithub <span className="span text-5xl"> .</span>
-                </a>
+                <p className="logo2  flex items-end">Fithub <span className="span text-5xl"> .</span>
+                </p>
             </Link>
             <div className='flex justify-between'>
                 {/* search */}

@@ -7,8 +7,12 @@ import { logo } from "../assets";
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import TostifyPop, { errorPop, successPop } from "../components/TostifyPop";
 export default function signin() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    //  for special people to share the email and Password to special person / recuruter
+    const params = new URLSearchParams(location.search);
+    const initialEmail = params.get('email');
+    const initialPassword = params.get('password');
+    const [email, setEmail] = useState(initialEmail ? initialEmail : '');
+    const [password, setPassword] = useState(initialPassword ? initialPassword : '');
     const requestStatus = useSelector(selectRequestStatus);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -17,6 +21,8 @@ export default function signin() {
         e.stopPropagation();
         dispatch(authLoginAsync({ email, password }));
     }
+
+
     useEffect(() => {
         if (requestStatus.success) {
             console.log(requestStatus);
