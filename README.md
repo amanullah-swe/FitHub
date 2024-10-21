@@ -2,6 +2,8 @@
 
 FitHub is a comprehensive health and wellness platform designed to empower individuals on their fitness journey. With its extensive food database, personalized dietary recommendations, and user-friendly dashboard, FitHub simplifies nutrition management. It tailors food choices based on unique health needs, transforming complex data into actionable insights. Whether you're tracking macronutrients, managing specific medical conditions, or looking for nutritional advice, FitHub provides the tools and knowledge to make informed decisions. Take control of your health with FitHub and unlock a healthier, happier you.
 
+![Workout Tracking](./fithub%20images/Screenshot%202024-03-29%20152950.png)
+
 ## Table of Contents
 - [Workout Plans and Tracking](#workout-plans-and-tracking)
 - [Calorie burn calculator](#calorie-burn-calculator)
