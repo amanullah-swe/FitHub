@@ -34,4 +34,4 @@ FitHub’s powerful meal search tool enables you to find nutritional information
 ## Weekly Data Dashboard
 The Weekly Data Dashboard offers a snapshot of your health and fitness progress. With clear, visually engaging charts and graphs, you can track your workout performance, calorie intake, and overall progress. This tool helps you spot trends in your health data, celebrate achievements, and identify areas for improvement—all in one convenient view.
 
-![Educational Resources](./images/educational_resources.png)
+![Weekly Data Dashboard](./fithub%20images/Screenshot%202024-11-07%20163322.png)
