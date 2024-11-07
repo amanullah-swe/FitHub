@@ -10,6 +10,7 @@ FitHub is a comprehensive health and wellness platform designed to empower indiv
 - [Profile Management](#profile-management)
 - [Meal Search](#meal-search)
 - [Weekly Data Dashboard](#weekly-data-dashboard)
+- [Setup Project](#setup-project)
 
 ## Meal Tracking
 FitHub offers customizable workout plans designed for all fitness levels. Whether you're a beginner or an experienced athlete, you can create personalized routines based on your fitness goals. Track your progress over time, analyze workout performance, and receive recommendations to stay on top of your fitness journey. With detailed progress reports and goal-oriented tracking, FitHub keeps you motivated every step of the way.
@@ -43,3 +44,19 @@ The Weekly Data Dashboard offers a snapshot of your health and fitness progress.
 
 <img src="./fithub%20images/Screenshot%202024-11-07%20163322.png" alt="Description"  height="250">
 
+
+## Setup Project 
+  1. download or clone the repository
+  2. open client folder and run 
+      ```javascript
+      npm install i --force
+      npm start
+      ```
+  3. Open backend folder
+     replace .env credential with yours
+     and run 
+      ```javascript
+      npm install i --force
+      nodemon
+      ```
+      
