@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { authLogin, authRegister, fetchUserData } from './userAPI';
-import { baseUrl } from '../../app/constant';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { baseUrl } from "../../app/constant";
+import { apiGet, apiPost, apiPut } from "../../apis/api_functions"; // ✅ Import reusable API functions
+
 const initialState = {
   data: {
     id: "",
@@ -10,16 +11,10 @@ const initialState = {
     age: 25,
     gender: "",
     profession: "",
-    profileImage: '',
+    profileImage: "",
     activityLevel: "",
-    height: {
-      value: "",
-      unit: ""
-    },
-    weight: {
-      value: '',
-      unit: ""
-    },
+    height: { value: "", unit: "" },
+    weight: { value: "", unit: "" },
     caloriesGoal: 0,
     proteinGoal: 0,
     fitnessGoals: [],
@@ -29,135 +24,55 @@ const initialState = {
     notificationPreferences: {
       email: true,
       app: true,
-      sms: false
+      sms: false,
     },
     privacy: {
       profileVisibility: "Public",
-      dataSharing: true
+      dataSharing: true,
     },
-    notificationPreferences: {
-      email: true,
-      app: true,
-      sms: false
-    }
   },
   auth: false,
-  status: 'idl',
+  status: "idl",
   requestStatus: {
     success: null,
-    error: null
-  }
-
+    error: null,
+  },
 };
 
-// login function that handle fetching of user login
-export const authLoginAsync = createAsyncThunk(
-  'auth/login',
-  async ({ email, password }) => {
-    const response = await fetch(`${baseUrl}/api/auth/login`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+// ----------------------------- AUTH -----------------------------
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error); // Or a more specific error message from response.json()
-    }
-    return await response.json();
-  }
-);
-export const authRegisterAsync = createAsyncThunk(
-  'user/AuthRegister',
-  async ({ name, email, phone, gender, profession, password, age }) => {
-    const response = await authRegister({ name, email, phone, gender, profession, password, age });
-    return response;
-  }
-);
-export const fetchUserDataAsync = createAsyncThunk(
-  'user/fetch use data',
-  async () => {
-    const response = await fetchUserData();
-    return response;
-  }
-);
+export const checkAuthAsync = createAsyncThunk("user/auth/check", async () => {
+  return await apiGet(`${baseUrl}/api/auth`);
+});
+
+// ----------------------------- USER DATA -----------------------------
+
+export const fetchUserDataAsync = createAsyncThunk("user/fetch", async () => {
+  return await apiGet(`${baseUrl}/api/user/id`);
+});
 
 export const updateUserPesonalInfromationAsync = createAsyncThunk(
-  'user/updateUserPersonal-info',
+  "user/updatePersonalInfo",
   async (userData) => {
-    const response = await fetch(baseUrl + '/api/user/personal-info', {
-      method: 'PUT',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-
-    if (!response.ok) {
-      throw new Error('Update user failed'); // Or handle specific errors from response
-    }
-
-    return await response.json();
+    return await apiPut(`${baseUrl}/api/user/personal-info`, userData);
   }
 );
 
 export const updateUserHealthInfromationAsync = createAsyncThunk(
-  'user/updateUserhealth-info',
+  "user/updateHealthInfo",
   async (userData) => {
-    const response = await fetch(baseUrl + '/api/user/health-info', {
-      method: 'PUT',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-
-    if (!response.ok) {
-      const error = await response.json()
-      throw new Error(error.error); // Or handle specific errors from response
-    }
-
-    return await response.json();
+    return await apiPut(`${baseUrl}/api/user/health-info`, userData);
   }
 );
 
-export const checkAuthAsync = createAsyncThunk(
-  'user/auth/check',
-  async () => {
-    const response = await fetch(baseUrl + '/api/auth', {
-      method: 'get',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
+export const selectRegesterStatus = () => {};
 
-    if (!response.ok) {
-      const error = await response.json()
-      throw new Error(error.error); // Or handle specific errors from response
-    }
-    return await response.json();
-  }
-);
-
+// ----------------------------- SLICE -----------------------------
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
-  // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
     clearRequestStatus: (state) => {
       state.requestStatus.success = null;
       state.requestStatus.error = null;
@@ -165,104 +80,65 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // LOGIN FUNCTIONALITY
-      .addCase(authLoginAsync.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(authLoginAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.requestStatus.success = action.payload.message;
-      })
-      .addCase(authLoginAsync.rejected, (state, action) => {
-        state.status = 'reject';
-        state.requestStatus.error = action.error.message;
-      })
-
-
-      //REGISTER FUNCTIONALITY 
-      .addCase(authRegisterAsync.pending, (state) => {
-        state.status = 'loading';
-        state.register.status = 'loading';
-      })
-      .addCase(authRegisterAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.requestStatus.success = 'sign up successfull'
-      })
-      .addCase(authRegisterAsync.rejected, (state, action) => {
-        state.status = 'reject';
-        state.requestStatus.error = action.error.message;
-        state.Errors = action.error;
-      })
-
-      // LOGIN CHECK AUTHENTICATION
+      // AUTH CHECK
       .addCase(checkAuthAsync.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
-      .addCase(checkAuthAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
+      .addCase(checkAuthAsync.fulfilled, (state) => {
+        state.status = "idle";
         state.auth = true;
-        // state.requestStatus.success = action.payload.message;
       })
-      .addCase(checkAuthAsync.rejected, (state, action) => {
-        state.status = 'reject';
-        // state.requestStatus.error = action.error.message;
+      .addCase(checkAuthAsync.rejected, (state) => {
+        state.status = "reject";
+        state.auth = false;
       })
 
-      // FETCHIN USER DATA
+      // FETCH USER
       .addCase(fetchUserDataAsync.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchUserDataAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = "idle";
         state.data = action.payload;
-        state.requestStatus.success = 'request fullfiled'
+        state.requestStatus.success = "User data fetched";
       })
       .addCase(fetchUserDataAsync.rejected, (state, action) => {
-        state.status = 'reject';
+        state.status = "reject";
         state.requestStatus.error = action.error.message;
       })
 
-      // UPDATING USER PERSONAL INFORMATION
+      // UPDATE PERSONAL INFO
       .addCase(updateUserPesonalInfromationAsync.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(updateUserPesonalInfromationAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.requestStatus.success = 'update successfully';
+        state.status = "idle";
         state.data = action.payload;
-        state.Errors = null;
+        state.requestStatus.success = "Personal info updated";
       })
       .addCase(updateUserPesonalInfromationAsync.rejected, (state, action) => {
-        state.status = 'reject';
-        state.Errors = action.error;
-        state.status = 'reject';
+        state.status = "reject";
         state.requestStatus.error = action.error.message;
       })
 
-
-      // UPDATING USER HEALTH INFORMATION
+      // UPDATE HEALTH INFO
       .addCase(updateUserHealthInfromationAsync.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(updateUserHealthInfromationAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.requestStatus.success = 'update successfully';
+        state.status = "idle";
         state.data = action.payload;
-        state.Errors = null;
+        state.requestStatus.success = "Health info updated";
       })
       .addCase(updateUserHealthInfromationAsync.rejected, (state, action) => {
-        state.status = 'reject';
-        state.Errors = action.error;
-        state.status = 'reject';
+        state.status = "reject";
         state.requestStatus.error = action.error.message;
-      })
+      });
   },
 });
 
-export const { increment, clearRequestStatus } = userSlice.actions;
+export const { clearRequestStatus } = userSlice.actions;
 
-export const selectUser = (state) => state.user.data;
-export const selectRegesterStatus = (state) => state.user.register;
-export const selectRequestStatus = (state) => state.user.requestStatus;
 export const selectAuth = (state) => state.user.auth;
+
 export default userSlice.reducer;

@@ -1,100 +1,207 @@
-import { useFormik } from 'formik';
-import { Link, useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { authRegisterAsync, clearRequestStatus, selectRequestStatus } from '../features/user/userSlice';
-import Formfeild from '../components/Formfield';
-import { logo } from '../assets';
-import { signupSchema } from '../schema/formsShema';
-import TostifyPop, { errorPop, successPop } from '../components/TostifyPop';
-import { useEffect } from 'react';
-export default function signup() {
-    const dispatch = useDispatch()
-    const navigate = useNavigate();
-    const requestStatus = useSelector(selectRequestStatus);
-    const initialValues = {
-        name: '',
-        email: '',
-        confirmPassword: '',
-        password: '',
-        profession: '',
-        age: '',
-        phone: '',
-        gender: '',
-    };
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-        initialValues: initialValues,
-        validationSchema: signupSchema,
-        onSubmit: async (values, action) => {
-            try {
-                console.log(values);
-                if (values.password != values.confirmPassword) return;
-                dispatch(authRegisterAsync(values));
-            } catch (error) {
-                console.log(error);
-            }
+import { useFormik } from "formik";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { logo } from "../assets";
+import Formfeild from "../components/Formfield";
+import TostifyPop, { successPop, errorPop } from "../components/TostifyPop";
+import { signupSchema } from "../schema/formsShema";
+import { apiPost } from "../apis/api_functions";
+import { baseUrl } from "../app/constant";
+import { API_ENDPOINTS } from "../apis/api_end_point";
+
+export default function Signup() {
+  const navigate = useNavigate();
+
+  const initialValues = {
+    name: "aman",
+    email: "aman@gmail.com",
+    confirmPassword: "aman1234",
+    password: "aman1234",
+    profession: "software engineer",
+    age: "23",
+    phone: "2342343423",
+    gender: "male",
+  };
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: signupSchema,
+      onSubmit: async (formValues) => {
+        if (formValues.password !== formValues.confirmPassword) {
+          errorPop("Passwords do not match");
+          return;
         }
+
+        try {
+          const res = await apiPost(API_ENDPOINTS.AUTH.REGISTER, formValues);
+
+          successPop(res?.message || "Signup successful");
+
+          // Store user ID or token in localStorage/cookie if needed
+          if (res?.token) localStorage.setItem("token", res.token);
+
+          setTimeout(() => {
+            navigate("/signin");
+          }, 1000);
+        } catch (err) {
+          console.error("Signup error:", err);
+          const message = err?.error || "Signup failed";
+          errorPop(message);
+        }
+      },
     });
 
+  return (
+    <>
+      <TostifyPop />
+      <div className="flex min-h-[100dvh] flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-offwhite">
+        <div className="sm:mx-auto sm:w-full sm:max-w-5xl">
+          <img
+            className="mx-auto h-40 w-40"
+            src={logo}
+            alt="Your Company"
+          />
+          <h2 className="mt-10 text-center text-5xl font-bold">
+            Sign up to your account
+          </h2>
+        </div>
 
-    useEffect(() => {
-        if (requestStatus.success) {
-            console.log(requestStatus);
-            successPop(requestStatus.success)
-            dispatch(clearRequestStatus());
-            setTimeout(() => {
-                navigate('/signin')
-            }, 1000)
-            return;
-        }
-        console.log(requestStatus.error);
-        errorPop(requestStatus.error)
-        dispatch(clearRequestStatus());
-    }, [requestStatus])
-
-    return (
-        <>
-            <TostifyPop />
-            <div className="flex min-h-[100dvh] flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-offwhite">
-                <div className="sm:mx-auto sm:w-full sm:max-w-5xl">
-                    <img
-                        className="mx-auto h-40 w-40"
-                        src={logo}
-                        alt="Your Company"
-                    />
-                    <h2 className="mt-10 text-center text-5xl font-bold leading-9 tracking-tigh">
-                        Sign up to your account
-                    </h2>
-                </div>
-
-                <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-5xl">
-                    <form className="space-y-3" onSubmit={handleSubmit}>
-                        <Formfeild label={"Name"} name={"name"} value={values.name} error={errors.name} touch={touched.name} handleBlur={handleBlur} handleChange={handleChange} />
-                        <Formfeild label={"Email"} name={"email"} value={values.email} error={errors.email} touch={touched.email} handleBlur={handleBlur} handleChange={handleChange} />
-                        <Formfeild label={"Phone"} name={"phone"} value={values.phone} error={errors.phone} touch={touched.phone} handleBlur={handleBlur} handleChange={handleChange} />
-                        <Formfeild label={"Profession"} name={"profession"} value={values.profession} error={errors.profession} touch={touched.profession} handleBlur={handleBlur} handleChange={handleChange} />
-                        <div className='flex justify-between gap-6'>
-                            <Formfeild label={"Age"} name={"age"} value={values.age} error={errors.age} touch={touched.age} handleBlur={handleBlur} handleChange={handleChange} />
-                            <Formfeild label={"gender"} name={"gender"} value={values.gender} error={errors.gender} touch={touched.gender} handleBlur={handleBlur} handleChange={handleChange} />
-                        </div>
-                        <Formfeild label={"Password"} name={"password"} value={values.password} error={errors.password} touch={touched.password} handleBlur={handleBlur} handleChange={handleChange} />
-                        <Formfeild label={"Confirm password"} name={"confirmPassword"} value={values.confirmPassword} error={errors.confirmPassword} touch={touched.confirmPassword} handleBlur={handleBlur} handleChange={handleChange} />
-                        <div>
-                            <div>
-                                <button type="submit" className="flex w-full justify-center rounded-md bg-customgreen px-12 py-6 text-2xl font-semibold leading-6 text-white shadow-xl hover:bg-secondary hover:text-primary focus-visible:outline focus-visible:outline-2 transition-all">
-                                    Sign up
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <p className="mt-10 text-center text-2xl text-gray-500">
-                        Already have a Account{" "}
-                        <Link to="/signin" className="font-semibold leading-6 text-primary hover:text-green-700">
-                            Sign in
-                        </Link>
-                    </p>
-                </div>
+        <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-5xl">
+          <form
+            className="space-y-3"
+            onSubmit={handleSubmit}
+          >
+            <Formfeild
+              {...fieldProps(
+                "Name",
+                "name",
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur
+              )}
+            />
+            <Formfeild
+              {...fieldProps(
+                "Email",
+                "email",
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur
+              )}
+            />
+            <Formfeild
+              {...fieldProps(
+                "Phone",
+                "phone",
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur
+              )}
+            />
+            <Formfeild
+              {...fieldProps(
+                "Profession",
+                "profession",
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur
+              )}
+            />
+            <div className="flex justify-between gap-6">
+              <Formfeild
+                {...fieldProps(
+                  "Age",
+                  "age",
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur
+                )}
+              />
+              <Formfeild
+                {...fieldProps(
+                  "Gender",
+                  "gender",
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur
+                )}
+              />
             </div>
-        </>
-    )
+            <Formfeild
+              {...fieldProps(
+                "Password",
+                "password",
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur
+              )}
+            />
+            <Formfeild
+              {...fieldProps(
+                "Confirm Password",
+                "confirmPassword",
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur
+              )}
+            />
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-customgreen px-12 py-6 text-2xl font-semibold text-white shadow-xl hover:bg-secondary hover:text-primary transition-all"
+            >
+              Sign up
+            </button>
+          </form>
+
+          <p className="mt-10 text-center text-2xl text-gray-500">
+            Already have an account?{" "}
+            <Link
+              to="/signin"
+              className="font-semibold text-primary hover:text-green-700"
+            >
+              Sign in
+            </Link>
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// Helper to reduce repetition
+function fieldProps(
+  label,
+  name,
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur
+) {
+  return {
+    label,
+    name,
+    value: values[name],
+    error: errors[name],
+    touch: touched[name],
+    handleChange,
+    handleBlur,
+  };
 }
