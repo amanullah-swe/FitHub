@@ -13,14 +13,14 @@ export default function Signup() {
   const navigate = useNavigate();
 
   const initialValues = {
-    name: "aman",
-    email: "aman@gmail.com",
-    confirmPassword: "aman1234",
-    password: "aman1234",
-    profession: "software engineer",
-    age: "23",
-    phone: "2342343423",
-    gender: "male",
+    name: "",
+    email: "",
+    confirmPassword: "",
+    password: "",
+    profession: "",
+    age: "",
+    phone: "",
+    gender: "",
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -37,9 +37,6 @@ export default function Signup() {
           const res = await apiPost(API_ENDPOINTS.AUTH.REGISTER, formValues);
 
           successPop(res?.message || "Signup successful");
-
-          // Store user ID or token in localStorage/cookie if needed
-          if (res?.token) localStorage.setItem("token", res.token);
 
           setTimeout(() => {
             navigate("/signin");

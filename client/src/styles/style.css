@@ -3,25 +3,20 @@
 \*-----------------------------------*/
 /* Import your local style.css file */
 /* Import Montserrat font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 
 /* Import Playfair Display font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap");
 
 /**
  * copyright 2022 codewithsadee
  */
-
-
-
-
 
 /*-----------------------------------*\
   #CUSTOM PROPERTY
 \*-----------------------------------*/
 
 :root {
-
   /**
    * colors
    */
@@ -44,8 +39,8 @@
    * typography
    */
 
-  --ff-montserrat: 'Montserrat', sans-serif;
-  --ff-playfair: 'Playfair Display', serif;
+  --ff-montserrat: "Montserrat", sans-serif;
+  --ff-playfair: "Playfair Display", serif;
 
   --fs-1: 3.6rem;
   --fs-2: 2.4rem;
@@ -89,12 +84,7 @@
   --transition-3: 1s ease;
   --cubic-in: cubic-bezier(0.51, 0.03, 0.64, 0.28);
   --cubic-out: cubic-bezier(0.33, 0.85, 0.4, 0.96);
-
 }
-
-
-
-
 
 /*-----------------------------------*\
   #RESET
@@ -163,7 +153,6 @@ body {
   /* color: var(--davys-gray); */
 }
 
-
 :focus-visible {
   outline-offset: 4px;
 }
@@ -183,10 +172,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background-color: hsl(0, 0%, 70%);
 }
-
-
-
-
 
 /*-----------------------------------*\
   #REUSED STYLE
@@ -289,7 +274,7 @@ body {
   transform: translate(-50%, -50%);
   width: 120px;
   height: 160px;
-  background-image: url('../images/title-shape-white.png');
+  background-image: url("../images/title-shape-white.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -332,20 +317,16 @@ body {
   border-radius: 50%;
 }
 
-[data-section]>* {
+[data-section] > * {
   opacity: 0;
   transform: translateY(50px);
   transition: var(--transition-3);
 }
 
-[data-section].active>* {
+[data-section].active > * {
   opacity: 1;
   transform: translateY(0);
 }
-
-
-
-
 
 /*-----------------------------------*\
   #HEADER
@@ -366,7 +347,7 @@ body {
   box-shadow: var(--shadow-2);
 }
 
-.header>.container {
+.header > .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -470,10 +451,6 @@ body {
   pointer-events: all;
 }
 
-
-
-
-
 /*-----------------------------------*\
   #HERO
 \*-----------------------------------*/
@@ -531,10 +508,6 @@ body {
   border-color: var(--blue-green-color-wheel);
   color: var(--white);
 }
-
-
-
-
 
 /*-----------------------------------*\
   #SERVICE
@@ -624,10 +597,6 @@ body {
   place-content: center;
 }
 
-
-
-
-
 /*-----------------------------------*\
   #ABOUT
 \*-----------------------------------*/
@@ -653,7 +622,7 @@ body {
   left: -20px;
   width: 100px;
   height: 100px;
-  background-image: url('../images/about-shape-1.png');
+  background-image: url("../images/about-shape-1.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -675,7 +644,11 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: linear-gradient(to bottom, transparent 50%, var(--blue-green-color-wheel_60));
+  background-image: linear-gradient(
+    to bottom,
+    transparent 50%,
+    var(--blue-green-color-wheel_60)
+  );
 }
 
 .about-banner .btn {
@@ -701,7 +674,7 @@ body {
   right: -20px;
   width: 110px;
   height: 110px;
-  background-image: url('../images/about-shape-2.png');
+  background-image: url("../images/about-shape-2.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -722,10 +695,6 @@ body {
   font-weight: var(--fw-600);
   margin-block: 30px 10px;
 }
-
-
-
-
 
 /*-----------------------------------*\
   #COURSE
@@ -764,10 +733,6 @@ body {
 .course-card .card-title:is(:hover, :focus) {
   color: var(--orange-web);
 }
-
-
-
-
 
 /*-----------------------------------*\
   #BLOG
@@ -850,10 +815,6 @@ body {
   font-size: var(--fs-5);
 }
 
-
-
-
-
 /*-----------------------------------*\
   #APP
 \*-----------------------------------*/
@@ -865,7 +826,6 @@ body {
   transition: var(--transition-2);
   padding: 10px;
 }
-
 
 .app .section-subtitle {
   font-size: var(--fs-6);
@@ -892,7 +852,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 
 /*-----------------------------------*\
   #FOOTER
@@ -1005,10 +964,6 @@ body {
   transition: var(--transition-1);
 }
 
-
-
-
-
 /*-----------------------------------*\
   #BACK TO TOP
 \*-----------------------------------*/
@@ -1039,10 +994,6 @@ body {
   transform: translateY(-10px);
 }
 
-
-
-
-
 /*-----------------------------------*\
   #MEDIA QUERIES
 \*-----------------------------------*/
@@ -1052,23 +1003,18 @@ body {
  */
 
 @media (min-width: 575px) {
-
   /**
    * CUSTOM PROPERTY
    */
 
   :root {
-
     /**
      * typography
      */
 
     --fs-1: 5.6rem;
     --fs-2: 3.6rem;
-
   }
-
-
 
   /**
    * REUSED STYLE
@@ -1083,8 +1029,6 @@ body {
   .btn {
     padding: 10px 30px;
   }
-
-
 
   /**
    * HERO
@@ -1109,8 +1053,6 @@ body {
   .hero .social-link {
     padding: 15px;
   }
-
-
 
   /**
    * SERVICE
@@ -1142,8 +1084,6 @@ body {
     --fs-4: 3.5rem;
   }
 
-
-
   /**
    * ABOUT
    */
@@ -1170,8 +1110,6 @@ body {
     --fs-2: 3rem;
   }
 
-
-
   /**
    * COURSE
    */
@@ -1179,8 +1117,6 @@ body {
   .course .grid-list {
     grid-template-columns: 1fr 1fr;
   }
-
-
 
   /**
    * BLOG
@@ -1190,16 +1126,9 @@ body {
     --fs-4: 2.4rem;
   }
 
-
-
   /**
    * APP
    */
-
-
-
-
-
 
   /**
    * FOOTER
@@ -1213,25 +1142,18 @@ body {
   .footer-list:first-child {
     grid-column: 1 / 4;
   }
-
 }
-
-
-
-
 
 /**
  * responsive for larger than 768px screen
  */
 
 @media (min-width: 768px) {
-
   /**
    * CUSTOM PROPERTY
    */
 
   :root {
-
     /**
      * typography
      */
@@ -1244,10 +1166,7 @@ body {
      */
 
     --section-padding: 80px;
-
   }
-
-
 
   /**
    * REUSED STYLE
@@ -1257,8 +1176,6 @@ body {
     max-width: 720px;
   }
 
-
-
   /**
    * HEADER
    */
@@ -1266,8 +1183,6 @@ body {
   .logo {
     font-size: 35px;
   }
-
-
 
   /**
    * HERO
@@ -1277,8 +1192,6 @@ body {
     max-width: 15ch;
   }
 
-
-
   /**
    * SERVICE
    */
@@ -1286,8 +1199,6 @@ body {
   .service .grid-list {
     grid-template-columns: 1fr 1fr;
   }
-
-
 
   /**
    * ABOUT
@@ -1300,8 +1211,6 @@ body {
   .about .section-title {
     --fs-2: 5.7rem;
   }
-
-
 
   /**
    * COURSE
@@ -1323,8 +1232,6 @@ body {
     padding-block-end: 25px;
   }
 
-
-
   /**
    * BLOG
    */
@@ -1333,8 +1240,6 @@ body {
     padding: 45px;
   }
 
-
-
   /**
    * APP
    */
@@ -1342,34 +1247,24 @@ body {
   .app-card {
     padding: 50px 25px;
   }
-
 }
-
-
-
-
 
 /**
  * responsive for larger than 992px screen
  */
 
 @media (min-width: 992px) {
-
   /**
    * CUSTOM PROPERTY
    */
 
   :root {
-
     /**
      * spacing
      */
 
     --section-padding: 100px;
-
   }
-
-
 
   /**
    * REUSED STYLE
@@ -1387,8 +1282,6 @@ body {
   :is(.service, .course, .blog) .grid-list {
     grid-template-columns: repeat(3, 1fr);
   }
-
-
 
   /**
    * HEADER
@@ -1432,8 +1325,6 @@ body {
     color: var(--orange-web);
   }
 
-
-
   /**
    * SERVICE
    */
@@ -1442,15 +1333,13 @@ body {
     gap: 0;
   }
 
-  .service .grid-list>li:nth-child(2) {
+  .service .grid-list > li:nth-child(2) {
     border-inline: 1px solid var(--cultured);
   }
 
   .service-card .h3 {
     --fs-4: 3rem;
   }
-
-
 
   /**
    * ABOUT
@@ -1479,8 +1368,6 @@ body {
     --fs-2: 2.4rem;
   }
 
-
-
   /**
    * BLOG
    */
@@ -1488,8 +1375,6 @@ body {
   .blog-card {
     padding: 30px;
   }
-
-
 
   /**
    * APP
@@ -1508,14 +1393,12 @@ body {
     width: max-content;
   }
 
-
-
   /**
    * FOOTER
    */
 
   .footer-top .container {
-    grid-template-columns: 1fr 0.6fr 0.6fr 0.65fr;
+    grid-template-columns: 1fr 0.6fr 0.6fr;
   }
 
   .footer-list:first-child {
@@ -1544,25 +1427,18 @@ body {
   .copyright {
     margin-block-end: 0;
   }
-
 }
-
-
-
-
 
 /**
  * responsive for larger than 1200px screen
  */
 
 @media (min-width: 1200px) {
-
   /**
    * CUSTOM PROPERTY
    */
 
   :root {
-
     /**
      * typography
      */
@@ -1574,10 +1450,7 @@ body {
      */
 
     --section-padding: 140px;
-
   }
-
-
 
   /**
    * REUSED STYLE
@@ -1586,8 +1459,6 @@ body {
   .container {
     max-width: 1200px;
   }
-
-
 
   /**
    * HEADER
@@ -1601,8 +1472,6 @@ body {
     padding-inline: 25px;
   }
 
-
-
   /**
    * HERO
    */
@@ -1611,8 +1480,6 @@ body {
     padding-block: 200px 100px;
     background-position: 35%;
   }
-
-
 
   /**
    * SERVICE
@@ -1630,8 +1497,6 @@ body {
     opacity: 1;
   }
 
-
-
   /**
    * ABOUT
    */
@@ -1648,8 +1513,6 @@ body {
     --fs-2: 3rem;
   }
 
-
-
   /**
    * BLOG
    */
@@ -1663,8 +1526,6 @@ body {
     height: 80px;
   }
 
-
-
   /**
    * FOOTER
    */
@@ -1672,5 +1533,27 @@ body {
   .footer-top .container {
     column-gap: 100px;
   }
+}
 
+.loading-state {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid #ddd;
+  border-top-color: green;
+  animation: loading 1s linear infinite;
+}
+@keyframes loading {
+  to {
+    transform: rotate(360deg);
+  }
 }

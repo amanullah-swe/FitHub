@@ -32,7 +32,7 @@ export default function Signin() {
       successPop("Login successful!");
 
       // Save token or user ID if needed
-      localStorage.setItem("token", res.token);
+      localStorage.setItem("isLogin", true);
       // You can also store user info like ID: localStorage.setItem("userId", res.user._id);
 
       setTimeout(() => {
