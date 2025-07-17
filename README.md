@@ -116,7 +116,7 @@ If you find bugs or want to suggest features, feel free to open an issue or subm
 
 **Shaikh Amanullah**  
 📧 amaan.swe@gmail.com  
-🔗 [LinkedIn](https://linkedin.com/in/your-profile) | [LeetCode](https://leetcode.com/your-profile) | [GitHub](https://github.com/amanullah-swe)
+🔗 [LinkedIn](https://www.linkedin.com/in/shaikh-amaanullah/) | [LeetCode](https://leetcode.com/u/Amanullah-dev/) | [GitHub](https://github.com/amanullah-swe)
 
 ---
 
